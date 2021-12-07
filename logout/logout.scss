@@ -1,0 +1,123 @@
+
+@import '../css_config/views';
+
+// colors
+$primary   : #15191C;
+$secondary : #22252F;
+
+
+/** message fg **/
+$message-fg : #eeeeee;
+
+/** btn bg **/
+$on-positive-btn-bg : #5e7e24 ; 
+$on-negative-btn-bg : #a13333 ; 
+$btn-ripple-bg : rgba(255, 255, 255, 0.2);
+$btn-fg : #eeeeee;
+
+.logout {
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    padding-top: 180px;
+    width: 300px;
+    transform: translate(-50%,-50%);
+    background-color: $primary;
+    border-radius: 0.4em;
+    box-shadow: 0px 3px 8px -2px rgba($color: #000000, $alpha: 0.2);
+    z-index: 10000;
+    @include on_Medium_Dev {
+        padding-top: 160px;
+        width: 270px;
+    }
+}
+
+.logout > .message-wrapper {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.message-wrapper > .message {
+    font-size: 16px;
+    color: $message-fg;
+}
+
+.logout > .btn-wrapper {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-evenly;
+    align-items: center;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 25%;
+    // background-color: green;
+}
+
+@keyframes ripple {
+    0% {
+        width: 0;
+        height: 0;
+    }
+    15% , 25%{
+        padding-top: 25%;
+        width: 25%;
+    }
+
+    25% , 50% {
+        padding-top: 50%;
+        width: 50%;
+    }
+    50% , 75% {
+        padding-top: 75%;
+        width: 75%;
+    }
+    75% , 100%  {
+        padding-top: 150%;
+        width: 150%;
+    }
+}
+
+.btn-wrapper > .btn {
+    display: block;
+    position: relative;
+    width: calc(50% / 2);
+    height: 60%;
+    outline: none;
+    border: none;
+    border-radius: 4px;
+    color: $btn-fg;
+    overflow: hidden;
+    &:active {
+        &::after {
+            content: ' ';
+            display: block;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+            border-radius: 360px;
+            background-color: $btn-ripple-bg;
+            animation: ripple 0.15s ease-in;
+            animation-fill-mode: forwards;
+        }
+    }
+}
+
+#log-positive {
+    background-color: $on-positive-btn-bg;
+}
+
+#log-negative {
+    background-color: $on-negative-btn-bg;
+}
+

@@ -1,0 +1,88 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GEOCARS | notification</title>
+    <!-- third-party css -->
+    <link href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css" rel="stylesheet">
+    <!-- customize css   -->
+    <link rel="stylesheet" href="../sidebar/sidebar.css">
+    <link rel="stylesheet" href="../logout/logout.css">
+    <!-- third-party js  -->
+    <script src="https://kit.fontawesome.com/0ad786b032.js" crossorigin="anonymous"></script>
+</head>
+<body>
+
+    <!-- sidebar -->
+    <nav class="sidebar">
+
+        <!-- appbar -->
+        <header class="appbar">
+            <span class="appbar-title" role="text">Geocars</span>
+        </header>
+
+        <!-- user icon -->
+        <div class="user-icon">
+            <!-- TODO: fetchuser icon from db -->
+            <div class="round-icon" style="background: url('../assets/webapp/avatar-default.png');"></div>
+        </div>
+
+        <!-- tab switch -->
+        <div class="tab-switch">
+            <!-- tab list -->
+            <ul class="tab-list">
+                <!-- dash -->
+               <li class="tab">
+                    <abbr class="tool-tip" title="dashboard">
+                        <a class="link fa fa-bar-chart" href="../dashboard/index.html"></a>
+                    </abbr>
+               </li><!--
+                management
+               --><li class="tab">
+                    <abbr class="tool-tip" title="management">
+                        <a class="link fa fa-tasks" href="../management/index.html"></a>
+                    </abbr>
+               </li><!-- 
+                notification 
+                --><li class="tab">
+                    <abbr class="tool-tip" title="notification">
+                        <a class="link active fa fa-bell" href="#"></a>
+                    </abbr>
+               </li><!-- 
+               account
+               --><li class="tab">
+                    <abbr class="tool-tip" title="account">
+                        <a class="link fa fa-user-cog" href="../account/index.html"></a>
+                    </abbr>
+               </li>
+            </ul>
+        </div>
+        <!-- exit container -->
+        <div class="exit-container">
+            <abbr class="ext-tool-tip" title="signout">
+                <button id="exit-logout" class="exit-btn fa fa-sign-out-alt"></button>
+            </abbr>
+        </div>
+
+    </nav>
+
+</body>
+<script src="../js/logout/logout.js"></script>
+<!-- put last -->
+<script>
+    // TODO: finish!
+    document.getElementById("exit-logout").onclick = (e) => {
+        logout("Confirm logout?",()=>{
+
+        },(popup)=>{
+            popup.remove();
+        })
+    }
+</script>
+</html>
+
+

@@ -1,0 +1,48 @@
+/*
+    html ug body tag configuration file!!!!!
+    AYAW E MODIFY!!!!!!!!!
+*/
+
+
+@import url('https://fonts.googleapis.com/css2?family=Quicksand&display=swap');
+
+
+$font-color     : #0e0d0d;
+
+* {
+    font-family: 'Quicksand', sans-serif;
+    color: $font-color;
+    margin:0;
+    padding: 0;
+    box-sizing: border-box;
+    
+}
+
+
+@import '../css_config/views';
+
+html {
+    overflow: hidden;
+    background-color: #ffffff;
+    scrollbar-width: none;
+}
+
+html ::-webkit-scrollbar {
+    display: none;
+}
+
+body {
+    width: 100vw;
+    height: 100vh;
+    min-width: 1366px;
+    min-height: 768px;
+    // max-width: 1920px;
+    // max-height: 1080px;
+    background-color: inherit;
+    @include on_Medium_Dev {
+        min-width: 280px;
+        min-height: 568px;
+        // max-width: initial;
+        // max-height: initial;
+    }
+}

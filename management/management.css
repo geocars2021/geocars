@@ -1,0 +1,53 @@
+/*
+    html ug body tag configuration file!!!!!
+    AYAW E MODIFY!!!!!!!!!
+*/
+@import url("https://fonts.googleapis.com/css2?family=Quicksand&display=swap");
+* {
+  font-family: 'Quicksand', sans-serif;
+  color: #0e0d0d;
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+/*
+    View Modes
+    AYAW E MODIFY!!!!!!
+
+*/
+html {
+  overflow: hidden;
+  background-color: #ffffff;
+  scrollbar-width: none;
+}
+
+html ::-webkit-scrollbar {
+  display: none;
+}
+
+body {
+  width: 100vw;
+  height: 100vh;
+  min-width: 1366px;
+  min-height: 768px;
+  background-color: inherit;
+  /*
+        Kung ang view is mobile
+    */
+}
+
+@media screen and (min-width: 1px) and (max-width: 768px) {
+  body {
+    min-width: 280px;
+    min-height: 568px;
+  }
+}
+
+/*
+    View Modes
+    AYAW E MODIFY!!!!!!
+
+*/
+/*# sourceMappingURL=management.css.map */

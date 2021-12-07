@@ -1,0 +1,41 @@
+
+/*
+    View Modes
+    AYAW E MODIFY!!!!!!
+
+*/
+
+@mixin custom($min,$max) {
+    // customize size
+    @media screen and (min-width: $min) and (max-width: $max) {
+
+        @content;
+
+    }
+}
+
+@mixin on_Medium_Dev {
+    /*
+        Kung ang view is mobile
+    */
+    @media screen and (min-width: 1px) and (max-width: 768px) {
+
+        @content;
+
+    }
+
+}
+
+@mixin on_Large_Dev {
+     /*
+        Kung ang view is Tablet
+    */
+    @media screen and (min-width: 769px) and (max-width: 992px) {
+
+        @content;
+        
+    }
+
+}
+
+

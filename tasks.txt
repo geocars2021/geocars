@@ -1,0 +1,27 @@
+******** READ ME ********
+ANG FOLDER OR FILE LANG NGA GE EDIT ANG E PUSH KAY ARON DIKO MAHAGO UG REVIEW
+
+Kung e eit ninyu ang style 
+
+kanang file nga nag end sa ".scss"
+kay SASS ako gegamit as alternative sa css,
+naay sass compiler sa vscod extension -> Live Sass Compiler by Ritwick Dey.
+
+kung mag create mo ug new ".scss" file e import dayun tong naa 
+
+sa "css_config" na folder
+
+********** End **********
+
+
+
+[0]. buhatig home page | dapat naka lista ang information sa 
+     website, dapat responsive. dapat pwede sa mobile. NOTE:  unfinished
+
+[1]. dashboard tab. NOTE: done
+
+[2]. e modify ang icons sa dashboard | e modify nalang tong fontawesome classes. NOTE: unfinished
+
+[3]. management tab. NOTE: ongoing
+
+

@@ -1,0 +1,136 @@
+/*
+    View Modes
+    AYAW E MODIFY!!!!!!
+
+*/
+/** loading label **/
+.lazy-loading {
+  display: block;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10001;
+  background-color: transparent;
+}
+
+.lazy-loading > .blur-bg, .blur-fg {
+  display: block;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+@supports ((-webkit-filter: blur(4px)) or (filter: blur(4px))) {
+  .blur-bg {
+    -webkit-filter: blur(4px);
+            filter: blur(4px);
+  }
+}
+
+@supports ((-webkit-backdrop-filter: blur(10px)) or (backdrop-filter: blur(10px))) {
+  .blur-fg {
+    -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(10px);
+  }
+}
+
+@supports not ((-webkit-backdrop-filter: blur(10px)) or (backdrop-filter: blur(10px))) {
+  .blur-fg {
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+}
+
+.blur-fg {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.blur-fg > .loading-icon {
+  margin: 7.5px 0;
+  width: 10%;
+  /*
+        Kung ang view is mobile
+    */
+}
+
+@media screen and (min-width: 1px) and (max-width: 768px) {
+  .blur-fg > .loading-icon {
+    width: 30%;
+  }
+}
+
+.blur-fg > .loading-label {
+  margin: 7.5px 0;
+  font-size: 16px;
+  color: #eeeeee;
+  /*
+        Kung ang view is mobile
+    */
+}
+
+@media screen and (min-width: 1px) and (max-width: 768px) {
+  .blur-fg > .loading-label {
+    font-size: 18px;
+  }
+}
+
+@-webkit-keyframes unblur-bg {
+  0%, 25% {
+    -webkit-filter: blur(4px);
+            filter: blur(4px);
+  }
+  25%, 50% {
+    -webkit-filter: blur(3px);
+            filter: blur(3px);
+  }
+  50%, 75% {
+    -webkit-filter: blur(2px);
+            filter: blur(2px);
+  }
+  75%, 100% {
+    -webkit-filter: blur(1px);
+            filter: blur(1px);
+  }
+  100% {
+    -webkit-filter: blur(0px);
+            filter: blur(0px);
+  }
+}
+
+@keyframes unblur-bg {
+  0%, 25% {
+    -webkit-filter: blur(4px);
+            filter: blur(4px);
+  }
+  25%, 50% {
+    -webkit-filter: blur(3px);
+            filter: blur(3px);
+  }
+  50%, 75% {
+    -webkit-filter: blur(2px);
+            filter: blur(2px);
+  }
+  75%, 100% {
+    -webkit-filter: blur(1px);
+            filter: blur(1px);
+  }
+  100% {
+    -webkit-filter: blur(0px);
+            filter: blur(0px);
+  }
+}
+/*# sourceMappingURL=lazy_loading.css.map */

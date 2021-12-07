@@ -1,0 +1,164 @@
+/*
+    View Modes
+    AYAW E MODIFY!!!!!!
+
+*/
+/** message fg **/
+/** btn bg **/
+.logout {
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  padding-top: 180px;
+  width: 300px;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  background-color: #15191C;
+  border-radius: 0.4em;
+  -webkit-box-shadow: 0px 3px 8px -2px rgba(0, 0, 0, 0.2);
+          box-shadow: 0px 3px 8px -2px rgba(0, 0, 0, 0.2);
+  z-index: 10000;
+  /*
+        Kung ang view is mobile
+    */
+}
+
+@media screen and (min-width: 1px) and (max-width: 768px) {
+  .logout {
+    padding-top: 160px;
+    width: 270px;
+  }
+}
+
+.logout > .message-wrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -ms-flex-wrap: nowrap;
+      flex-wrap: nowrap;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.message-wrapper > .message {
+  font-size: 16px;
+  color: #eeeeee;
+}
+
+.logout > .btn-wrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -ms-flex-wrap: nowrap;
+      flex-wrap: nowrap;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 25%;
+}
+
+@-webkit-keyframes ripple {
+  0% {
+    width: 0;
+    height: 0;
+  }
+  15%, 25% {
+    padding-top: 25%;
+    width: 25%;
+  }
+  25%, 50% {
+    padding-top: 50%;
+    width: 50%;
+  }
+  50%, 75% {
+    padding-top: 75%;
+    width: 75%;
+  }
+  75%, 100% {
+    padding-top: 150%;
+    width: 150%;
+  }
+}
+
+@keyframes ripple {
+  0% {
+    width: 0;
+    height: 0;
+  }
+  15%, 25% {
+    padding-top: 25%;
+    width: 25%;
+  }
+  25%, 50% {
+    padding-top: 50%;
+    width: 50%;
+  }
+  50%, 75% {
+    padding-top: 75%;
+    width: 75%;
+  }
+  75%, 100% {
+    padding-top: 150%;
+    width: 150%;
+  }
+}
+
+.btn-wrapper > .btn {
+  display: block;
+  position: relative;
+  width: calc(50% / 2);
+  height: 60%;
+  outline: none;
+  border: none;
+  border-radius: 4px;
+  color: #eeeeee;
+  overflow: hidden;
+}
+
+.btn-wrapper > .btn:active::after {
+  content: ' ';
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  border-radius: 360px;
+  background-color: rgba(255, 255, 255, 0.2);
+  -webkit-animation: ripple 0.15s ease-in;
+          animation: ripple 0.15s ease-in;
+  -webkit-animation-fill-mode: forwards;
+          animation-fill-mode: forwards;
+}
+
+#log-positive {
+  background-color: #5e7e24;
+}
+
+#log-negative {
+  background-color: #a13333;
+}
+/*# sourceMappingURL=logout.css.map */

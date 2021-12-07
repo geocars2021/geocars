@@ -1,0 +1,393 @@
+/*
+    View Modes
+    AYAW E MODIFY!!!!!!
+
+*/
+/*
+    html ug body tag configuration file!!!!!
+    AYAW E MODIFY!!!!!!!!!
+*/
+@import url("https://fonts.googleapis.com/css2?family=Quicksand&display=swap");
+* {
+  font-family: 'Quicksand', sans-serif;
+  color: #0e0d0d;
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+/*
+    View Modes
+    AYAW E MODIFY!!!!!!
+
+*/
+html {
+  overflow: hidden;
+  background-color: #ffffff;
+  scrollbar-width: none;
+}
+
+html ::-webkit-scrollbar {
+  display: none;
+}
+
+body {
+  width: 100vw;
+  height: 100vh;
+  min-width: 1366px;
+  min-height: 768px;
+  background-color: inherit;
+  /*
+        Kung ang view is mobile
+    */
+}
+
+@media screen and (min-width: 1px) and (max-width: 768px) {
+  body {
+    min-width: 280px;
+    min-height: 568px;
+  }
+}
+
+/** active tab link (mobile) **/
+/** exit btn **/
+.sidebar {
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 48px;
+  height: 100vh;
+  min-height: 768px;
+  background-color: #22252F;
+  z-index: 10000;
+  /*
+        Kung ang view is mobile
+    */
+}
+
+@media screen and (min-width: 1px) and (max-width: 768px) {
+  .sidebar {
+    width: 100%;
+    height: auto;
+    min-height: 56px;
+    background-color: #15191C;
+    -webkit-box-shadow: 0px 3px 6px -2px rgba(0, 0, 0, 0.4);
+            box-shadow: 0px 3px 6px -2px rgba(0, 0, 0, 0.4);
+  }
+}
+
+.sidebar > .appbar {
+  display: none;
+  /*
+        Kung ang view is mobile
+    */
+}
+
+@media screen and (min-width: 1px) and (max-width: 768px) {
+  .sidebar > .appbar {
+    display: block;
+    width: 100%;
+    height: 56px;
+    text-align: center;
+    background-color: #15191C;
+  }
+}
+
+.appbar > .appbar-title {
+  display: none;
+  /*
+        Kung ang view is mobile
+    */
+}
+
+@media screen and (min-width: 1px) and (max-width: 768px) {
+  .appbar > .appbar-title {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    -ms-flex-wrap: nowrap;
+        flex-wrap: nowrap;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    width: 100%;
+    height: 100%;
+    font-size: 20px;
+    font-weight: bold;
+    color: #ffffff;
+  }
+}
+
+.sidebar > .user-icon {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: nowrap;
+      flex-wrap: nowrap;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 100%;
+  height: 48px;
+  /*
+        Kung ang view is mobile
+    */
+}
+
+@media screen and (min-width: 1px) and (max-width: 768px) {
+  .sidebar > .user-icon {
+    display: none;
+  }
+}
+
+.user-icon > .round-icon {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: nowrap;
+      flex-wrap: nowrap;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 70%;
+  height: 70%;
+  border-radius: 360px;
+  background-position: center !important;
+  background-size: cover !important;
+  background-repeat: no-repeat !important;
+  -webkit-box-shadow: 0px 3px 4px -2px rgba(0, 0, 0, 0.2);
+          box-shadow: 0px 3px 4px -2px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+}
+
+.sidebar > .tab-switch {
+  display: block;
+  width: 100%;
+  height: calc(100% - 96px);
+  /*
+        Kung ang view is mobile
+    */
+}
+
+@media screen and (min-width: 1px) and (max-width: 768px) {
+  .sidebar > .tab-switch {
+    width: 100%;
+    height: 40px;
+    background-color: inherit;
+  }
+}
+
+.tab-switch > .tab-list {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -ms-flex-wrap: nowrap;
+      flex-wrap: nowrap;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 20px 0;
+  width: 100%;
+  height: 100%;
+  /*
+        Kung ang view is mobile
+    */
+}
+
+@media screen and (min-width: 1px) and (max-width: 768px) {
+  .tab-switch > .tab-list {
+    all: initial;
+    display: inline;
+    white-space: nowrap;
+    width: 100%;
+    height: 100%;
+    overflow-x: auto;
+  }
+}
+
+.tab-list > .tab {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: nowrap;
+      flex-wrap: nowrap;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 100%;
+  height: 48px;
+  /*
+        Kung ang view is mobile
+    */
+}
+
+@media screen and (min-width: 1px) and (max-width: 768px) {
+  .tab-list > .tab {
+    display: inline-block;
+    -ms-flex-wrap: initial;
+        flex-wrap: initial;
+    -webkit-box-pack: initial;
+        -ms-flex-pack: initial;
+            justify-content: initial;
+    -webkit-box-align: initial;
+        -ms-flex-align: initial;
+            align-items: initial;
+    width: auto;
+    height: 100%;
+    min-width: calc(100% / 4);
+  }
+}
+
+.tab > .tool-tip {
+  display: block;
+  width: 100%;
+  height: 100%;
+  text-decoration: none;
+}
+
+.tool-tip > .link {
+  display: block;
+  width: 100%;
+  height: 100%;
+  line-height: 48px;
+  text-decoration: none;
+  font-size: 22px;
+  text-align: center;
+  color: #b6b6b6;
+  border-left: 3px solid transparent;
+  /*
+        Kung ang view is mobile
+    */
+}
+
+@media screen and (min-width: 1px) and (max-width: 768px) {
+  .tool-tip > .link {
+    display: -webkit-inline-box;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    -ms-flex-wrap: nowrap;
+        flex-wrap: nowrap;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    vertical-align: middle;
+    line-height: initial;
+    color: #dbcece;
+    border-left: initial;
+    border-bottom: 3px solid transparent;
+  }
+}
+
+.tool-tip > .active {
+  color: #894aff;
+  border-left: 3px solid #894aff;
+  /*
+        Kung ang view is mobile
+    */
+}
+
+@media screen and (min-width: 1px) and (max-width: 768px) {
+  .tool-tip > .active {
+    color: #894aff;
+    border-left: initial;
+    border-bottom: 3px solid #894aff;
+  }
+}
+
+.link:hover {
+  color: #ffffff;
+}
+
+.sidebar > .exit-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: nowrap;
+      flex-wrap: nowrap;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 100%;
+  height: 48px;
+  /*
+        Kung ang view is mobile
+    */
+}
+
+@media screen and (min-width: 1px) and (max-width: 768px) {
+  .sidebar > .exit-container {
+    display: none;
+  }
+}
+
+.exit-container > .ext-tool-tip {
+  display: block;
+  width: 100%;
+  height: 100%;
+  text-decoration: none;
+}
+
+.ext-tool-tip > .exit-btn {
+  display: block;
+  outline: none;
+  border: none;
+  width: 100%;
+  height: 100%;
+  color: #b6b6b6;
+  font-size: 22px;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.exit-btn:hover {
+  color: #ffffff;
+}
+
+.safe-area {
+  display: block;
+  padding-left: 48px;
+  width: 100%;
+  height: 100%;
+  /*
+        Kung ang view is mobile
+    */
+}
+
+@media screen and (min-width: 1px) and (max-width: 768px) {
+  .safe-area {
+    padding-left: initial;
+    padding-top: calc(56px + 40px);
+  }
+}
+/*# sourceMappingURL=sidebar.css.map */

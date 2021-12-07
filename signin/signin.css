@@ -1,0 +1,393 @@
+/*
+    html ug body tag configuration file!!!!!
+    AYAW E MODIFY!!!!!!!!!
+*/
+@import url("https://fonts.googleapis.com/css2?family=Quicksand&display=swap");
+* {
+  font-family: 'Quicksand', sans-serif;
+  color: #0e0d0d;
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+/*
+    View Modes
+    AYAW E MODIFY!!!!!!
+
+*/
+html {
+  overflow: hidden;
+  background-color: #ffffff;
+  scrollbar-width: none;
+}
+
+html ::-webkit-scrollbar {
+  display: none;
+}
+
+body {
+  width: 100vw;
+  height: 100vh;
+  min-width: 1366px;
+  min-height: 768px;
+  background-color: inherit;
+  /*
+        Kung ang view is mobile
+    */
+}
+
+@media screen and (min-width: 1px) and (max-width: 768px) {
+  body {
+    min-width: 280px;
+    min-height: 568px;
+  }
+}
+
+/*
+    View Modes
+    AYAW E MODIFY!!!!!!
+
+*/
+/** sign up btn **/
+/** signin title **/
+/** input colors **/
+/** remember me **/
+/** forgot password **/
+/** signin btn **/
+@font-face {
+  font-family: noto-sans;
+  src: url("../Noto_sans/NotoSans-Regular.ttf");
+}
+
+@-webkit-keyframes ripple {
+  0% {
+    width: 0;
+    height: 0;
+  }
+  15%, 25% {
+    padding-top: 25%;
+    width: 25%;
+  }
+  25%, 50% {
+    padding-top: 50%;
+    width: 50%;
+  }
+  50%, 75% {
+    padding-top: 75%;
+    width: 75%;
+  }
+  75%, 100% {
+    padding-top: 150%;
+    width: 150%;
+  }
+}
+
+@keyframes ripple {
+  0% {
+    width: 0;
+    height: 0;
+  }
+  15%, 25% {
+    padding-top: 25%;
+    width: 25%;
+  }
+  25%, 50% {
+    padding-top: 50%;
+    width: 50%;
+  }
+  50%, 75% {
+    padding-top: 75%;
+    width: 75%;
+  }
+  75%, 100% {
+    padding-top: 150%;
+    width: 150%;
+  }
+}
+
+.center-container {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background-color: #15191C;
+}
+
+.center-container > .signup-btn {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  width: 120px;
+  height: 35px;
+  outline: none;
+  border: none;
+  border-radius: 2em;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: bold;
+  color: #eeeeee;
+  background-color: #5d68fd;
+  -webkit-box-shadow: 0px 4px 8px -3px rgba(0, 0, 0, 0.2);
+          box-shadow: 0px 4px 8px -3px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+}
+
+.center-container > .signup-btn:active {
+  -webkit-box-shadow: 0px 8px 14px -4px rgba(0, 0, 0, 0.4);
+          box-shadow: 0px 8px 14px -4px rgba(0, 0, 0, 0.4);
+}
+
+.center-container > .signup-btn:active::after {
+  content: ' ';
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  border-radius: 360px;
+  background-color: rgba(206, 184, 255, 0.2);
+  -webkit-animation: ripple 0.2s ease-in;
+          animation: ripple 0.2s ease-in;
+  -webkit-animation-fill-mode: forwards;
+          animation-fill-mode: forwards;
+}
+
+.center-container > .pane-1 {
+  display: block;
+  position: absolute;
+  left: 50%;
+  bottom: 10%;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+  width: 22%;
+  height: 52%;
+  min-width: 352px;
+  min-height: 396.75px;
+  /*
+        Kung ang view is mobile
+    */
+}
+
+@media screen and (min-width: 1px) and (max-width: 768px) {
+  .center-container > .pane-1 {
+    width: 100%;
+    height: 70%;
+    min-width: initial;
+    min-height: initial;
+    top: 50%;
+    bottom: initial;
+    -webkit-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+  }
+}
+
+.pane-1 > .signin-title-wrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 100%;
+  height: 25%;
+}
+
+.signin-title-wrapper > .signin-title {
+  margin: 4px 0;
+  font-size: 40px;
+  font-weight: bold;
+  color: #eeeeee;
+  font-family: noto-sans;
+}
+
+.signin-title-wrapper > .short-sentence {
+  margin: 4px 0;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  color: #eeeeee;
+  /*
+        Kung ang view is mobile
+    */
+}
+
+@media screen and (min-width: 1px) and (max-width: 768px) {
+  .signin-title-wrapper > .short-sentence {
+    width: 90%;
+  }
+}
+
+.pane-1 > .input-wrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 100%;
+  height: calc(100% - 25%);
+}
+
+.input-wrapper > .icon-and-input-group {
+  display: block;
+  position: relative;
+  margin: 10px 0;
+  padding: 5px;
+  width: 90%;
+  height: auto;
+}
+
+.icon-and-input-group > .icon {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  position: absolute;
+  left: 5px;
+  width: 40px;
+  height: 40px;
+  border: none;
+  color: #a1a1a1;
+}
+
+.icon-and-input-group > .input {
+  display: block;
+  width: 100%;
+  height: 40px;
+  padding: 0 5px 0 45px;
+  outline: none;
+  border: none;
+  border-radius: 4px;
+  border: 1px solid #15191C;
+  color: #eeeeee;
+  background-color: #22252F;
+}
+
+.icon-and-input-group > .input:focus {
+  border: 2px solid #5b5bff;
+}
+
+.icon-and-input-group > .validator-result {
+  font-size: 14px;
+  color: #eeeeee;
+}
+
+.input-wrapper > .horizontal-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  width: calc(90% - 10px);
+}
+
+.horizontal-container > .checkbox-group {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -ms-flex-wrap: nowrap;
+      flex-wrap: nowrap;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.horizontal-container > .checkbox-group > .rem-checkbox {
+  margin: 0 2px;
+}
+
+.horizontal-container > .checkbox-group > .rem-checkbox-label {
+  margin: 0 2px;
+  font-size: 15px;
+  color: #eeeeee;
+  font-weight: bold;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+
+.horizontal-container > .forgot-password {
+  color: #468a2b;
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: bold;
+}
+
+.input-wrapper > .signin-btn {
+  display: block;
+  position: relative;
+  margin: 15px 0;
+  width: calc(90% - 10px);
+  height: 40px;
+  outline: none;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #eeeeee;
+  background-color: #468a2b;
+  -webkit-box-shadow: 0px 4px 8px -3px rgba(0, 0, 0, 0.2);
+          box-shadow: 0px 4px 8px -3px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+}
+
+.input-wrapper > .signin-btn:active {
+  -webkit-box-shadow: 0px 8px 14px -4px rgba(0, 0, 0, 0.4);
+          box-shadow: 0px 8px 14px -4px rgba(0, 0, 0, 0.4);
+}
+
+.input-wrapper > .signin-btn:active::after {
+  content: ' ';
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  border-radius: 360px;
+  background-color: rgba(144, 185, 31, 0.2);
+  -webkit-animation: ripple 0.2s ease-in;
+          animation: ripple 0.2s ease-in;
+  -webkit-animation-fill-mode: forwards;
+          animation-fill-mode: forwards;
+}
+/*# sourceMappingURL=signin.css.map */

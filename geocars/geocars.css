@@ -104,20 +104,20 @@ body::-webkit-scrollbar {
     height: 0;
   }
   15%, 25% {
+    padding-top: 25%;
     width: 25%;
-    height: 25%;
   }
   25%, 50% {
+    padding-top: 50%;
     width: 50%;
-    height: 50%;
   }
   50%, 75% {
+    padding-top: 75%;
     width: 75%;
-    height: 75%;
   }
   75%, 100% {
+    padding-top: 150%;
     width: 150%;
-    height: 150%;
   }
 }
 
@@ -127,20 +127,20 @@ body::-webkit-scrollbar {
     height: 0;
   }
   15%, 25% {
+    padding-top: 25%;
     width: 25%;
-    height: 25%;
   }
   25%, 50% {
+    padding-top: 50%;
     width: 50%;
-    height: 50%;
   }
   50%, 75% {
+    padding-top: 75%;
     width: 75%;
-    height: 75%;
   }
   75%, 100% {
+    padding-top: 150%;
     width: 150%;
-    height: 150%;
   }
 }
 

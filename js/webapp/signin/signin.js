@@ -34,6 +34,8 @@ from "../pop_ups/connection_error/connection_error.js";
 
 validate_connection();
 
+let is_disabled     = false;
+
 let email_input    = $("#email-input");
 let val_email      = $("#validate-email");
 let password_input = $("#password-input");
@@ -96,10 +98,14 @@ remember.click((e) => {
 btn_signin.click(async (e) => {
     let is_invalid , email , password;
 
+    if (is_disabled)
+        return;
+
     is_invalid = validate_form();
     if (is_invalid)
         return;
 
+    is_disabled = true;
     email = email_input.val();
     password = password_input.val();
 

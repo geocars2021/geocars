@@ -50,6 +50,52 @@ body {
     AYAW E MODIFY!!!!!!
 
 */
+/** for table list **/
+@-webkit-keyframes ripple {
+  0% {
+    width: 0;
+    height: 0;
+  }
+  15%, 25% {
+    padding-top: 25%;
+    width: 25%;
+  }
+  25%, 50% {
+    padding-top: 50%;
+    width: 50%;
+  }
+  50%, 75% {
+    padding-top: 75%;
+    width: 75%;
+  }
+  75%, 100% {
+    padding-top: 150%;
+    width: 150%;
+  }
+}
+@keyframes ripple {
+  0% {
+    width: 0;
+    height: 0;
+  }
+  15%, 25% {
+    padding-top: 25%;
+    width: 25%;
+  }
+  25%, 50% {
+    padding-top: 50%;
+    width: 50%;
+  }
+  50%, 75% {
+    padding-top: 75%;
+    width: 75%;
+  }
+  75%, 100% {
+    padding-top: 150%;
+    width: 150%;
+  }
+}
+
 .account-content-wrapper {
   display: block;
   width: 100%;
@@ -400,7 +446,6 @@ body {
           align-items: center;
   padding: 15px;
   margin: auto;
-  width: 150px;
   height: 25px;
   outline: none;
   border: none;
@@ -449,7 +494,7 @@ body {
   -webkit-box-align: start;
       -ms-flex-align: start;
           align-items: flex-start;
-  margin: 40px 0 30px;
+  margin: 40px 0 25px;
   padding: 8px 5px;
   width: 66.5%;
   height: auto;
@@ -489,10 +534,12 @@ body {
 
 .space > .space-title {
   display: block;
+  position: relative;
   width: 100%;
   height: 50px;
   line-height: 50px;
   text-align: center;
+  overflow: hidden;
   color: #eeeeee;
   font-size: 16px;
   font-weight: bold;
@@ -514,6 +561,22 @@ body {
     */
 }
 
+.space > .space-title:hover::after {
+  content: ' ';
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  border-radius: 360px;
+  background-color: rgba(204, 198, 255, 0.2);
+  -webkit-animation: ripple 0.4s ease-in;
+          animation: ripple 0.4s ease-in;
+  -webkit-animation-fill-mode: forwards;
+          animation-fill-mode: forwards;
+}
+
 @media screen and (min-width: 1px) and (max-width: 768px) {
   .space > .space-title {
     border-bottom: initial;
@@ -530,7 +593,7 @@ body {
   padding: 5px;
   width: 100%;
   max-height: calc(55px * 5);
-  overflow: scroll;
+  overflow-y: scroll;
   -ms-scroll-snap-type: y mandatory;
       scroll-snap-type: y mandatory;
   background-color: #22252F;
@@ -557,7 +620,7 @@ body {
   margin: 5px 0;
   width: 100%;
   min-height: 45px;
-  scroll-snap-align: start;
+  scroll-snap-align: center;
   /*
         Kung ang view is mobile
     */
@@ -592,7 +655,7 @@ body {
   width: 100%;
   word-wrap: break-word;
   white-space: normal;
-  font-size: 15px;
+  font-size: 14px;
   color: #eeeeee;
 }
 
@@ -621,5 +684,223 @@ body {
 
 .information-tab-wrapper > .activities {
   width: 60%;
+}
+
+.activities > .table-wrapper {
+  display: block;
+  margin: 15px 0;
+  padding: 0 10px;
+  width: 100%;
+  /*
+        Kung ang view is mobile
+    */
+}
+
+@media screen and (min-width: 1px) and (max-width: 768px) {
+  .activities > .table-wrapper {
+    margin: initial;
+    padding: initial;
+  }
+}
+
+.table-wrapper > .table-header {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: nowrap;
+      flex-wrap: nowrap;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 100%;
+  height: 45px;
+}
+
+.table-header > .table-header-cell {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  position: relative;
+  overflow: hidden;
+  height: 100%;
+  font-size: 15px;
+  font-weight: bold;
+  color: #eeeeee;
+}
+
+.table-header > .table-header-cell.date-time {
+  width: 30%;
+  /*
+        Kung ang view is mobile
+    */
+}
+
+@media screen and (min-width: 1px) and (max-width: 768px) {
+  .table-header > .table-header-cell.date-time {
+    width: 40%;
+  }
+}
+
+.table-header > .table-header-cell.description {
+  width: 70%;
+  /*
+        Kung ang view is mobile
+    */
+}
+
+@media screen and (min-width: 1px) and (max-width: 768px) {
+  .table-header > .table-header-cell.description {
+    width: 60%;
+  }
+}
+
+.table-wrapper > .table-list {
+  display: block;
+  width: 100%;
+  max-height: calc(45px * 8);
+  -ms-scroll-snap-type: y mandatory;
+      scroll-snap-type: y mandatory;
+  overflow-y: auto;
+  /*
+        Kung ang view is mobile
+    */
+}
+
+@media screen and (min-width: 1px) and (max-width: 768px) {
+  .table-wrapper > .table-list {
+    max-height: calc(45px * 5);
+  }
+}
+
+.table-list > .activity-empty {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 100%;
+  height: calc(45px * 4);
+  /*
+        Kung ang view is mobile
+    */
+}
+
+@media screen and (min-width: 1px) and (max-width: 768px) {
+  .table-list > .activity-empty {
+    height: calc(45px * 5);
+  }
+}
+
+.activity-empty > .empty-activity-icon {
+  margin: 10px 0;
+  font-size: 35px;
+  color: #e89dff;
+}
+
+.activity-empty > .empty-activity-label {
+  margin: 10px 0;
+  font-size: 16px;
+  color: #e89dff;
+}
+
+.table-list > .table-row {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -ms-flex-wrap: nowrap;
+      flex-wrap: nowrap;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  position: relative;
+  width: 100%;
+}
+
+.table-row > .table-row-data {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  min-height: 45px;
+  overflow: hidden;
+  word-wrap: break-word;
+  white-space: normal;
+  color: #927e26;
+  font-size: 15px;
+}
+
+.table-row > .date-time-value {
+  width: 30%;
+  text-align: center;
+  word-wrap: break-word;
+  white-space: normal;
+}
+
+.table-row > .description-value {
+  padding-right: 45px;
+  width: 70%;
+  text-align: center;
+  word-wrap: break-word;
+  white-space: normal;
+}
+
+.table-row > .delete-activity {
+  display: block;
+  position: absolute;
+  top: calc(25px - 17.5px);
+  right: 10px;
+  width: 35px;
+  height: 35px;
+  outline: none;
+  border: none;
+  border-radius: 360px;
+  color: #8f8f8f;
+  background-color: inherit;
+  overflow: hidden;
+}
+
+.table-row > .delete-activity:hover::after {
+  content: ' ';
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  -webkit-animation: ripple 0.15s ease-in-out;
+          animation: ripple 0.15s ease-in-out;
+  -webkit-animation-fill-mode: forwards;
+          animation-fill-mode: forwards;
+  border-radius: 360px;
+  background-color: rgba(0, 0, 0, 0.2);
 }
 /*# sourceMappingURL=account.css.map */

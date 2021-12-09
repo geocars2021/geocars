@@ -53,6 +53,8 @@ body {
 /** signup title **/
 /** input colors **/
 /** signin btn **/
+/** separator **/
+/** sign up ref **/
 @font-face {
   font-family: noto-sans;
   src: url("../../assets/fonts/Noto_sans/NotoSans-Regular.ttf");
@@ -105,7 +107,15 @@ body {
 }
 
 .center-container {
-  display: block;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   width: 100%;
   height: 100%;
   background-color: #15191C;
@@ -113,14 +123,13 @@ body {
 
 .center-container > .pane-1 {
   display: block;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  -webkit-transform: translate(-50%, -50%);
-          transform: translate(-50%, -50%);
   width: 22%;
   height: auto;
   min-width: 352px;
+  background-color: #22252F;
+  border-radius: 4px;
+  -webkit-box-shadow: 0px 6px 8px -4px rgba(0, 0, 0, 0.2);
+          box-shadow: 0px 6px 8px -4px rgba(0, 0, 0, 0.2);
   /*
         Kung ang view is mobile
     */
@@ -131,6 +140,9 @@ body {
     width: 100%;
     min-width: initial;
     min-height: initial;
+    -webkit-box-shadow: initial;
+            box-shadow: initial;
+    background-color: initial;
   }
 }
 
@@ -212,11 +224,20 @@ body {
   border-radius: 4px;
   border: 1px solid #15191C;
   color: #eeeeee;
-  background-color: #22252F;
+  background-color: #15191C;
+  /*
+        Kung ang view is mobile
+    */
 }
 
 .icon-and-input-group > .input:focus {
   border: 2px solid #5b5bff;
+}
+
+@media screen and (min-width: 1px) and (max-width: 768px) {
+  .icon-and-input-group > .input {
+    background-color: #22252F;
+  }
 }
 
 .icon-and-input-group > .validator-result {
@@ -261,5 +282,54 @@ body {
           animation: ripple 0.2s ease-in;
   -webkit-animation-fill-mode: forwards;
           animation-fill-mode: forwards;
+}
+
+.input-wrapper > .separator {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -ms-flex-wrap: nowrap;
+      flex-wrap: nowrap;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: calc(90% - 10px);
+}
+
+.separator > .separator-label {
+  font-size: 14px;
+  color: #eeeeee;
+}
+
+.separator > .separator-line {
+  width: 45%;
+  height: 0px;
+  border: none;
+  border-top: 1px solid #15191C;
+  /*
+        Kung ang view is mobile
+    */
+}
+
+@media screen and (min-width: 1px) and (max-width: 768px) {
+  .separator > .separator-line {
+    border-top: 1px solid #22252F;
+  }
+}
+
+.input-wrapper > .signin-ref {
+  margin: 15px 0;
+  width: calc(90% - 10px);
+  text-align: center;
+  text-decoration: none;
+  font-size: 16px;
+  color: #a288ff;
 }
 /*# sourceMappingURL=signup.css.map */

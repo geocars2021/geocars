@@ -1,13 +1,17 @@
 /* re import jquery always!! */
 import "../../jquery/jquery-3.6.0.min.js";
 import "../../jquery/jquery-cookie-1.4.1.min.js";
-import "../sidebar/sidebar.js";
 
-import
+import 
 {
-    get_login_cred
+    get_login_cred,
+    redirect_if_login_to ,
 }
 from "../login/login_session.js";
+
+redirect_if_login_to("#","../../webapp/signin");
+
+import "../sidebar/sidebar.js";
 
 import 
 { 
@@ -23,6 +27,12 @@ import
 }
 from "../connection_handler/connection.js";
 
+import 
+{
+    insert_activity
+}
+from "./activity_list.js";
+
 /*
     call once to reduce traffic
 */ 
@@ -31,7 +41,6 @@ let uid , snapshot , profile ;
 
 async function load_content() {
 
-    
     uid      = get_login_cred();
     snapshot = await get_data_by_id(uid);
     profile  = await get_company_profile_images_by_uid(uid);
@@ -40,47 +49,68 @@ async function load_content() {
     if (snapshot) {
         $("#user-name").text(snapshot.name);
     }
+
     // display pic
     if (profile.dp) {
         $("#dp-image")
         .removeClass("loading")
         .css("background",`url("${profile.dp}")`);
     }
+
     // cover pic
     if (profile.cover) {
         $("#cover-image")
         .removeClass("loading")
         .css("background",`url("${profile.cover}")`);
     }
+
     // subscription
-    if (snapshot)
+    if (snapshot){
         $("#info-subscription").text(snapshot.plan);
     
-    // email
-    if (snapshot)
+        // email
         $("#info-email").text(snapshot.email);
+
+        // contact
+        $("#info-contact").text(snapshot.contact);
     
-    // password :) hihihihihi
-    if (snapshot) 
+        // password :) hihihihihi
         // do not fetch!! use ********* instead
-        // we did not store password
+        // we did not store password!!
         $("#info-password").text("********");
     
-    // address
-    // late initialized
-    if (snapshot.address)
+        // address
+        // late initialized
         $("#info-address").text(snapshot.address);
 
-    load_finish();
+        // activity list
+        if (snapshot.activities.length > 0) {
+            let act_list;
+            try {
+                $("#empty-activity")
+                .remove();
+            }catch(err){}
 
+            act_list = snapshot.activities;
+            
+            for (let idx = 0; idx < act_list.length;idx++) {
+                insert_activity(
+                    act_list[idx].date,
+                    act_list[idx].description,
+                );
+            }
+        }
+    }
+
+    load_finish();
 }
 
 // load_finish();
 
 
-on_update(get_login_cred(),(data) => {
-    // display changes
-    load_content();
-});
+// on_update(get_login_cred(),(data) => {
+//     // display changes
+//     load_content();
+// });
 
 load_content();

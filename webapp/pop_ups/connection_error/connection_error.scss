@@ -2,7 +2,9 @@
 
 // colors
 $primary   : #15091a;
-$secondary : #22252F;
+
+/** connection error overlay **/
+$connection-error-wrapper-overlay-bg : rgba(22, 29, 23, 0.4);
 
 /** connection error wrapper **/
 $connection-error-border : #797979;
@@ -10,8 +12,23 @@ $connection-error-border : #797979;
 $dc-message-fg: #eeeeee;
 
 
+.connection-error-wrapper-overlay {
+    display: block;
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    min-width: 1366px;
+    min-height: 768px;
+    background-color: $connection-error-wrapper-overlay-bg;
+    z-index: 10004;
+    @include on_Medium_Dev {
+        min-width: 280px;
+        min-height: 568px;
+    }
+}
 
-.connection-error-wrapper {
+.connection-error-wrapper-overlay > .connection-error-wrapper {
     display: block;
     position: absolute;
     top: 50%;
@@ -51,9 +68,13 @@ $dc-message-fg: #eeeeee;
     margin: 8px;
     width: 90%;
     text-align: center;
-    font-size: 18px;
+    font-size: 16px;
     font-weight: bold;
     color: $dc-message-fg;
+    word-wrap: break-word;
+    white-space: normal;
+    max-height: 40%;
+    user-select: none;
     @include on_Medium_Dev {
         font-size: 16px;
     }

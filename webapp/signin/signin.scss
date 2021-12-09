@@ -8,10 +8,6 @@
 $primary   : #15191C;
 $secondary : #22252F;
 
-/** sign up btn **/
-$signup-btn-bg : #5d68fd;
-$signup-btn-fg : #eeeeee;
-$signup-btn-ripple-bg : rgba(206, 184, 255, 0.2);
 
 /** signin title **/
 $signin-title-fg : #eeeeee;
@@ -33,6 +29,13 @@ $forgot-password-fg : #468a2b;
 $signin-btn-bg : #468a2b;
 $signin-btn-ripple-bg : rgba(144, 185, 31, 0.2);
 $signin-btn-fg : #eeeeee;
+
+/** separator **/
+$separator-fg : #eeeeee;
+
+/** sign up ref **/
+$signup-ref-fg : #a288ff;
+
 
 @font-face {
     font-family: noto-sans;
@@ -64,58 +67,20 @@ $signin-btn-fg : #eeeeee;
 }
 
 .center-container {
-    display: block;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 100%;
     height: 100%;
     background-color: $primary;
 }
 
-.center-container > .signup-btn {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    width: 120px;
-    height: 35px;
-    outline: none;
-    border: none;
-    border-radius: 2em;
-    text-decoration: none;
-    font-size: 16px;
-    font-weight: bold;
-    color: $signup-btn-fg;
-    background-color: $signup-btn-bg;
-    box-shadow: 0px 4px 8px -3px rgba(0,0,0,0.2);
-    overflow: hidden;
-    &:active {
-        box-shadow: 0px 8px 14px -4px rgba(0,0,0,0.4);
-        &::after {
-            content: ' ';
-            display: block;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%,-50%);
-            border-radius: 360px;
-            background-color: $signup-btn-ripple-bg;
-            animation: ripple 0.2s ease-in;
-            animation-fill-mode: forwards;
-        }
-    }
-}
+
 
 .center-container > .pane-1 {
     display: block;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%,-50%);
     width: 22%;
-    height: 52%;
     min-width: 352px;
-    min-height: 396.75px;
     background-color: $secondary;
     border-radius: 4px;
     box-shadow: 0px 6px 8px -4px rgba(0,0,0,0.2);
@@ -135,25 +100,36 @@ $signin-btn-fg : #eeeeee;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    padding: 20px 0;
     width: 100%;
     height: 25%;
     // background-color: yellow;
+    @include on_Medium_Dev {
+        padding: initial;
+    }
 }
 
 .signin-title-wrapper > .signin-title {
+    width: 90%;
     margin: 4px 0;
     font-size: 40px;
     font-weight: bold;
     color: $signin-title-fg;
+    text-align: center;
     font-family: noto-sans;
+    word-wrap: break-word;
+    white-space: normal;
 }
 
 .signin-title-wrapper > .short-sentence {
+    width: 90%;
     margin: 4px 0;
     font-size: 16px;
     font-weight: bold;
     text-align: center;
     color: $signin-short-sentence-fg;
+    word-wrap: break-word;
+    white-space: normal;
     @include on_Medium_Dev {
         width: 90%;
     }
@@ -281,3 +257,36 @@ $signin-btn-fg : #eeeeee;
     }
 }
 
+
+.input-wrapper > .separator {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
+    width: calc(90% - 10px);
+}
+
+.separator > .separator-label {
+    font-size: 14px;
+    color: $separator-fg;
+}
+
+.separator > .separator-line {
+    width: 45%;
+    height: 0px;
+    border: none;
+    border-top: 1px solid $primary;
+    @include on_Medium_Dev {
+        border-top: 1px solid $secondary;
+    }
+}
+
+.input-wrapper > .signup-ref {
+    margin: 15px 0;
+    width: calc(90% - 10px);
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    color: $signup-ref-fg;
+}

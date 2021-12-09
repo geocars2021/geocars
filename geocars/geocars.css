@@ -444,6 +444,12 @@ body::-webkit-scrollbar {
           backdrop-filter: blur(6px);
 }
 
+@supports not ((-webkit-backdrop-filter: blur(6px)) or (backdrop-filter: blur(6px))) {
+  .wrapper > .wrapper-fg {
+    background-color: rgba(0, 0, 0, 0.2);
+  }
+}
+
 .wrapper-fg > .large-title {
   width: 100%;
   font-size: 45px;

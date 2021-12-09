@@ -47,13 +47,13 @@ from "../tool/custom_date.js";
 
 
 const firebaseConfig = {
-    apiKey: "AIzaSyDOk5ITVxhiW4yYJok7jnzsfWnXWuxwh-Y",
-    authDomain: "geocars2021.firebaseapp.com",
-    projectId: "geocars2021",
-    storageBucket: "geocars2021.appspot.com",
-    messagingSenderId: "67620653500",
-    appId: "1:67620653500:web:7e35fec38cd355276fc3b9",
-    measurementId: "G-9YC2H8ZXLT"
+    apiKey            : "AIzaSyDOk5ITVxhiW4yYJok7jnzsfWnXWuxwh-Y",
+    authDomain        : "geocars2021.firebaseapp.com",
+    projectId         : "geocars2021",
+    storageBucket     : "geocars2021.appspot.com",
+    messagingSenderId : "67620653500",
+    appId             : "1:67620653500:web:7e35fec38cd355276fc3b9",
+    measurementId     : "G-9YC2H8ZXLT"
 };
 
 // Initialize Firebase
@@ -70,7 +70,8 @@ catch ($err) {
     console.log($err);
 }
 
-/* on update */
+
+/* on update in current loggedin company */
 export async function on_update (uid,callback) {
     validate_connection();
     let company = collection(
@@ -98,15 +99,17 @@ export async function save_new_company (email,name,salt,passkey) {
         salt    : salt  ,
         passkey : passkey    ,
         plan    : "FREEMIUM" , // set FREEMIUM as default plan,
+        contact : "N/A"      , // set contact num as N/A
         address : "N/A"      , // set address as N/A
     });
+    
     await insert_activity(
         docRef.id,
         `${name} joined geocars.`
     )
 }
 
-
+/* inserts activity to current loggedin company */ 
 export async function insert_activity (uid,description) {
     validate_connection();
 
@@ -160,12 +163,21 @@ export async function get_company_id_by_email (email) {
 /* Get company data by id */
 export async function get_data_by_id (id) { 
     validate_connection();
-    let company = collection(FIRESTORE_DB,"company");
-    let d = doc(company,id);
+
+    let company = collection(
+        FIRESTORE_DB,
+        "company"
+    );
+
+    let d = doc(
+        company,
+        id
+    );
+
     let snapshot = await getDoc(d);
-    if (snapshot.exists()) {
+    if (snapshot.exists()) 
         return snapshot.data();
-    }
+    
     return null;
 }
 
@@ -174,8 +186,8 @@ export async function get_data_by_id (id) {
 export async function get_company_profile_images_by_uid (uid) {
     let storage   = getStorage();
     let path      = `company/${uid}/profile/`;
-    let dp_ref    = ref(storage,`${path}/dp.jpeg`);
-    let cover_ref = ref(storage,`${path}/cover.jpeg`);
+    let dp_ref    = ref(storage , `${path}/dp.jpeg`);
+    let cover_ref = ref(storage , `${path}/cover.jpeg`);
 
     var images = {
        dp    : null ,

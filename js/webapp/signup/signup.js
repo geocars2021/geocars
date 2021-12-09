@@ -75,11 +75,7 @@ function validate_form () {
         val_password.text("*Empty password field");
         has_empty = true;
     }
-    else {
-        val_password.text("");
-    }
-    if (
-        (password_input.val().length > 0) &&
+    else if (
         (password_input.val().length < 8)
     ) {
         val_password.text("*Invalid password length");
@@ -114,7 +110,7 @@ function clear_form () {
 }
 
 btn_signup.click( async (e) => {
-
+    
     validate_connection(); // ensure stabe connection
 
     let is_invalid , email , name ,password , confirm_pass , salt , passkey;
@@ -122,11 +118,11 @@ btn_signup.click( async (e) => {
     if (is_disabled)
         return;
 
-    is_disabled = true;
-
     is_invalid = validate_form();
     if (is_invalid)
         return;
+    
+    is_disabled = true;
 
     email = email_input.val();
     name  = company_input.val();

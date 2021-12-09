@@ -148,6 +148,18 @@
                             <!-- row 2 -->
                             <span class="info-table-row" role="row">
                                 <span class="row-title" role="text">
+                                    <i class="fa fa-phone"></i>
+                                    <span>Contact no</span>
+                                </span>
+                                <!-- TODO: fetch from database -->
+                                <span class="row-data-group">
+                                    <span id="info-contact" class="value">Loading...</span>
+                                    <button class="edit-info-btn fa fa-edit"></button>
+                                </span>
+                            </span>
+                            <!-- row 3 -->
+                            <span class="info-table-row" role="row">
+                                <span class="row-title" role="text">
                                     <i class="fa fa-lock"></i>
                                     <span>Password</span>
                                 </span>
@@ -157,7 +169,7 @@
                                     <button class="edit-info-btn fa fa-edit"></button>
                                 </span>
                             </span>
-                            <!-- row 3 -->
+                            <!-- row 4 -->
                             <span class="info-table-row" role="row">
                                 <span class="row-title" role="text">
                                     <i class="fa fa-home"></i>
@@ -169,13 +181,32 @@
                                     <button class="edit-info-btn fa fa-edit"></button>
                                 </span>
                             </span>
-                            
                         </span>
                     </div>
                     <div class="space activities">
                         <span class="space-title activity-title">
                             Activites
                         </span>
+                        <div class="table-wrapper">
+                            <!-- table header -->
+                            <span class="table-header" role="tabpanel">
+                                <span class="table-header-cell date-time" role="cell">
+                                    Date
+                                </span>
+                                <span class="table-header-cell description" role="cell">
+                                    Description
+                                </span>
+                            </span>
+                            <!-- table data list -->
+                            <span id="activity-list" class="table-list" role="tablist">
+                                <!-- if empty list | default -->
+                                <div id="empty-activity" class="activity-empty">
+                                    <i class="empty-activity-icon fa fa-clipboard"></i>
+                                    <span class="empty-activity-label" role="text">No recent activity.</span>
+                                </div>
+                                <!-- JS generated -->
+                            </span>
+                        </div>
                     </div>
                 </div>
             </div>

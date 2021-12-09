@@ -17,7 +17,7 @@ export function logout(message,onPositive,onNegaive) {
             "\t\t\t <button id=\"log-positive\" class=\"btn\"> Ok </button> \n"+
             "\t\t\t <button id=\"log-negative\" class=\"btn\"> Cancel </button> \n"+
         "\t\t </div> \n" +
-    "</div>";
+    "</div> \n";
 
     $("body").prepend(logout_overlay);
     

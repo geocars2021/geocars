@@ -36,10 +36,50 @@ $additional-info-fg : #eeeeee;
 // space title
 $space-title-fg : #eeeeee;
 $border-bottom-bg : #494949;
+$space-title-ripple-bg : rgba(204, 198, 255, 0.2);
 
 // for edit info btn
 $edit-info-btn-bg : #8c98ff;
 $edit-info-btn-fg : #eeeeee;
+
+// for table header
+$table-header-fg: #eeeeee;
+$ripple-bg : rgba(204, 198, 255, 0.2);
+
+// for empty table
+$empty-table-icon-fg :#e89dff;
+$empty-table-fg :#e89dff;
+
+/** for table list **/
+$row-data-fg : #927e26;
+$row-btn-fg : #8f8f8f;
+$row-btn-hover-fg : #ffffff;
+$row-delete-btn-ripple-bg : rgba(0,0,0,0.2);
+
+
+@keyframes ripple {
+    0% {
+        width: 0;
+        height: 0;
+    }
+    15% , 25%{
+        padding-top: 25%;
+        width: 25%;
+    }
+
+    25% , 50% {
+        padding-top: 50%;
+        width: 50%;
+    }
+    50% , 75% {
+        padding-top: 75%;
+        width: 75%;
+    }
+    75% , 100%  {
+        padding-top: 150%;
+        width: 150%;
+    }
+}
 
 .account-content-wrapper {
     display: block;
@@ -275,7 +315,7 @@ $edit-info-btn-fg : #eeeeee;
     align-items: center;
     padding: 15px;
     margin: auto;
-    width: 150px;
+    // width: 150px; // FIXME: watchout !!! for fire-fox compat
     height: 25px;
     outline: none;
     border: none;
@@ -306,7 +346,7 @@ $edit-info-btn-fg : #eeeeee;
     flex-wrap: wrap;
     justify-content: center;
     align-items: flex-start;
-    margin: 40px 0 30px ;
+    margin: 40px 0 25px ;
     padding: 8px 5px;
     width: 66.5%;
     height: auto;
@@ -335,10 +375,12 @@ $edit-info-btn-fg : #eeeeee;
 
 .space > .space-title {
     display: block;
+    position: relative;
     width: 100%;
     height: 50px;
     line-height: 50px;
     text-align: center;
+    overflow: hidden;
     color: $space-title-fg;
     font-size: 16px;
     font-weight: bold;
@@ -353,6 +395,20 @@ $edit-info-btn-fg : #eeeeee;
         
         @include on_Medium_Dev {
             // background-color:yellow;
+        }
+    }
+    &:hover {
+        &::after {
+            content: ' ';
+            display: block;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+            border-radius: 360px;
+            background-color: $space-title-ripple-bg;
+            animation: ripple 0.4s ease-in;
+            animation-fill-mode: forwards;
         }
     }
     @include on_Medium_Dev {
@@ -370,7 +426,7 @@ $edit-info-btn-fg : #eeeeee;
     padding: 5px;
     width: 100%;
     max-height: calc(55px * 5);
-    overflow: scroll;
+    overflow-y: scroll;
     scroll-snap-type: y mandatory;
     background-color: $secondary;
     border-radius: 0.8em;
@@ -388,7 +444,7 @@ $edit-info-btn-fg : #eeeeee;
     margin: 5px 0;
     width: 100%;
     min-height: 45px;
-    scroll-snap-align: start;
+    scroll-snap-align: center;
     // background-color: yellow;
     @include on_Medium_Dev {
         padding: 0 5px;
@@ -417,7 +473,7 @@ $edit-info-btn-fg : #eeeeee;
     width: 100%;
     word-wrap: break-word;
     white-space: normal;
-    font-size: 15px;
+    font-size: 14px;
     color: $additional-info-fg;
 }
 
@@ -442,4 +498,160 @@ $edit-info-btn-fg : #eeeeee;
 
 .information-tab-wrapper > .activities {
     width: 60%;
+}
+
+.activities > .table-wrapper {
+    display: block;
+    margin: 15px 0;
+    padding: 0 10px;
+    width: 100%;
+    // background-color: yellow;
+    @include on_Medium_Dev {
+        margin: initial;
+        padding: initial;
+    }
+}
+
+.table-wrapper > .table-header {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 100%;
+    height: 45px;
+    // background-color: blue;
+    // border-radius: 0.8em 0.8em 0 0;
+}
+
+.table-header > .table-header-cell {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    &.date-time {
+        width: 30%;
+        @include on_Medium_Dev {
+            width: 40%;
+        }
+        // background-color: green;
+    }
+    &.description {
+        width: 70%;
+        @include on_Medium_Dev {
+            width: 60%;
+        }
+        // background-color: blue;
+    }
+    height: 100%;
+    font-size: 15px;
+    font-weight: bold;
+    color: $table-header-fg;
+}
+
+
+
+.table-wrapper > .table-list {
+    display: block;
+    width: 100%;
+    max-height: calc(45px * 8);
+    scroll-snap-type: y mandatory;
+    overflow-y: auto;
+    @include on_Medium_Dev {
+        max-height: calc(45px * 5);
+    }
+}
+
+.table-list > .activity-empty {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: calc(45px * 4);
+    @include on_Medium_Dev {
+        height: calc(45px * 5);
+    }
+    // background-color: blue;
+}
+
+.activity-empty > .empty-activity-icon {
+    margin: 10px 0;
+    font-size: 35px;
+    color: $empty-table-icon-fg;
+}
+
+.activity-empty > .empty-activity-label {
+    margin: 10px 0;
+    font-size: 16px;
+    color: $empty-table-fg;
+}
+
+.table-list > .table-row {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-evenly;
+    align-items: flex-start;
+    position: relative;
+    width: 100%;
+}
+
+.table-row > .table-row-data {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 45px;
+    overflow: hidden;
+    word-wrap: break-word;
+    white-space: normal;
+    color: $row-data-fg;
+    font-size: 15px;
+}
+
+.table-row > .date-time-value {
+    width: 30%;
+    text-align: center;
+    word-wrap: break-word;
+    white-space: normal;
+    // background-color: green;
+}
+
+
+.table-row > .description-value {
+    padding-right: 45px;
+    width: 70%;
+    text-align: center;
+    word-wrap: break-word;
+    white-space: normal;
+    // background-color: yellow;
+}
+
+.table-row > .delete-activity {
+    display: block;
+    position: absolute;
+    top: calc(25px - 17.5px); // (50px / 2) - (button_height / 2)
+    right: 10px;
+    width: 35px;
+    height: 35px;
+    outline: none;
+    border: none;
+    border-radius: 360px;
+    color: $row-btn-fg;
+    background-color: inherit;
+    overflow: hidden;
+    &:hover {
+        &::after {
+            content: ' ';
+            display: block;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+            animation: ripple 0.15s ease-in-out;
+            animation-fill-mode: forwards;
+            border-radius: 360px;
+            background-color: $row-delete-btn-ripple-bg;
+        }
+    }
 }

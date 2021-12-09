@@ -50,12 +50,13 @@ body {
     AYAW E MODIFY!!!!!!
 
 */
-/** sign up btn **/
 /** signin title **/
 /** input colors **/
 /** remember me **/
 /** forgot password **/
 /** signin btn **/
+/** separator **/
+/** sign up ref **/
 @font-face {
   font-family: noto-sans;
   src: url("../../assets/fonts/Noto_sans/NotoSans-Regular.ttf");
@@ -108,13 +109,6 @@ body {
 }
 
 .center-container {
-  display: block;
-  width: 100%;
-  height: 100%;
-  background-color: #15191C;
-}
-
-.center-container > .signup-btn {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -124,56 +118,15 @@ body {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  position: absolute;
-  top: 10px;
-  left: 10px;
-  width: 120px;
-  height: 35px;
-  outline: none;
-  border: none;
-  border-radius: 2em;
-  text-decoration: none;
-  font-size: 16px;
-  font-weight: bold;
-  color: #eeeeee;
-  background-color: #5d68fd;
-  -webkit-box-shadow: 0px 4px 8px -3px rgba(0, 0, 0, 0.2);
-          box-shadow: 0px 4px 8px -3px rgba(0, 0, 0, 0.2);
-  overflow: hidden;
-}
-
-.center-container > .signup-btn:active {
-  -webkit-box-shadow: 0px 8px 14px -4px rgba(0, 0, 0, 0.4);
-          box-shadow: 0px 8px 14px -4px rgba(0, 0, 0, 0.4);
-}
-
-.center-container > .signup-btn:active::after {
-  content: ' ';
-  display: block;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  -webkit-transform: translate(-50%, -50%);
-          transform: translate(-50%, -50%);
-  border-radius: 360px;
-  background-color: rgba(206, 184, 255, 0.2);
-  -webkit-animation: ripple 0.2s ease-in;
-          animation: ripple 0.2s ease-in;
-  -webkit-animation-fill-mode: forwards;
-          animation-fill-mode: forwards;
+  width: 100%;
+  height: 100%;
+  background-color: #15191C;
 }
 
 .center-container > .pane-1 {
   display: block;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  -webkit-transform: translate(-50%, -50%);
-          transform: translate(-50%, -50%);
   width: 22%;
-  height: 52%;
   min-width: 352px;
-  min-height: 396.75px;
   background-color: #22252F;
   border-radius: 4px;
   -webkit-box-shadow: 0px 6px 8px -4px rgba(0, 0, 0, 0.2);
@@ -210,24 +163,41 @@ body {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  padding: 20px 0;
   width: 100%;
   height: 25%;
+  /*
+        Kung ang view is mobile
+    */
+}
+
+@media screen and (min-width: 1px) and (max-width: 768px) {
+  .pane-1 > .signin-title-wrapper {
+    padding: initial;
+  }
 }
 
 .signin-title-wrapper > .signin-title {
+  width: 90%;
   margin: 4px 0;
   font-size: 40px;
   font-weight: bold;
   color: #eeeeee;
+  text-align: center;
   font-family: noto-sans;
+  word-wrap: break-word;
+  white-space: normal;
 }
 
 .signin-title-wrapper > .short-sentence {
+  width: 90%;
   margin: 4px 0;
   font-size: 16px;
   font-weight: bold;
   text-align: center;
   color: #eeeeee;
+  word-wrap: break-word;
+  white-space: normal;
   /*
         Kung ang view is mobile
     */
@@ -402,5 +372,54 @@ body {
           animation: ripple 0.2s ease-in;
   -webkit-animation-fill-mode: forwards;
           animation-fill-mode: forwards;
+}
+
+.input-wrapper > .separator {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -ms-flex-wrap: nowrap;
+      flex-wrap: nowrap;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: calc(90% - 10px);
+}
+
+.separator > .separator-label {
+  font-size: 14px;
+  color: #eeeeee;
+}
+
+.separator > .separator-line {
+  width: 45%;
+  height: 0px;
+  border: none;
+  border-top: 1px solid #15191C;
+  /*
+        Kung ang view is mobile
+    */
+}
+
+@media screen and (min-width: 1px) and (max-width: 768px) {
+  .separator > .separator-line {
+    border-top: 1px solid #22252F;
+  }
+}
+
+.input-wrapper > .signup-ref {
+  margin: 15px 0;
+  width: calc(90% - 10px);
+  text-align: center;
+  text-decoration: none;
+  font-size: 16px;
+  color: #a288ff;
 }
 /*# sourceMappingURL=signin.css.map */

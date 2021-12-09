@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GEOCARS | account</title>
+    <!-- customize css   -->
+    <link rel="stylesheet" href="../pop_ups/connection_error/connection_error.css">
+    <link rel="stylesheet" href="../pop_ups/logout/logout.css">
+    <link rel="stylesheet" href="../lazy_loading/lazy_loading.css">
+    <link rel="stylesheet" href="../sidebar/sidebar.css">
+    <link rel="stylesheet" href="account.css">
+    <!-- third-party js  -->
+    <script src="https://kit.fontawesome.com/0ad786b032.js" crossorigin="anonymous"></script>
+</head>
+<body>
+
+    <!-- sidebar -->
+    <nav class="sidebar">
+
+        <!-- appbar -->
+        <header class="appbar">
+            <span class="appbar-title" role="text">Geocars</span>
+        </header>
+
+        <!-- user icon -->
+        <div class="user-icon">
+            <!-- TODO: fetchuser icon from db -->
+            <div id="nav-user-avatar" class="round-icon" style="background: url('../../assets/webapp/avatar-default.png')"></div>
+        </div>
+
+        <!-- tab switch -->
+        <div class="tab-switch">
+            <!-- tab list -->
+            <ul class="tab-list">
+                <!-- dash -->
+               <li class="tab">
+                    <abbr class="tool-tip" title="dashboard">
+                        <a class="link fa fa-bar-chart" href="../dashboard/index.html"></a>
+                    </abbr>
+               </li><!--
+                management
+               --><li class="tab">
+                    <abbr class="tool-tip" title="management">
+                        <a class="link fa fa-tasks" href="../management/index.html"></a>
+                    </abbr>
+               </li><!-- 
+                notification 
+                --><li class="tab">
+                    <abbr class="tool-tip" title="notification">
+                        <a class="link fa fa-bell" href="../notification/index.html"></a>
+                    </abbr>
+               </li><!-- 
+               account
+               --><li class="tab">
+                    <abbr class="tool-tip" title="account">
+                        <a class="link active fa fa-user-cog" href="#"></a>
+                    </abbr>
+               </li>
+            </ul>
+        </div>
+        <!-- exit container -->
+        <div class="exit-container">
+            <abbr class="ext-tool-tip" title="signout">
+                <button id="exit-logout" class="exit-btn fa fa-sign-out-alt"></button>
+            </abbr>
+        </div>
+
+    </nav>
+
+    <!-- lazy loading -->
+    <div id="lazy-loading-overlay" class="lazy-loading">
+        <div class="blur-bg"></div>
+        <div class="blur-fg">
+            <img class="loading-icon" src="../../assets/webapp/car-running.gif" alt="loading-gif">
+            <span class="loading-label" role="text">loading...</span>
+        </div>
+    </div>
+
+    <!-- safe area -->
+    <div class="safe-area">
+        <div class="account-content-wrapper">
+            <div class="account-content">
+                <!-- cover photo -->
+                <!-- TODO: fetch from database -->
+                <div id="cover-image" class="cover-photo loading">
+                    <!-- edit cover photo button -->
+                    <button class="edit-cover-btn">
+                        <i class="edit-cover-icon fa fa-camera"></i>
+                        <span class="edit-cover-label" role="text">Edit photo</span>
+                    </button>
+                </div>
+                <!-- display picture -->
+                <div class="display-picture-wrapper"> 
+                    <!-- TODO: fetch from database -->
+                    <div id="dp-image" class="display-picture loading"></div>
+                    <button class="edit-display-picture-btn">
+                        <i class="edit-cover-icon fa fa-camera"></i>
+                    </button>
+                </div>
+                <!-- name label -->
+                <div class="name-label-wrapper">
+                    <div class="nlw-div">
+                        <!-- TODO: fetch from database -->
+                        <span id="user-name" class="user-name">
+                            Loading...
+                        </span>
+                    </div>
+                    <div class="nlw-div">
+                        <button class="edit-user-name-btn">
+                            <i class="edit-user-icon fa fa-edit"></i>
+                            <span class="edit-user-label" role="text">Edit company</span>
+                        </button>
+                    </div>
+                </div>
+                <!-- information tab -->
+                <div class="information-tab-wrapper">
+                    <div class="space info">
+                        <span class="space-title info-title">
+                            Additional Info
+                        </span>
+                        <span class="info-table" role="table">
+                            <!-- row 0 -->
+                            <span class="info-table-row" role="row">
+                                <span class="row-title" role="text">
+                                    <i class="fa fa-rocket"></i>
+                                    <span>Subscription</span>
+                                </span>
+                                <!-- TODO: fetch from database -->
+                                <span class="row-data-group">
+                                    <span id="info-subscription" class="value">Loading...</span>
+                                    <button class="edit-info-btn fa fa-crown"></button>
+                                </span>
+                            </span>
+                            <!-- row 1 -->
+                            <span class="info-table-row" role="row">
+                                <span class="row-title" role="text">
+                                    <i class="fa fa-envelope"></i>
+                                    <span>Email</span>
+                                </span>
+                                <!-- TODO: fetch from database -->
+                                <span class="row-data-group">
+                                    <span id="info-email" class="value">Loading...</span>
+                                    <button class="edit-info-btn fa fa-edit"></button>
+                                </span>
+                            </span>
+                            <!-- row 2 -->
+                            <span class="info-table-row" role="row">
+                                <span class="row-title" role="text">
+                                    <i class="fa fa-lock"></i>
+                                    <span>Password</span>
+                                </span>
+                                <!-- TODO: fetch from database -->
+                                <span class="row-data-group">
+                                    <span id="info-password" class="value" role="text">Loading...</span>
+                                    <button class="edit-info-btn fa fa-edit"></button>
+                                </span>
+                            </span>
+                            <!-- row 3 -->
+                            <span class="info-table-row" role="row">
+                                <span class="row-title" role="text">
+                                    <i class="fa fa-home"></i>
+                                    <span>Address</span>
+                                </span>
+                                <!-- TODO: fetch from database -->
+                                <span class="row-data-group">
+                                    <span id="info-address" class="value">Loading...</span>
+                                    <button class="edit-info-btn fa fa-edit"></button>
+                                </span>
+                            </span>
+                            
+                        </span>
+                    </div>
+                    <div class="space activities">
+                        <span class="space-title activity-title">
+                            Activites
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script type="module" src="../../js/webapp/account/account.js"></script>
+</html>
+
+
+

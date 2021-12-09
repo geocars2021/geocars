@@ -1,0 +1,240 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GEOCARS | dashboard</title>
+    <!-- customize css   -->
+    <link rel="stylesheet" href="../pop_ups/connection_error/connection_error.css">
+    <link rel="stylesheet" href="../pop_ups/logout/logout.css">
+    <link rel="stylesheet" href="../lazy_loading/lazy_loading.css">
+    <link rel="stylesheet" href="../sidebar/sidebar.css">
+    <link rel="stylesheet" href="dashboard.css">
+    <!-- third-party js  -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://kit.fontawesome.com/0ad786b032.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    
+    <!-- sidebar -->
+    <nav class="sidebar">
+
+        <!-- appbar -->
+        <header class="appbar">
+            <span class="appbar-title" role="text">Geocars</span>
+        </header>
+
+        <!-- user icon -->
+        <div class="user-icon">
+            <!-- TODO: fetchuser icon from db -->
+            <div id="nav-user-avatar" class="round-icon" style="background: url('../../assets/webapp/avatar-default.png');"></div>
+        </div>
+
+        <!-- tab switch -->
+        <div class="tab-switch">
+            <!-- tab list -->
+            <ul class="tab-list">
+                <!-- dash -->
+               <li class="tab">
+                    <abbr class="tool-tip" title="dashboard">
+                        <a class="link active fa fa-bar-chart" href="#"></a>
+                    </abbr>
+               </li><!--
+                management
+               --><li class="tab">
+                    <abbr class="tool-tip" title="management">
+                        <a class="link fa fa-tasks" href="../management/index.html"></a>
+                    </abbr>
+               </li><!-- 
+                notification 
+                --><li class="tab">
+                    <abbr class="tool-tip" title="notification">
+                        <a class="link fa fa-bell" href="../notification/index.html"></a>
+                    </abbr>
+               </li><!-- 
+               account
+               --><li class="tab">
+                    <abbr class="tool-tip" title="account">
+                        <a class="link fa fa-user-cog" href="../account/index.html"></a>
+                    </abbr>
+               </li>
+            </ul>
+        </div>
+        <!-- exit container -->
+        <div class="exit-container">
+            <abbr class="ext-tool-tip" title="signout">
+                <button id="exit-logout" class="exit-btn fa fa-sign-out-alt"></button>
+            </abbr>
+        </div>
+
+    </nav>
+
+    <!-- lazy loading -->
+    <div id="lazy-loading-overlay" class="lazy-loading">
+        <div class="blur-bg"></div>
+        <div class="blur-fg">
+            <img class="loading-icon" src="../../assets/webapp/car-running.gif" alt="loading-gif">
+            <span class="loading-label" role="text">loading...</span>
+        </div>
+    </div>
+
+    <!-- safe area | container-main -->
+    <div class="safe-area">
+        <!-- dash content -->
+        <div class="dash-content">
+            <!-- panel 1 -->
+            <div class="panel-1">
+                <!-- layout 1 -->
+                <div class="layout-1">
+                    <!-- tile container -->
+                    <div class="tile-container">
+                        <!-- tile 0 -->
+                        <div class="tile">
+                            <div class="tile-content">
+                                <div class="inner-center-wrapper">
+                                    <i class="tile-icon fas fa-rocket"></i>
+                                    <span class="tile-label" role="text">Subscription</span>
+                                    <!-- TODO: fetch from database -->
+                                    <span class="tile-data" role="text">Loading...</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- tile 1 -->
+                        <div class="tile">
+                            <div class="tile-content">
+                                <div class="inner-center-wrapper">
+                                    <i class="tile-icon fas fa-sort-amount-down"></i>
+                                    <span class="tile-label" role="text">Monthly Loss Amount </span>
+                                    <!-- TODO: fetch from database -->
+                                    <span class="tile-data" role="text">Loading...</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- tile 2 -->
+                        <div class="tile">
+                            <div class="tile-content">
+                                <div class="inner-center-wrapper">
+                                    <i class="tile-icon fas fa-hand-holding-usd"></i>
+                                    <span class="tile-label" role="text">Monthly Gross Revenue</span>
+                                    <!-- TODO: fetch from database -->
+                                    <span class="tile-data" role="text">Loading...</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- tile 3 -->
+                        <div class="tile">
+                            <div class="tile-content">
+                                <div class="inner-center-wrapper">
+                                    <i class="tile-icon fas fa-chart-line"></i>
+                                    <span class="tile-label" role="text">Monthly Net Profit</span>
+                                    <!-- TODO: fetch from database -->
+                                    <span class="tile-data" role="text">Loading...</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- graph container -->
+                    <div class="graph-container">
+                        <!-- large tile 1 -->
+                        <div class="large-tile-1">
+                            <!-- large tile 1 content -->
+                            <div class="lt-1-content">
+                                <!-- option bar -->
+                                <div class="option-bar">
+                                    <span class="chart-0-title" role="text">Monthly Profit Status</span>
+                                    <span class="chart-0-desc"  role="text">Monitoring profit on a monthly basis. </span>
+                                </div>
+                                <div class="graph-holder">
+                                    <div class="chart-scaler-0">
+                                        <!-- TODO: fetch from database -->
+                                        <canvas id="chart0" class="chart-0-data"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- large tile 2 -->
+                        <div class="large-tile-2">
+                            <!-- large tile 2 content -->
+                            <div class="lt-2-content">
+                                <span class="chart-1-title" role="text">Vehicle Status</span>
+                                <div class="chart-1-data-holder">
+                                    <div class="chart-1-icon-holder">
+                                        <i class="chart-1-icon fas fa-car"></i>
+                                    </div>
+                                    <div class="chart-scaler-1">
+                                        <!-- TODO: fetch from database -->
+                                        <canvas id="chart1" class="chart-1-data"></canvas>
+                                    </div>
+                                </div>
+                                <div class="chart-1-legend">
+                                    <!-- '#6200EE',
+                                         '#4CAF50', -->
+                                    <span class="legend data-1" role="text">active</span>
+                                    <span class="legend data-2" role="text">inactive</span>
+                                </div>
+                                <span class="chart-1-desc">
+                                    Active, available   for   use.  Inactive, under consideration or disposed.
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- panel 2 -->
+            <div class="panel-2">
+                <!-- layout 2 -->
+                <div class="layout-2">
+                    <!-- large tile 3 -->
+                    <div id="lg-tile-3" class="large-tile-3">
+                        <!-- large tile 3 content -->
+                        <div class="lt-3-content">
+                            <span class="chart-2-title" role="text">Fleet Availability</span>
+                            <div class="stack-1">
+                                <!-- chart 2 numeric data holder -->
+                                <div class="chart-2-numeric-data-holder">
+                                    <!-- TODO: fetch from database -->
+                                    <span class="chart-2-numeric-data" role="text">-1</span>
+                                </div>
+                                <!-- chart 2 data holder -->
+                                <div class="chart-2-data-holder">
+                                    <!-- chart scaler -->
+                                    <div class="chart-scaler-2">
+                                        <!-- TODO: fetch from database -->
+                                        <canvas id="chart2" class="chart-2-data"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- large tile 4 -->
+                    <div id="lg-tile-4" class="large-tile-4">
+                        <div class="lt-4-content">
+                            <div class="lt-4-title-container">
+                                <span class="lt-4-title" role="text">Online subscribers</span>
+                            </div>
+                            <div id="online-list" class="lt-4-list-container">
+
+                                <!-- if empty online, otherwise remove -->
+                                <div id="empty-online-user" class="empty-online">
+                                    <i class="empty-list-icon fa fa-clipboard"></i>
+                                    <span class="empty-list-label">
+                                        No active user
+                                    </span>
+                                </div>
+
+                                <!-- TODO: fetch from database -->
+                                <!-- user data | js generated!!!! -->
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script type="module" src="../../js/webapp/dashboard/dashboard.js"></script>
+</html>

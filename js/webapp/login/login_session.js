@@ -22,7 +22,7 @@ export function save_login_session (uid,is_saved) {
             path : "/"
         });
     }
-    if ((s == null || s == undefined) || uid != s) {
+    if ((s == null || s == undefined) || is_saved != s) {
         $.cookie("save", is_saved , {
             path : "/"
         });
@@ -30,18 +30,18 @@ export function save_login_session (uid,is_saved) {
 }
 
 
-export function is_already_login () {
+export async function is_already_login () {
     let u = $.cookie("uid");
     let s = $.cookie("save"); 
     if (!(u == null || u == undefined) && !(s == null || s == undefined)) {
-        if (get_data_by_id(u) !== null && s == "true")
+        if (await get_data_by_id(u) != null && s == "true")
             return true;
     }
     return false;
 }
 
-export function redirect_if_login_to (path,otherwise) {
-    if(is_already_login())
+export async function redirect_if_login_to (path,otherwise) {
+    if(await is_already_login())
         window.location.href = path;
     else 
         if(otherwise != null && otherwise != undefined)
@@ -58,3 +58,5 @@ export function clear_login_session () {
         path : "/"
     }); 
 }
+
+

@@ -31,6 +31,10 @@ export function clear_list () {
     }
 }
 
+export function mark_as_empty () {
+    
+}
+
 export function insert_activity(date_time,description) {
     let activity_list = $("#activity-list");
     activity_list.append(

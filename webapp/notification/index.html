@@ -10,11 +10,21 @@
     <!-- customize css   -->
     <link rel="stylesheet" href="../pop_ups/connection_error/connection_error.css">
     <link rel="stylesheet" href="../pop_ups/logout/logout.css">
+    <link rel="stylesheet" href="../lazy_loading/lazy_loading.css">
     <link rel="stylesheet" href="../sidebar/sidebar.css">
     <!-- third-party js  -->
     <script src="https://kit.fontawesome.com/0ad786b032.js" crossorigin="anonymous"></script>
 </head>
 <body>
+
+    <!-- lazy loading -->
+    <div id="lazy-loading-overlay" class="lazy-loading">
+        <div class="blur-bg"></div>
+        <div class="blur-fg">
+            <img class="loading-icon" src="../../assets/webapp/car-running.gif" alt="loading-gif">
+            <span class="loading-label" role="text">loading...</span>
+        </div>
+    </div>
 
     <!-- sidebar -->
     <nav class="sidebar">

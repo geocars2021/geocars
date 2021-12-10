@@ -27,6 +27,7 @@ $edit-display-picture-btn-bg-active : rgb(241, 241, 241);
 $edit-user-name-fg : #eeeeee;
 // for edit user name button
 $edit-user-name-btn-bg     : #ffffff;
+$edit-user-name-btn-active-bg     : rgb(241, 241, 241);
 
 
 // for additional info fg 
@@ -127,8 +128,8 @@ $row-delete-btn-ripple-bg : rgba(0,0,0,0.2);
     position: absolute;
     right: 15px;
     bottom: 15px;
-    padding: 5px;
-    width: 140px;
+    padding: 5px 15px;
+    // width: 140px; // FIXME: watchout !!! may cause error
     outline: none;
     border: none;
     border-radius: 6px;
@@ -136,15 +137,14 @@ $row-delete-btn-ripple-bg : rgba(0,0,0,0.2);
     box-shadow: 0px 4px 6px -3px rgba($shadow-local-color, $alpha: 0.2);
     z-index: 2;
     &:active {
-        width: 130px;
+        padding: 5px 10px;
         right: 20px;
         background-color: $edit-cover-picture-active-btn-bg;
         box-shadow: 0px 6px 8px -4px rgba($shadow-local-color , $alpha: 0.2);
     }
     @include on_Medium_Dev {
-        width: auto;
+        padding: 5px !important;
         &:active {
-            width: auto;
             right: 15px;
             background-color: $edit-cover-picture-active-btn-bg;
         }
@@ -153,7 +153,8 @@ $row-delete-btn-ripple-bg : rgba(0,0,0,0.2);
 }
 
 .edit-cover-btn > .edit-cover-icon {
-    display: block;
+     // display: block; // FIXME: watchout !!!
+    margin: 0 2.5px;
     font-size: 20px;
     color: $font-color;
     @include on_Medium_Dev {
@@ -162,7 +163,8 @@ $row-delete-btn-ripple-bg : rgba(0,0,0,0.2);
 }
 
 .edit-cover-btn > .edit-cover-label {
-    display: block;
+    // display: block; // FIXME: watchout !!!
+    margin: 0 2.5px;
     font-size: 15px;
     font-weight: bold;
     @include on_Medium_Dev {
@@ -324,8 +326,10 @@ $row-delete-btn-ripple-bg : rgba(0,0,0,0.2);
     background-color: $edit-user-name-btn-bg;
    
     &:active {
+        padding: 15px 10px;
         transition: box-shadow 0.1s ease-in;
         box-shadow: 0px 8px 12px -6px rgba($shadow-local-color, $alpha: 0.2);
+        background-color: $edit-user-name-btn-active-bg;
     }
     @include on_Medium_Dev {
         width: auto;
@@ -333,10 +337,12 @@ $row-delete-btn-ripple-bg : rgba(0,0,0,0.2);
 }
 
 .edit-user-name-btn > .edit-user-icon {
+    margin: 0 2.5px;
     font-size: 20px;
 }
 
 .edit-user-name-btn > .edit-user-label {
+    margin: 0 2.5px;
     font-size: 15px;
     font-weight: bold;
 }
@@ -354,6 +360,7 @@ $row-delete-btn-ripple-bg : rgba(0,0,0,0.2);
     @include on_Medium_Dev {
         align-items: center;
         padding: initial;
+        margin: 25px 0;
         width: 100%;
 
     }
@@ -568,10 +575,7 @@ $row-delete-btn-ripple-bg : rgba(0,0,0,0.2);
     justify-content: center;
     align-items: center;
     width: 100%;
-    height: calc(45px * 4);
-    @include on_Medium_Dev {
-        height: calc(45px * 5);
-    }
+    height: calc(45px * 5);
     // background-color: blue;
 }
 
@@ -620,8 +624,9 @@ $row-delete-btn-ripple-bg : rgba(0,0,0,0.2);
 
 .table-row > .description-value {
     padding-right: 45px;
+    justify-content: left;
+    text-align: justify;
     width: 70%;
-    text-align: center;
     word-wrap: break-word;
     white-space: normal;
     // background-color: yellow;

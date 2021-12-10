@@ -3,3 +3,109 @@
 @import '../../css_config/views';
 
 
+// colors
+$primary   : #15191C;
+$secondary : #22252F;
+$tertiary  : #15091a;
+
+// search input
+$search-input-fg : #d8d8d8;
+$search-active-border : #8179f8;
+
+// search result
+$search-result-bg : #e7e7e7;
+
+
+.management-content-wrapper {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background-color: $primary;
+    @include on_Medium_Dev {
+        flex-direction: column;
+    }
+}
+
+
+.management-content-wrapper > .center-panel {
+    display: block;
+    width: 60%;
+    height: 100%;
+    // background-color: $secondary;
+    @include on_Medium_Dev {
+        width: 100%;
+    }
+}
+
+.center-panel > .search-panel-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 20%;
+    // background-color: yellow;
+}
+
+
+.search-panel-wrapper > .search-panel {
+    display: block;
+    position: relative;
+    padding: 10px 5px;
+    width: 80%;
+    height: auto;
+    // background-color: black;
+    @include on_Medium_Dev {
+        width: calc(85% + 10px);
+    }
+}
+
+.search-panel > .search-input {
+    display: block;
+    padding: 0 50px 0 5px;
+    width: 100%;
+    height: 45px;
+    font-size: 15px;
+    color: $search-input-fg;
+    outline: none;
+    border: none;
+    border-radius: 4px;
+    background-color: $secondary;
+    box-shadow: 0px 4px 6px -2px rgba(0,0,0,0.2);
+    &:focus {
+        border: 2px solid $search-active-border;
+    }
+}
+
+.search-panel > .search-result {
+    display: block;
+    position: absolute;
+    width: calc(100% - 10px);
+    max-height: calc(45px * 5);
+    overflow-y: auto;
+    scroll-snap-type: y mandatory;
+    background-color: $search-result-bg;
+    border-radius: 4px;
+}
+
+.search-result >.search-result-item {
+    display: block;
+    scroll-snap-align: start;
+}
+
+
+.search-panel > .search-btn {
+    display: block;
+    position: absolute;
+    top: 10px;
+    right: 5px;
+    width: 45px;
+    height: 45px;
+    outline: none;
+    border: none;
+    background-color: transparent;
+}

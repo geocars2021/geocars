@@ -10,7 +10,7 @@ import
 from "../login/login_session.js";
 
 
-redirect_if_login_to("../../webapp/dashboard/");
+redirect_if_login_to("../../webapp/dashboard/","#");
 
 import 
 { 
@@ -67,7 +67,7 @@ function validate_form () {
 function invalid_username_or_password () {
     val_email.text("*Invalid username or password");
     password_input.val("")
-    
+    is_disabled = false;
 }
 
 function has_uid (uid) {
@@ -102,22 +102,28 @@ btn_signin.click(async (e) => {
         return;
 
     is_invalid = validate_form();
-    if (is_invalid)
+    if (is_invalid) {
+        is_disabled = false;
         return;
+    }
 
     is_disabled = true;
-    email = email_input.val();
-    password = password_input.val();
+    email       = email_input.val();
+    password    = password_input.val();
 
     let user_id = await get_company_id_by_email(email);
 
-    if (!has_uid(user_id))
+    if (!has_uid(user_id)) {
+        is_disabled = false;
         return invalid_username_or_password();
+    }
 
     let snapshot = await get_data_by_id(user_id);
 
-    if (!has_snapshot(snapshot))
+    if (!has_snapshot(snapshot)) {
+        is_disabled = false;
         return invalid_username_or_password();
+    }
 
     let salt , passkey , computed;
 
@@ -127,14 +133,17 @@ btn_signin.click(async (e) => {
     // passkey = sha256 ( salt + desired_Password )
     computed = await sha256(salt + password);
     
-    if (computed !== passkey)
+    if (computed !== passkey) {
+        is_disabled = false;
         return invalid_username_or_password();
+    }
     
     /* otherwise, user found !!! */
 
     // TODO: save sesssion cookies | status : finish
     
     save_login_session(user_id,remember.val());
+    
     clear_form();
 
     window.location.href = "../../webapp/dashboard/";

@@ -9,6 +9,9 @@ $secondary : #22252F;
 /** app bar **/
 $app-bar-mobile-fg: #ffffff;
 
+// for loading background color
+$loading-background          : #0e0d0d;
+
 /** active tab link (mobile) **/
 $active-link-fg : #894aff;
 $non-active-link-fg : #b6b6b6;
@@ -88,6 +91,7 @@ $exit-btn-hover-fg : #ffffff;
     flex-wrap: nowrap;
     justify-content: center;
     align-items: center;
+    position: relative;
     width: 70%;
     height: 70%;
     border-radius: 360px;
@@ -96,8 +100,42 @@ $exit-btn-hover-fg : #ffffff;
     background-repeat: no-repeat !important;
     box-shadow: 0px 3px 4px -2px rgba($color: #000000, $alpha: 0.2);
     cursor: pointer;
+    overflow: hidden;
+   
 }
 
+@keyframes to-left {
+    0%  {
+        width: 0%;
+    }
+
+    25% , 50% {
+        width: 50%;
+    }
+    50% , 75%{
+        width: 75%;
+    }
+    75% , 100% {
+        width: 100%;
+    }
+}
+
+
+
+// FIXME: watchout!!!
+.loading {
+    background: $loading-background; // FIXME: remove this
+    &::after {
+        content: ' ';
+        display: block;
+        position: absolute;
+        inset: 0;
+        height: 100%;
+        background: linear-gradient(to right,rgba(0, 0, 0, 0.2),rgba(0, 0, 0, 0.2));
+        animation: to-left 0.8s ease-in;
+        animation-iteration-count: infinite;
+    }
+}
 
 
 .sidebar > .tab-switch {

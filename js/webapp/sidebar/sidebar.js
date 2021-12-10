@@ -30,6 +30,10 @@ $("document").ready( async (e) => {
     let image = await get_company_profile_images_by_uid(get_login_cred());
     if (image.dp != null)
         $("#nav-user-avatar").css("background",`url("${image.dp}")`);
+    else 
+        $("#nav-user-avatar").css("background",`url("../../assets/webapp/avatar-default.png")`);
+    // remove loading class
+    $("#nav-user-avatar").removeClass("loading");
 
     /* add event on exit button*/ 
     $("#exit-logout").click((e) => {

@@ -29,7 +29,7 @@
         <!-- user icon -->
         <div class="user-icon">
             <!-- TODO: fetchuser icon from db -->
-            <div id="nav-user-avatar" class="round-icon" style="background: url('../../assets/webapp/avatar-default.png');"></div>
+            <div id="nav-user-avatar" class="round-icon loading"></div>
         </div>
 
         <!-- tab switch -->
@@ -39,13 +39,13 @@
                 <!-- dash -->
                <li class="tab">
                     <abbr class="tool-tip" title="dashboard">
-                        <a class="link active fa fa-bar-chart" href="#"></a>
+                        <a class="link active fa fa-chart-area" href="#"></a>
                     </abbr>
                </li><!--
                 management
                --><li class="tab">
                     <abbr class="tool-tip" title="management">
-                        <a class="link fa fa-tasks" href="../management/index.html"></a>
+                        <a class="link fa fa-sliders-h" href="../management/index.html"></a>
                     </abbr>
                </li><!-- 
                 notification 
@@ -105,8 +105,12 @@
                         <div class="tile">
                             <div class="tile-content">
                                 <div class="inner-center-wrapper">
-                                    <i class="tile-icon fas fa-sort-amount-down"></i>
-                                    <span class="tile-label" role="text">Monthly Loss Amount </span>
+                                    <i class="tile-icon fas fa-user-plus"></i>
+                                    <!-- old code -->
+                                    <!-- <i class="tile-icon fas fa-sort-amount-down"></i> -->
+                                    <span class="tile-label" role="text">New customer</span>
+                                    <!-- old code-->
+                                    <!-- <span class="tile-label" role="text">Monthly Loss Amount</span> -->
                                     <!-- TODO: fetch from database -->
                                     <span class="tile-data" role="text">Loading...</span>
                                 </div>
@@ -116,8 +120,12 @@
                         <div class="tile">
                             <div class="tile-content">
                                 <div class="inner-center-wrapper">
-                                    <i class="tile-icon fas fa-hand-holding-usd"></i>
-                                    <span class="tile-label" role="text">Monthly Gross Revenue</span>
+                                    <i class="tile-icon fas fa-hand-holding"></i>
+                                    <!-- old code-->
+                                    <!-- <i class="tile-icon fas fa-hand-holding-usd"></i> -->
+                                    <span class="tile-label" role="text">Pickup today</span>
+                                    <!-- old code -->
+                                    <!-- <span class="tile-label" role="text">Monthly Gross Revenue</span> -->
                                     <!-- TODO: fetch from database -->
                                     <span class="tile-data" role="text">Loading...</span>
                                 </div>
@@ -127,8 +135,11 @@
                         <div class="tile">
                             <div class="tile-content">
                                 <div class="inner-center-wrapper">
-                                    <i class="tile-icon fas fa-chart-line"></i>
-                                    <span class="tile-label" role="text">Monthly Net Profit</span>
+                                    <i class="tile-icon fas fa-key"></i>
+                                    <!-- <i class="tile-icon fas fa-chart-line"></i> -->
+                                    <span class="tile-label" role="text">Return today</span>
+                                    <!-- old code -->
+                                    <!-- <span class="tile-label" role="text">Monthly Net Profit</span> -->
                                     <!-- TODO: fetch from database -->
                                     <span class="tile-data" role="text">Loading...</span>
                                 </div>

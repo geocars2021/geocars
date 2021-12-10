@@ -21,51 +21,54 @@ from "../lazy_loading/lazy_loading.js";
 
 import
 {
-    on_update       ,
-    get_data_by_id  ,
+    on_company_update  ,
+    get_data_by_id     ,
     get_company_profile_images_by_uid
 }
 from "../connection_handler/connection.js";
 
 import 
 {
-    insert_activity
+    clear_list      ,
+    insert_activity ,
 }
 from "./activity_list.js";
 
-/*
-    call once to reduce traffic
-*/ 
+ 
 
-let uid , snapshot , profile ;
+let uid;
 
-async function load_content() {
+uid = get_login_cred();
 
-    uid      = get_login_cred();
-    snapshot = await get_data_by_id(uid);
-    profile  = await get_company_profile_images_by_uid(uid);
+async function load_content(snapshot) {
+    /*
+        call once to reduce traffic
+        | let on_company_update hanldes changes
+        ;
+    */
 
-    // company name
-    if (snapshot) {
-        $("#user-name").text(snapshot.name);
+    // cover pic
+    if (snapshot.cover) {
+        $("#cover-image")
+        .removeClass("loading")
+        .css("background",`url("${snapshot.cover}")`);
     }
 
     // display pic
-    if (profile.dp) {
+    if (snapshot.dp) {
         $("#dp-image")
         .removeClass("loading")
-        .css("background",`url("${profile.dp}")`);
+        .css("background",`url("${snapshot.dp}")`);
     }
 
-    // cover pic
-    if (profile.cover) {
-        $("#cover-image")
-        .removeClass("loading")
-        .css("background",`url("${profile.cover}")`);
+    // company name
+    if (snapshot.name) {
+        $("#user-name").text(snapshot.name);
     }
 
-    // subscription
+
     if (snapshot){
+        // subscription
         $("#info-subscription").text(snapshot.plan);
     
         // email
@@ -76,7 +79,7 @@ async function load_content() {
     
         // password :) hihihihihi
         // do not fetch!! use ********* instead
-        // we did not store password!!
+        // we did not store user's password!!
         $("#info-password").text("********");
     
         // address
@@ -84,12 +87,19 @@ async function load_content() {
         $("#info-address").text(snapshot.address);
 
         // activity list
-        if (snapshot.activities.length > 0) {
+        // if not empty!
+        // otherwise show empty list instead | default
+        if (snapshot.activities && snapshot.activities.length > 0) {
+
             let act_list;
+    
             try {
+                // hide only ampty activity
                 $("#empty-activity")
-                .remove();
+                .css("display", "none");
             }catch(err){}
+
+            clear_list();
 
             act_list = snapshot.activities;
             
@@ -100,17 +110,23 @@ async function load_content() {
                 );
             }
         }
+        else {
+            
+            clear_list();
+
+            $("#empty-activity")
+            .css("display","flex");
+           
+        }
     }
 
     load_finish();
 }
 
-// load_finish();
 
 
-// on_update(get_login_cred(),(data) => {
-//     // display changes
-//     load_content();
-// });
+on_company_update(uid,(data) => {
+    
+    load_content(data);
+});
 
-load_content();

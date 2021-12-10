@@ -10,6 +10,7 @@
     <!-- customize css   -->
     <link rel="stylesheet" href="../pop_ups/connection_error/connection_error.css">
     <link rel="stylesheet" href="../pop_ups/logout/logout.css">
+    <link rel="stylesheet" href="../lazy_loading/lazy_loading.css">
     <link rel="stylesheet" href="../sidebar/sidebar.css">
     <link rel="stylesheet" href="management.css">
     <!-- third-party js  -->
@@ -28,7 +29,7 @@
         <!-- user icon -->
         <div class="user-icon">
             <!-- TODO: fetchuser icon from db -->
-            <div id="nav-user-avatar" class="round-icon" style="background: url('../../assets/webapp/avatar-default.png');"></div>
+            <div id="nav-user-avatar" class="round-icon loading"></div>
         </div>
 
         <!-- tab switch -->
@@ -38,13 +39,13 @@
                 <!-- dash -->
                <li class="tab">
                     <abbr class="tool-tip" title="dashboard">
-                        <a class="link fa fa-bar-chart" href="../dashboard/index.html"></a>
+                        <a class="link fa fa-chart-area" href="../dashboard/index.html"></a>
                     </abbr>
                </li><!--
                 management
                --><li class="tab">
                     <abbr class="tool-tip" title="management">
-                        <a class="link active fa fa-tasks" href="#"></a>
+                        <a class="link active fa fa-sliders-h" href="#"></a>
                     </abbr>
                </li><!-- 
                 notification 
@@ -70,9 +71,37 @@
 
     </nav>
 
+    <!-- lazy loading -->
+    <div id="lazy-loading-overlay" class="lazy-loading">
+        <div class="blur-bg"></div>
+        <div class="blur-fg">
+            <img class="loading-icon" src="../../assets/webapp/car-running.gif" alt="loading-gif">
+            <span class="loading-label" role="text">loading...</span>
+        </div>
+    </div>
+
     <!-- safe area -->
     <div class="safe-area">
-        
+        <div class="management-content-wrapper">
+            <!-- center panel -->
+            <div class="center-panel">
+                <div class="search-panel-wrapper">
+                    <div class="search-panel">
+                        <!-- search input -->
+                        <input class="search-input" type="search" placeholder="search plate number">
+                        <!-- search result -->
+                        <!-- TODO: fetch result -->
+                        <span id="search-result" class="search-result" role="listbox">
+                            <!-- <span class="search-result-item" role="listitem">A</span>
+                            <span class="search-result-item" role="listitem">B</span>
+                            <span class="search-result-item" role="listitem">C</span> -->
+                        </span>
+                        <!-- search button -->
+                        <button class="search-btn fa fa-search"></button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </body>
 <script type="module" src="../../js/webapp/management/management.js"></script>

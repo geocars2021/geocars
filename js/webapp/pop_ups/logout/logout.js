@@ -1,23 +1,24 @@
 import "../../../jquery/jquery-3.6.0.min.js";
 
 /**
- * Ge inani ra naku kay kapoy cgeg
- * createElement2x
+ * Ge inani ra naku kay 
+ * aron dili ma flooded ug 
+ * function call ang JS virtual machine
  * **/
 
 export function logout(message,onPositive,onNegaive) {
     let logout_overlay = document.createElement("div");
     logout_overlay.classList.add("logout-overlay");
     logout_overlay.innerHTML = 
-    "<div class=\"logout\"> \n" +
-        "\t\t <div class=\"message-wrapper\"> \n"+
-            `\t\t\t <span class=\"message\" role=\"text\">${message}</span> \n` +
-        "\t\t </div> \n"+
-        "\t\t <div class=\"btn-wrapper\"> \n"+
-            "\t\t\t <button id=\"log-positive\" class=\"btn\"> Ok </button> \n"+
-            "\t\t\t <button id=\"log-negative\" class=\"btn\"> Cancel </button> \n"+
-        "\t\t </div> \n" +
-    "</div> \n";
+    "\t<div class=\"logout\"> \n" +
+    "\t\t <div class=\"message-wrapper\"> \n"+
+    `\t\t\t <span class=\"message\" role=\"text\">${message}</span> \n` +
+    "\t\t </div> \n"+
+    "\t\t <div class=\"btn-wrapper\"> \n"+
+    "\t\t\t <button id=\"log-positive\" class=\"btn\"> Ok </button> \n"+
+    "\t\t\t <button id=\"log-negative\" class=\"btn\"> Cancel </button> \n"+
+    "\t\t </div> \n" +
+    "\t </div> \n";
 
     $("body").prepend(logout_overlay);
     
@@ -29,6 +30,7 @@ export function logout(message,onPositive,onNegaive) {
         onNegaive(logout_overlay);
     });
 }
+
 
 // old code
 /*

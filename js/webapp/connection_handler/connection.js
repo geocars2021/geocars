@@ -37,10 +37,17 @@ import
 from "../pop_ups/connection_error/connection_error.js"
 
 import
+{
+    SUBSCRIPTION
+}   
+from "../states/subscription.js";
+
+import
 { 
     get_date_now 
 } 
 from "../tool/custom_date.js";
+
 
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -72,48 +79,64 @@ catch ($err) {
 
 
 /* on update in current loggedin company */
-export async function on_update (uid,callback) {
+export async function on_company_update (uid,callback) {
     validate_connection();
     let company = collection(
         FIRESTORE_DB ,
         "company"
     );
 
-    let comp_data = onSnapshot(doc(company,uid),((doc) => {
-        callback(doc.data());
+    let user_profile_images , snapshot;
+
+    onSnapshot(doc(company, uid), ( async (doc) => {
+        
+        user_profile_images = await get_company_profile_images_by_uid(uid);
+        snapshot = doc.data();
+
+        // append user dp and cover | if exist!
+        snapshot.dp    = user_profile_images.dp;
+        snapshot.cover = user_profile_images.cover; 
+        callback(snapshot);
+        
     }));
 }
 
-/* save new company */
+/* saves new company */
 export async function save_new_company (email,name,salt,passkey) {
     validate_connection();
     
     let company = collection(
         FIRESTORE_DB ,
-        "company"
+        "company"    ,
     );
-    
+
+    // Do not store plain text password !!
     let docRef = await addDoc(company,{
-        email   : email ,
-        name    : name  ,
-        salt    : salt  ,
-        passkey : passkey    ,
-        plan    : "FREEMIUM" , // set FREEMIUM as default plan,
-        contact : "N/A"      , // set contact num as N/A
-        address : "N/A"      , // set address as N/A
+        email   : email   ,
+        name    : name    ,
+        salt    : salt    ,
+        passkey : passkey ,
+        contact : "N/A"   , // set contact num as N/A
+        address : "N/A"   , // set address as N/A
+        plan    : SUBSCRIPTION.FREEMIUM , // set FREEMIUM as default plan,
     });
     
     await insert_activity(
         docRef.id,
         `${name} joined geocars.`
     )
+    await insert_activity(
+        docRef.id,
+        `${name} joined geocars plus plus.`
+    )
+    
 }
 
 /* inserts activity to current loggedin company */ 
 export async function insert_activity (uid,description) {
     validate_connection();
 
-    let company , snapshot;
+    let company , snapshot , activities;
 
     company = collection(
         FIRESTORE_DB ,
@@ -121,19 +144,33 @@ export async function insert_activity (uid,description) {
     );
 
     snapshot = await get_data_by_id(uid);
+
     if (snapshot) {
-        
         const newcomp = doc(company, uid );
-        await setDoc(newcomp, {
-            activities : [
+        if (!snapshot.activities) {
+            /* if activities is not present , create new one */ 
+            await setDoc(newcomp, {
+                activities : [
+                    {
+                        date : get_date_now(),
+                        description : description,
+                    }
+                ] 
+            }, {
+                merge: true 
+            });
+        }
+        else {
+            // otherwise, append first then set
+            activities = snapshot.activities;
+            activities.push(
                 {
                     date : get_date_now(),
                     description : description,
                 }
-            ] 
-        }, {
-            merge: true 
-        });
+            );
+            await setDoc(newcomp,{ activities: activities } , {merge: true});
+        }
         
     }
 }
@@ -186,29 +223,32 @@ export async function get_data_by_id (id) {
 export async function get_company_profile_images_by_uid (uid) {
     let storage   = getStorage();
     let path      = `company/${uid}/profile/`;
-    let dp_ref    = ref(storage , `${path}/dp.jpeg`);
-    let cover_ref = ref(storage , `${path}/cover.jpeg`);
+    let dp_ref    = ref(storage , `${path}/dp.jpg`);
+    let cover_ref = ref(storage , `${path}/cover.jpg`);
 
     var images = {
        dp    : null ,
        cover : null ,
     };
 
-    await getDownloadURL(dp_ref)
-    .then((dl_url) => {
-        images.dp = dl_url;
-    })
-    .catch((err) => {
-        console.log(err.code);
-    });
+    if (dp_ref  && cover_ref) {
+       
+        await getDownloadURL(dp_ref)
+        .then((dl_url) => {
+            images.dp = dl_url;
+        })
+        .catch((err) => {
+            console.log(err.code);
+        });
 
-    await getDownloadURL(cover_ref)
-    .then((dl_url) => {
-        images["cover"] = dl_url;
-    })
-    .catch((err) => {
-        console.log(err.code);
-    });
+        await getDownloadURL(cover_ref)
+        .then((dl_url) => {
+            images["cover"] = dl_url;
+        })
+        .catch((err) => {
+            console.log(err.code);
+        });
+    }
     return images;
 }
 

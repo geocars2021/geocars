@@ -161,8 +161,7 @@ body {
   position: absolute;
   right: 15px;
   bottom: 15px;
-  padding: 5px;
-  width: 140px;
+  padding: 5px 15px;
   outline: none;
   border: none;
   border-radius: 6px;
@@ -176,7 +175,7 @@ body {
 }
 
 .cover-photo > .edit-cover-btn:active {
-  width: 130px;
+  padding: 5px 10px;
   right: 20px;
   background-color: #f1f1f1;
   -webkit-box-shadow: 0px 6px 8px -4px rgba(0, 0, 0, 0.2);
@@ -185,17 +184,16 @@ body {
 
 @media screen and (min-width: 1px) and (max-width: 768px) {
   .cover-photo > .edit-cover-btn {
-    width: auto;
+    padding: 5px !important;
   }
   .cover-photo > .edit-cover-btn:active {
-    width: auto;
     right: 15px;
     background-color: #f1f1f1;
   }
 }
 
 .edit-cover-btn > .edit-cover-icon {
-  display: block;
+  margin: 0 2.5px;
   font-size: 20px;
   color: #0e0d0d;
   /*
@@ -210,7 +208,7 @@ body {
 }
 
 .edit-cover-btn > .edit-cover-label {
-  display: block;
+  margin: 0 2.5px;
   font-size: 15px;
   font-weight: bold;
   /*
@@ -459,12 +457,14 @@ body {
 }
 
 .nlw-div > .edit-user-name-btn:active {
+  padding: 15px 10px;
   -webkit-transition: -webkit-box-shadow 0.1s ease-in;
   transition: -webkit-box-shadow 0.1s ease-in;
   transition: box-shadow 0.1s ease-in;
   transition: box-shadow 0.1s ease-in, -webkit-box-shadow 0.1s ease-in;
   -webkit-box-shadow: 0px 8px 12px -6px rgba(0, 0, 0, 0.2);
           box-shadow: 0px 8px 12px -6px rgba(0, 0, 0, 0.2);
+  background-color: #f1f1f1;
 }
 
 @media screen and (min-width: 1px) and (max-width: 768px) {
@@ -474,10 +474,12 @@ body {
 }
 
 .edit-user-name-btn > .edit-user-icon {
+  margin: 0 2.5px;
   font-size: 20px;
 }
 
 .edit-user-name-btn > .edit-user-label {
+  margin: 0 2.5px;
   font-size: 15px;
   font-weight: bold;
 }
@@ -509,6 +511,7 @@ body {
         -ms-flex-align: center;
             align-items: center;
     padding: initial;
+    margin: 25px 0;
     width: 100%;
   }
 }
@@ -796,16 +799,7 @@ body {
       -ms-flex-align: center;
           align-items: center;
   width: 100%;
-  height: calc(45px * 4);
-  /*
-        Kung ang view is mobile
-    */
-}
-
-@media screen and (min-width: 1px) and (max-width: 768px) {
-  .table-list > .activity-empty {
-    height: calc(45px * 5);
-  }
+  height: calc(45px * 5);
 }
 
 .activity-empty > .empty-activity-icon {
@@ -867,8 +861,11 @@ body {
 
 .table-row > .description-value {
   padding-right: 45px;
+  -webkit-box-pack: left;
+      -ms-flex-pack: left;
+          justify-content: left;
+  text-align: justify;
   width: 70%;
-  text-align: center;
   word-wrap: break-word;
   white-space: normal;
 }

@@ -14,15 +14,21 @@ import
 } 
 from "../../tool/connection_checker.js"
 
+/**
+ * Ge inani ra naku kay 
+ * aron dili ma flooded ug 
+ * function call ang JS virtual machine
+ * **/
+
 function conn_error (message) {
     let conn_err = document.createElement("div");
     conn_err.classList.add("connection-error-wrapper-overlay");
     conn_err.innerHTML = 
     "\t <div class=\"connection-error-wrapper\"> \n"+
-        "\t\t <div class=\"content-wrapper\"> \n" +
-            "\t\t\t <img class=\"dc-icon\" src=\"../../assets/webapp/dc-wifi.png\" alt=\"dc-icon\"> \n"+
-            "\t\t\t <span class=\"dc-message\" role=\"text\">"+ `${message}` + "</span> \n" +
-        "\t\t </div> \n" +
+    "\t\t <div class=\"content-wrapper\"> \n" +
+    "\t\t\t <img class=\"dc-icon\" src=\"../../assets/webapp/dc-wifi.png\" alt=\"dc-icon\"> \n"+
+    "\t\t\t <span class=\"dc-message\" role=\"text\">"+ `${message}` + "</span> \n" +
+    "\t\t </div> \n" +
     "\t </div> \n";
     
     $("body").prepend(conn_err);
@@ -37,8 +43,3 @@ export function validate_connection () {
     return true;
 }
 
-
-// old code
-/*
-
-*/

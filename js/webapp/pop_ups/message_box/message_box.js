@@ -1,8 +1,9 @@
 import "../../../jquery/jquery-3.6.0.min.js";
 
 /**
- * Ge inani ra naku kay kapoy cgeg
- * createElement2x
+ * Ge inani ra naku kay 
+ * aron dili ma flooded ug 
+ * function call ang JS virtual machine
  * **/
 
 export function message_box(message,onPositive) {

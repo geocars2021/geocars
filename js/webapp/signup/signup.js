@@ -119,8 +119,10 @@ btn_signup.click( async (e) => {
         return;
 
     is_invalid = validate_form();
-    if (is_invalid)
+    if (is_invalid) {
+        is_disabled = false;
         return;
+    }
     
     is_disabled = true;
 
@@ -129,14 +131,18 @@ btn_signup.click( async (e) => {
 
     let uid = await get_company_id_by_email(email);
 
-    if (uid)
+    if (uid) {
+        is_disabled = false;
         return email_in_use ();
+    }
     
     password = password_input.val();
     confirm_pass = confirm_password_input.val();
 
-    if (password !== confirm_pass) 
+    if (password !== confirm_pass) {
+        is_disabled = false;
         return password_not_match()
+    }
     
     salt = generate_salt(8);
 

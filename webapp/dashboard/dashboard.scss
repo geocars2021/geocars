@@ -111,8 +111,9 @@ $separator-bg : #1d1d1d;
     @include on_Medium_Dev {
         position: relative;
         margin: 10px;
-        padding-top: 40%;
-        min-width: 40%;
+        padding-top: 41%;
+        width: 41%;
+        // min-width: 40%;
         height: initial;
     }
 }

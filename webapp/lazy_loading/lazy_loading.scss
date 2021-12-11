@@ -63,6 +63,7 @@ $loading-label-fg : #eeeeee;
 .blur-fg > .loading-label {
     margin: 7.5px 0;
     font-size: 16px;
+    font-weight: bold;
     color: $loading-label-fg;
     @include on_Medium_Dev {
         font-size: 18px;

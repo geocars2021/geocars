@@ -102,6 +102,7 @@ btn_signin.click(async (e) => {
         return;
 
     is_invalid = validate_form();
+    
     if (is_invalid) {
         is_disabled = false;
         return;

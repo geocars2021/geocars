@@ -22,7 +22,7 @@ import
 }
 from "../lazy_loading/lazy_loading.js";
 
-
+import "./car_list.js";
 
 
 load_finish();

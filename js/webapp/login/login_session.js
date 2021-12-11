@@ -7,6 +7,10 @@ import
 } 
 from "../connection_handler/connection.js";
 
+function prevent_close() {
+    
+}
+
 export function get_login_cred () {
     let u = $.cookie("uid");
     return u;
@@ -33,6 +37,7 @@ export function save_login_session (uid,is_saved) {
 export async function is_already_login () {
     let u = $.cookie("uid");
     let s = $.cookie("save"); 
+    console.log(`${u} ${s}`);
     if (!(u == null || u == undefined) && !(s == null || s == undefined)) {
         if (await get_data_by_id(u) != null && s == "true")
             return true;

@@ -25,10 +25,10 @@ function conn_error (message) {
     conn_err.classList.add("connection-error-wrapper-overlay");
     conn_err.innerHTML = 
     "\t <div class=\"connection-error-wrapper\"> \n"+
-    "\t\t <div class=\"content-wrapper\"> \n" +
+    "\t\t <div class=\"content-wrapper\"> \n"+
     "\t\t\t <img class=\"dc-icon\" src=\"../../assets/webapp/dc-wifi.png\" alt=\"dc-icon\"> \n"+
-    "\t\t\t <span class=\"dc-message\" role=\"text\">"+ `${message}` + "</span> \n" +
-    "\t\t </div> \n" +
+    "\t\t\t <span class=\"dc-message\" role=\"text\">"+ `${message}` + "</span> \n"+
+    "\t\t </div> \n"+
     "\t </div> \n";
     
     $("body").prepend(conn_err);

@@ -184,8 +184,8 @@ body {
   .tile-container > .tile {
     position: relative;
     margin: 10px;
-    padding-top: 40%;
-    min-width: 40%;
+    padding-top: 41%;
+    width: 41%;
     height: initial;
   }
 }

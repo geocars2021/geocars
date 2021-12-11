@@ -20,6 +20,9 @@ $search-result-bg : #e7e7e7;
 $add-car-btn-bg : #7566ff;
 $add-car-btn-fg : #e7e7e7;
 
+// empty car
+$empty-car-list-fg : #7566ff;
+
 // car type
 $car-type-ripple-mobile : rgba(0,0,0,0.2);
 $car-type-bullet : #2b2323;
@@ -236,6 +239,27 @@ $ripple-bg : rgba(214, 250, 244, 0.2);
     }
 }
 
+.car-list-wrapper > .empty-car-list {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+.empty-car-list > .empty-car-icon {
+    margin: 10px 0;
+    font-size: 35px;
+    color: $empty-car-list-fg;
+}
+
+.empty-car-list > .empty-car-label {
+    margin: 10px 0;
+    font-size: 16px;
+    color: $empty-car-list-fg;
+}
+
 .car-list-wrapper > .car-info-wrapper {
     display: block;
     position: relative;
@@ -260,6 +284,7 @@ $ripple-bg : rgba(214, 250, 244, 0.2);
         overflow-y: clip;
     }
 }
+
 
 .car-info-wrapper > .car-info-content {
     display: block;

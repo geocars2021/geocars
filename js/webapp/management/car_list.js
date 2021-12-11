@@ -5,7 +5,7 @@ import "../../jquery/jquery-cookie-1.4.1.min.js";
 
 
 function add_carTile(carID,carType,carPhotoUrl) {
-    let car_info_wrapper = document.createElement("a");
+    let car_info_wrapper = document.createElement("div");
     car_info_wrapper.classList.add("car-info-wrapper");
     car_info_wrapper.innerHTML =
     "\t <div class=\"car-info-content\"> \n" +
@@ -33,13 +33,13 @@ function add_carTile(carID,carType,carPhotoUrl) {
 
 let car_list = $("#car-list");
 
-car_list.append(
-    add_carTile(
-        "asdasd" ,
-        "Fuckof" ,
-        "https://highpng.com/wp-content/uploads/2021/05/toyota-red-camry-car-free-png-images-free-download-png-images-from-highpng-png-images-vector-illustration-.png"
-    )
-);
+// car_list.append(
+//     add_carTile(
+//         "asdasd" ,
+//         "Fuckof" ,
+//         "https://highpng.com/wp-content/uploads/2021/05/toyota-red-camry-car-free-png-images-free-download-png-images-from-highpng-png-images-vector-illustration-.png"
+//     )
+// );
 
 
 

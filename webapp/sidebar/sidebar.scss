@@ -33,7 +33,7 @@ $exit-btn-hover-fg : #ffffff;
     height: 100vh;
     min-height: 768px;
     background-color: $secondary;
-    z-index: 10000;
+    z-index: 9999;
     // box-shadow: 3px 0px 6px -2px rgba($color: #000000, $alpha: 0.4);
     @include on_Medium_Dev {
         width: 100%;

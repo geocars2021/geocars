@@ -95,12 +95,12 @@ body {
   }
 }
 
-button {
+button, .custom-file-input {
   position: relative;
   overflow: hidden;
 }
 
-button:active::after {
+button:active::after, .custom-file-input:active::after {
   content: ' ';
   display: block;
   position: absolute;
@@ -110,8 +110,10 @@ button:active::after {
           transform: translate(-50%, -50%);
   -webkit-animation: ripple 0.2s ease-in;
           animation: ripple 0.2s ease-in;
-  -webkit-animation-fill-mode: forwards;
-          animation-fill-mode: forwards;
+  -webkit-animation-fill-mode: both;
+          animation-fill-mode: both;
+  -webkit-animation-play-state: running;
+          animation-play-state: running;
   background-color: rgba(214, 250, 244, 0.2);
   border-radius: 360px;
 }
@@ -328,6 +330,9 @@ button:active::after {
           flex-direction: row;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
   margin: auto;
   width: 80%;
   height: calc(100% - calc(30% + 10px));
@@ -343,6 +348,9 @@ button:active::after {
 
 @media screen and (min-width: 1px) and (max-width: 768px) {
   .center-panel > .car-list-wrapper {
+    -webkit-box-align: initials;
+        -ms-flex-align: initials;
+            align-items: initials;
     width: calc(85% + 10px);
     height: calc(100% - 25%);
   }
@@ -382,14 +390,14 @@ button:active::after {
   display: block;
   position: relative;
   margin: 5px;
-  width: calc( calc(100% - 30px ) / 3);
-  height: calc( calc(100% - 20px ) / 2.1);
+  padding-top: calc(calc(100% - 20px) / 2);
+  width: calc(calc(100% - 20px) / 2);
   background-color: #22252F;
   scroll-snap-align: start;
   scroll-margin-block: 5px;
-  border-radius: 4px;
-  -webkit-box-shadow: 0px 4px 8px -4px rgba(0, 0, 0, 0.2);
-          box-shadow: 0px 4px 8px -4px rgba(0, 0, 0, 0.2);
+  border-radius: 2px;
+  -webkit-box-shadow: 0px 4px 10px -4px rgba(0, 0, 0, 0.2);
+          box-shadow: 0px 4px 10px -4px rgba(0, 0, 0, 0.2);
   overflow: hidden;
   /*
         Kung ang view is mobile
@@ -399,46 +407,57 @@ button:active::after {
 @media screen and (min-width: 1px) and (max-width: 768px) {
   .car-list-wrapper > .car-info-wrapper {
     scroll-margin-block: 15px;
-    position: relative;
     margin: 15px auto;
     padding-top: calc(100% - 10px);
     width: calc(100% - 10px);
     border-radius: 2em;
-    overflow-y: clip;
   }
 }
 
 .car-info-wrapper > .car-info-content {
   display: block;
+  -webkit-box-orient: initial;
+  -webkit-box-direction: initial;
+      -ms-flex-direction: initial;
+          flex-direction: initial;
+  -ms-flex-wrap: initial;
+      flex-wrap: initial;
+  -webkit-box-pack: initial;
+      -ms-flex-pack: initial;
+          justify-content: initial;
+  -webkit-box-align: initial;
+      -ms-flex-align: initial;
+          align-items: initial;
+  padding: initial;
   position: absolute;
   inset: 0;
-  padding: 5px !important;
   width: 100%;
   height: 100%;
 }
 
-.car-info-content > .car-featured-photo {
-  display: block;
+.car-info-content > .car-brand-model-group {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: reverse;
+      -ms-flex-direction: column-reverse;
+          flex-direction: column-reverse;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  position: absolute;
+  -ms-flex-direction: initial;
+      flex-direction: initial;
   width: 100%;
-  height: 65%;
-  background-position: center !important;
-  background-size: cover !important;
-  background-repeat: no-repeat !important;
-  background-color: #ffffff;
-  border-radius: 4px;
-  /*
-        Kung ang view is mobile
-    */
+  height: 15%;
+  z-index: 1;
 }
 
-@media screen and (min-width: 1px) and (max-width: 768px) {
-  .car-info-content > .car-featured-photo {
-    border-radius: 1.7em;
-    height: 78%;
-  }
-}
-
-.car-info-content > .car-info-group {
+.car-brand-model-group > .label-info-group {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -452,131 +471,65 @@ button:active::after {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  width: 100%;
-  height: 35%;
-  z-index: 2;
+  width: 50%;
+  height: 100%;
+  background-color: initial;
+}
+
+.label-info-group > .label-icon-group {
+  display: none;
   /*
         Kung ang view is mobile
     */
 }
 
 @media screen and (min-width: 1px) and (max-width: 768px) {
-  .car-info-content > .car-info-group {
-    display: block;
-    height: 22%;
+  .label-info-group > .label-icon-group {
+    display: none;
   }
 }
 
-.car-info-group > .car-type-group {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  margin: 0 auto;
+.label-info-group > .info-value {
+  padding: 0 15px;
   width: 100%;
-  max-height: 40px;
-  /*
-        Kung ang view is mobile
-    */
-}
-
-@media screen and (min-width: 1px) and (max-width: 768px) {
-  .car-info-group > .car-type-group {
-    position: absolute;
-    top: 5%;
-    left: 50%;
-    -webkit-transform: translateX(-50%);
-            transform: translateX(-50%);
-    width: 90%;
-  }
-}
-
-.car-type-group > .type-label {
-  display: block;
-  width: 30%;
-  height: 25px;
-  line-height: 25px;
-  font-size: 15px;
-  font-weight: bold;
+  max-height: 100px;
   text-align: center;
   text-overflow: ellipsis;
-  word-wrap: normal;
-  white-space: nowrap;
-  color: #46851c;
-  /*
-        Kung ang view is mobile
-    */
-}
-
-@media screen and (min-width: 1px) and (max-width: 768px) {
-  .car-type-group > .type-label {
-    position: relative;
-    width: 25px;
-    height: 25px;
-    border-radius: 360px;
-    font-size: 0;
-    overflow: hidden;
-  }
-  .car-type-group > .type-label::before {
-    content: ' ';
-    display: block;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    -webkit-transform: translate(-50%, -50%);
-            transform: translate(-50%, -50%);
-    -webkit-animation: ripple 0.4s ease;
-            animation: ripple 0.4s ease;
-    -webkit-animation-fill-mode: forwards;
-            animation-fill-mode: forwards;
-    -webkit-animation-iteration-count: infinite;
-            animation-iteration-count: infinite;
-    background-color: rgba(0, 0, 0, 0.2);
-    border-radius: 360px;
-    z-index: 1;
-  }
-  .car-type-group > .type-label::after {
-    content: ' ';
-    display: block;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    -webkit-transform: translate(-50%, -50%);
-            transform: translate(-50%, -50%);
-    width: 40%;
-    height: 40%;
-    background-color: #2b2323;
-    border-radius: 360px;
-    z-index: 2;
-  }
-}
-
-.car-type-group > .type-value {
-  display: block;
-  padding: 0 5px;
-  width: 70%;
-  min-height: 25px;
-  line-height: 25px;
-  font-size: 15px;
-  font-weight: bold;
-  text-align: justify;
-  text-overflow: ellipsis;
-  word-wrap: normal;
+  word-wrap: break-word;
   white-space: nowrap;
   overflow: hidden;
-  color: #46851c;
+}
+
+.label-info-group > .car-model {
+  font-size: 16px;
+  font-weight: bold;
   /*
         Kung ang view is mobile
     */
 }
 
 @media screen and (min-width: 1px) and (max-width: 768px) {
-  .car-type-group > .type-value {
-    width: calc(100% - 25px);
-    color: #0e0f0c;
+  .label-info-group > .car-model {
+    font-size: 20px;
+    margin: initial;
   }
 }
 
-.car-info-group > .car-event-btn-wrapper {
+.label-info-group > .car-brand {
+  font-size: 16px;
+  /*
+        Kung ang view is mobile
+    */
+}
+
+@media screen and (min-width: 1px) and (max-width: 768px) {
+  .label-info-group > .car-brand {
+    font-size: 16px;
+    margin: initial;
+  }
+}
+
+.car-info-content > .plate-num-group {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -586,74 +539,412 @@ button:active::after {
           flex-direction: row;
   -ms-flex-wrap: nowrap;
       flex-wrap: nowrap;
-  -ms-flex-pack: distribute;
-      justify-content: space-around;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  position: absolute;
+  top: 18%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -18%);
+          transform: translate(-50%, -18%);
+  z-index: 1;
+  width: 80%;
+}
+
+.plate-num-group > .plate-num-ripple {
+  display: block;
+  position: relative;
+  width: 25px;
+  height: 25px;
+  border-radius: 100%;
+  overflow: hidden;
+}
+
+.plate-num-group > .plate-num-ripple::before {
+  content: ' ';
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  -webkit-animation: ripple 0.8s ease-in-out;
+          animation: ripple 0.8s ease-in-out;
+  -webkit-animation-iteration-count: infinite;
+          animation-iteration-count: infinite;
+  border-radius: 360px;
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+.plate-num-group > .plate-num-ripple::after {
+  content: ' ';
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  width: 10px;
+  height: 10px;
+  border-radius: 360px;
+  background-color: #2b2323;
+  margin: 0;
+}
+
+.plate-num-group > .plate-num-value {
+  margin: 0 5px;
+  width: calc(100% - 25px);
+  font-size: 15px;
+  font-weight: bold;
+  text-overflow: ellipsis;
+  word-wrap: none;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.car-info-content > .car-featured-photo {
+  display: block;
+  position: absolute;
+  inset: 0;
+  padding-top: initial;
   width: 100%;
-  height: 60%;
+  height: 100%;
+  z-index: 0;
+  background-position: center !important;
+  background-size: cover !important;
+  background-repeat: no-repeat !important;
+  background-color: #ffffff;
+}
+
+.car-info-content > .event-button-group {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -ms-flex-wrap: nowrap;
+      flex-wrap: nowrap;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 15%;
+  z-index: 1;
+}
+
+.event-button-group > .control-btn {
+  display: block;
+  width: 50%;
+  height: 100%;
+  outline: none;
+  border: none;
+  background-color: transparent;
+}
+
+.event-button-group > .update-car-info {
+  border-radius: 0 2px 0 2px;
+  background-color: #7566ff;
   /*
         Kung ang view is mobile
     */
 }
 
 @media screen and (min-width: 1px) and (max-width: 768px) {
-  .car-info-group > .car-event-btn-wrapper {
-    width: 100%;
-    height: 100%;
+  .event-button-group > .update-car-info {
+    border-radius: 0 2em 0 0;
   }
 }
 
-.car-event-btn-wrapper > .btn-separator {
-  display: block;
-  width: 1px;
-  height: 75%;
-  background-color: #424242;
+.update-car-info > .btn-icon {
+  margin: 0 2px;
+  font-size: 15px;
+  color: #eeeeee;
 }
 
-.car-event-btn-wrapper > .event-btn {
+.update-car-info > .btn-label {
+  margin: 0 2px;
+  font-size: 15px;
+  font-weight: bold;
+  color: #eeeeee;
+}
+
+.event-button-group > .delete-car-info {
+  background-color: #ffffff;
+}
+
+.delete-car-info > .btn-icon {
+  margin: 0 2px;
+  font-size: 15px;
+  color: #1b1818;
+}
+
+.delete-car-info > .btn-label {
+  margin: 0 2px;
+  font-size: 15px;
+  font-weight: bold;
+  color: #1b1818;
+}
+
+/******************** for car adder styling ********************/
+.add-car-view-overlay {
   display: block;
-  width: 45%;
-  height: 60%;
-  outline: none;
-  border: none;
-  border-radius: 4px;
-  color: #e7e7e7;
-  -webkit-box-shadow: 0px 4px 4px -2px rgba(0, 0, 0, 0.2);
-          box-shadow: 0px 4px 4px -2px rgba(0, 0, 0, 0.2);
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  min-width: 1366px;
+  min-height: 768px;
+  z-index: 10000;
+  background-color: rgba(22, 29, 23, 0.4);
   /*
         Kung ang view is mobile
     */
 }
 
-.car-event-btn-wrapper > .event-btn:active {
+@media screen and (min-width: 1px) and (max-width: 768px) {
+  .add-car-view-overlay {
+    min-width: 280px;
+    min-height: 568px;
+  }
+}
+
+.add-car-view-overlay > .add-car-view {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  width: 400px;
+  height: 75%;
+  background-color: #22252F;
+  border-radius: 4px;
+  -webkit-box-shadow: 0px 4px 8px -3px rgba(0, 0, 0, 0.2);
+          box-shadow: 0px 4px 8px -3px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  /*
+        Kung ang view is mobile
+    */
+}
+
+@media screen and (min-width: 1px) and (max-width: 768px) {
+  .add-car-view-overlay > .add-car-view {
+    width: 100%;
+    height: 100%;
+    border-radius: initial;
+  }
+}
+
+.add-car-view > .cancel-addition-group {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 8%;
+  /*
+        Kung ang view is mobile
+    */
+}
+
+@media screen and (min-width: 1px) and (max-width: 768px) {
+  .add-car-view > .cancel-addition-group {
+    height: 56px;
+    background-color: #15191C;
+    -webkit-box-shadow: 0px 3px 6px -2px rgba(0, 0, 0, 0.4);
+            box-shadow: 0px 3px 6px -2px rgba(0, 0, 0, 0.4);
+  }
+}
+
+.cancel-addition-group > .cancel-btn {
+  margin: 0 10px;
+  width: 25px;
+  height: 25px;
+  outline: none;
+  border: none;
+  border-radius: 100%;
+  font-size: 16px;
+  color: #eeeeee;
+  background-color: transparent;
+  /*
+        Kung ang view is mobile
+    */
+}
+
+.cancel-addition-group > .cancel-btn > * {
+  margin: 0 !important;
+}
+
+@media screen and (min-width: 1px) and (max-width: 768px) {
+  .cancel-addition-group > .cancel-btn {
+    width: 35px;
+    height: 35px;
+    font-size: 18px;
+  }
+}
+
+.cancel-addition-group > .cancel-adition-title {
+  display: block;
+  width: 50%;
+  word-wrap: normal;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  font-size: 18px;
+  font-weight: bold;
+  color: #eeeeee;
+}
+
+.add-car-view > .labeled-input-group {
+  display: block;
+  margin: 2.5px 0;
+  width: 85%;
+}
+
+.labeled-input-group > .input-label {
+  display: block;
+  margin: 3px 0;
+  width: 100%;
+  font-size: 14px;
+  font-weight: bold;
+  text-overflow: ellipsis;
+  word-wrap: none;
+  white-space: nowrap;
+  overflow: hidden;
+  color: #eeeeee;
+}
+
+.labeled-input-group > .input-input {
+  display: block;
+  padding: 0 5px;
+  width: 100%;
+  height: 35px;
+  outline: none;
+  border: none;
+  border-radius: 4px;
+  background-color: #15191C;
+  color: #dbdbdb;
+}
+
+.labeled-input-group > .input-input:focus {
+  border: 2px solid #5b5bff;
+}
+
+.labeled-input-group > .input-validator {
+  display: block;
+  width: 100%;
+  font-size: 14px;
+  text-overflow: ellipsis;
+  word-wrap: none;
+  white-space: nowrap;
+  overflow: hidden;
+  color: #ac4949;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+.add-car-view > .attach-image-group {
+  display: block;
+  margin: 2.5px 0;
+  width: 85%;
+}
+
+.attach-image-group > .custom-file-input {
+  display: block;
+  width: 35px;
+  height: 35px;
+  line-height: 35px;
+  text-align: center;
+  outline: none;
+  border: none;
+  border-radius: 360px;
+  background-color: transparent;
+}
+
+.attach-image-group > .image-validator {
+  display: block;
+  width: 100%;
+  font-size: 14px;
+  text-overflow: ellipsis;
+  word-wrap: none;
+  white-space: nowrap;
+  overflow: hidden;
+  color: #ac4949;
+}
+
+.custom-file-input > .add-image-icon {
+  font-size: 15px;
+  color: #eeeeee;
+}
+
+.custom-file-input > .add-image-label {
+  display: none;
+  font-size: 14px;
+  font-weight: bold;
+  color: #eeeeee;
+}
+
+.add-car-view > .btn-add {
+  display: block;
+  margin: 2.5px 0;
+  width: 85%;
+  height: 35px;
+  outline: none;
+  border: none;
+  border-radius: 4px;
+  background-color: #489132;
+  -webkit-box-shadow: 0px 4px 4px -2px rgba(0, 0, 0, 0.2);
+          box-shadow: 0px 4px 4px -2px rgba(0, 0, 0, 0.2);
+}
+
+.add-car-view > .btn-add:active {
   -webkit-box-shadow: 0px 8px 10px -4px rgba(0, 0, 0, 0.3);
           box-shadow: 0px 8px 10px -4px rgba(0, 0, 0, 0.3);
 }
 
-@media screen and (min-width: 1px) and (max-width: 768px) {
-  .car-event-btn-wrapper > .event-btn {
-    width: 38%;
-    border-radius: 100px;
-  }
+.btn-add > .btn-add-icon {
+  font-size: 16px;
+  color: #eeeeee;
 }
 
-.car-event-btn-wrapper > .update-car-info-btn {
-  background-color: #2aa03e;
-}
-
-.event-btn > .event-btn-icon {
-  color: #e7e7e7;
-}
-
-.event-btn > .event-btn-label {
-  color: #e7e7e7;
+.btn-add > .btn-add-label {
   font-size: 14px;
   font-weight: bold;
-}
-
-.car-event-btn-wrapper > .delete-car-btn {
-  background-color: #a33b3b;
+  color: #eeeeee;
 }
 /*# sourceMappingURL=management.css.map */

@@ -69,6 +69,7 @@ $btn-fg : #eeeeee;
     overflow: hidden;
     font-size: 16px;
     text-align: center;
+    text-overflow: ellipsis;
     color: $message-fg;
     word-wrap: break-word;
     white-space: normal;

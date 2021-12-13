@@ -62,7 +62,7 @@ body {
   height: 100vh;
   min-height: 768px;
   background-color: #22252F;
-  z-index: 10000;
+  z-index: 9999;
   /*
         Kung ang view is mobile
     */

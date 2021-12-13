@@ -24,13 +24,14 @@ function conn_error (message) {
     let conn_err = document.createElement("div");
     conn_err.classList.add("connection-error-wrapper-overlay");
     conn_err.innerHTML = 
-    "\t <div class=\"connection-error-wrapper\"> \n"+
-    "\t\t <div class=\"content-wrapper\"> \n"+
-    "\t\t\t <img class=\"dc-icon\" src=\"../../assets/webapp/dc-wifi.png\" alt=\"dc-icon\"> \n"+
-    "\t\t\t <span class=\"dc-message\" role=\"text\">"+ `${message}` + "</span> \n"+
-    "\t\t </div> \n"+
-    "\t </div> \n";
-    
+    `
+    <div class="connection-error-wrapper">
+        <div class="content-wrapper">
+            <img class="dc-icon" src="../../assets/webapp/dc-wifi.png" alt="dc-icon">
+            <span class="dc-message" role="text">${message}</span>
+        </div>
+    </div>
+    `;
     $("body").prepend(conn_err);
 }
 
@@ -43,3 +44,13 @@ export function validate_connection () {
     return true;
 }
 
+
+// old code
+/*
+    "\t <div class=\"connection-error-wrapper\"> \n"+
+    "\t\t <div class=\"content-wrapper\"> \n"+
+    "\t\t\t <img class=\"dc-icon\" src=\"../../assets/webapp/dc-wifi.png\" alt=\"dc-icon\"> \n"+
+    "\t\t\t <span class=\"dc-message\" role=\"text\">"+ `${message}` + "</span> \n"+
+    "\t\t </div> \n"+
+    "\t </div> \n";
+*/

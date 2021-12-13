@@ -12,12 +12,13 @@ import
     getStorage     , 
     ref            , 
     getDownloadURL , 
+    uploadBytes    ,
 }
 from "https://www.gstatic.com/firebasejs/9.6.0/firebase-storage.js";
 
 import 
 { 
-    getFirestore , 
+    getFirestore ,
     collection   ,
     addDoc       ,
     getDocs      ,
@@ -41,6 +42,7 @@ import
     SUBSCRIPTION
 }   
 from "../states/subscription.js";
+
 
 import
 { 
@@ -77,10 +79,12 @@ catch ($err) {
     console.log($err);
 }
 
-
+/******************* PROFILING *******************/
+ 
 /* on update in current loggedin company */
 export async function on_company_update (uid,callback) {
     validate_connection();
+
     let company = collection(
         FIRESTORE_DB ,
         "company"
@@ -221,6 +225,8 @@ export async function get_data_by_id (id) {
 
 /* Get company image by uid */
 export async function get_company_profile_images_by_uid (uid) {
+    validate_connection();
+    
     let storage   = getStorage();
     let path      = `company/${uid}/profile/`;
     let dp_ref    = ref(storage , `${path}/dp.jpg`);
@@ -254,4 +260,120 @@ export async function get_company_profile_images_by_uid (uid) {
 
 
 
+/******************* CAR MANAGEMENT *******************/
 
+// get cars by status eg: RUNNING | PARKED
+export async function get_car_by_status (company_uid,status) {
+    validate_connection();
+
+    let company = collection(
+        FIRESTORE_DB,
+        "cars"
+    );
+
+    let q = query(
+        company ,
+        where(
+            "owner"     ,
+            "=="        ,
+            company_uid ,
+        ) ,
+        where(
+            "status" ,
+            "=="     ,
+            status   ,
+        ),
+    )
+
+    let docSnapShot = await getDocs(q);
+    let cars = [];
+    docSnapShot.forEach((doc) => {
+        cars.push({
+            id   : doc.id,
+            data : doc.data()
+        });
+    });
+    return cars;
+}
+
+// getall cars by owner or company id
+export async function get_cars_by_owner (company_uid) {
+    validate_connection();
+
+    let company = collection(
+        FIRESTORE_DB,
+        "cars"
+    );
+
+    let q = query(
+        company ,
+        where(
+            "owner"     ,
+            "=="        ,
+            company_uid ,
+        )
+    );
+    let docSnapShot = await getDocs(q);
+    let cars = [];
+    docSnapShot.forEach((doc) => {
+        cars.push({
+            id   : doc.id,
+            data : doc.data()
+        });
+    });
+    
+    return cars;
+}
+
+// get saved car brands
+export async function get_car_brands (uid) {
+    validate_connection();
+
+    let brands , cars;
+    brands = [];
+    cars = await get_cars_by_owner(uid);
+
+    cars.forEach((data) => {
+        if (!brands.includes(data.data.brand));
+            brands.push(data.data.brand);
+    });
+   
+    return brands;
+}
+
+// get saved car models
+export async function get_car_models (uid) {
+    validate_connection();
+
+    let models , cars;
+    models = [];
+    cars   = await get_cars_by_owner(uid);
+
+    cars.forEach((data) => {
+        if (!models.includes(data.data.model));
+            models.push(data.data.model);
+    });
+    return models;
+}
+
+// upload images or new added cars
+export function upload_image (car_id,files) {
+    validate_connection();
+
+    let storage , storageRef;
+
+    storage = getStorage();
+    for (let idx = 0;idx < files.length;idx++) {
+        
+        storageRef = ref(storage,`cars/${car_id}/${files[idx].name}`);
+
+        uploadBytes(storageRef,files[idx])
+        .then((snapshot) => {
+            // on uploaded
+        })
+        .catch((e)=>{
+            // on upload error
+        });
+        
+    }
+}

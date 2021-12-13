@@ -24,15 +24,38 @@ $add-car-btn-fg : #e7e7e7;
 $empty-car-list-fg : #7566ff;
 
 // car type
-$car-type-ripple-mobile : rgba(0,0,0,0.2);
-$car-type-bullet : #2b2323;
+$car-plate-ripple : rgba(0,0,0,0.2);
+$car-plate-bullet : #2b2323;
 $car-featured-photo-bg : #ffffff;
 $car-type-label-fg : #46851c;
 $car-type-label-mobile-fg : #0e0f0c;
 $car-event-btn-fg : #e7e7e7;
 $car-event-btn-eparator-bg: #424242;
-$update-car-btn-bg : #2aa03e;
-$delete-car-btn-bg : #a33b3b;
+$update-car-btn-bg : #7566ff;
+$update-car-btn-fg : #eeeeee;
+$delete-car-btn-bg : $car-featured-photo-bg;
+$delete-car-btn-fg : #1b1818;
+
+// for add car view overlay
+$add-car-view-overlay-bg : rgba(22, 29, 23, 0.4);
+$cancel-btn-fg: #eeeeee;
+
+// for add car view label
+$add-car-label-fg: #eeeeee;
+$add-car-input-fg : #dbdbdb;
+
+// for inputs
+$input-active-border-bg : rgb(91, 91, 255);
+$validator-fg : #ac4949;
+
+// for attach image btn
+$attach-img-btn-bg : #7566ff;
+$attach-img-btn-fg : #eeeeee;
+
+// for add car btn
+$btn-add-bg : #489132;
+$btn-add-fg : #eeeeee;
+
 
 $ripple-bg : rgba(214, 250, 244, 0.2);
 
@@ -60,7 +83,7 @@ $ripple-bg : rgba(214, 250, 244, 0.2);
     }
 }
 
- button {
+ button , .custom-file-input {
     position: relative;
     overflow: hidden;
     &:active {
@@ -72,7 +95,8 @@ $ripple-bg : rgba(214, 250, 244, 0.2);
             left: 50%;
             transform: translate(-50%,-50%);
             animation: ripple 0.2s ease-in;
-            animation-fill-mode: forwards;
+            animation-fill-mode: both;
+            animation-play-state: running;
             background-color: $ripple-bg;
             border-radius: 360px;
         }
@@ -225,6 +249,7 @@ $ripple-bg : rgba(214, 250, 244, 0.2);
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    align-items: flex-start;
     margin: auto;
     width: 80%;
     height: calc(100% - calc(30% + 10px) );
@@ -234,6 +259,7 @@ $ripple-bg : rgba(214, 250, 244, 0.2);
     scroll-snap-type: y mandatory;
     background-attachment: fixed;
     @include on_Medium_Dev {
+        align-items: initials;
         width: calc(85% + 10px);
         height: calc(100% - 25%);
     }
@@ -260,218 +286,460 @@ $ripple-bg : rgba(214, 250, 244, 0.2);
     color: $empty-car-list-fg;
 }
 
+
 .car-list-wrapper > .car-info-wrapper {
     display: block;
     position: relative;
     margin: 5px;
-    width: calc( calc(100% - 30px ) / 3);
-    height: calc( calc(100% - 20px ) / 2.1);
+    padding-top: calc(calc(100% - 20px) / 2);
+    width: calc(calc(100% - 20px) / 2);
     background-color: $secondary;
     scroll-snap-align: start;
     scroll-margin-block: 5px;
-    border-radius: 4px;
-    box-shadow: 0px 4px 8px -4px rgba(0,0,0,0.2);
+    border-radius: 2px;
+    box-shadow: 0px 4px 10px -4px rgba(0,0,0,0.2);
     overflow: hidden;
     @include on_Medium_Dev {
         scroll-margin-block: 15px;
-        position: relative; 
         margin: 15px auto;
         padding-top: calc(100% - 10px);
         width: calc(100% - 10px);
-        // max-width: 540px; // FIXME: watchout !!!!!!
-        // max-height: 540px; // FIXME: watchout !!!!!!
         border-radius: 2em;
-        overflow-y: clip;
     }
 }
 
-
 .car-info-wrapper > .car-info-content {
     display: block;
+    flex-direction: initial;
+    flex-wrap: initial;
+    justify-content: initial;
+    align-items: initial;
+    padding: initial;
     position: absolute;
     inset: 0;
-    padding: 5px !important;
     width: 100%;
     height: 100%;
     // background-color: yellow;
 }
 
 
-.car-info-content > .car-featured-photo {
-    display: block;
+.car-info-content > .car-brand-model-group {
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    flex-direction: initial;
     width: 100%;
-    height: 65%;
-    background-position: center !important;
-    background-size: cover !important;
-    background-repeat: no-repeat !important;
-    background-color: $car-featured-photo-bg;
-    border-radius: 4px;
-    @include on_Medium_Dev {
-        border-radius:  1.7em;
-        height: 78%;
-    }
-
+    height: 15%;
+    // background-color: yellow;
+    z-index: 1;
 }
 
-.car-info-content > .car-info-group {
+.car-brand-model-group > .label-info-group {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 100%;
-    height: 35%;
-    // background-color: green; 
-    z-index: 2;
-    @include on_Medium_Dev {
-        display: block;
-        height: 22%;
+    width: 50%;
+    height: 100%;
+    background-color: initial;
+}
 
+.label-info-group > .label-icon-group {
+    display: none;
+    @include on_Medium_Dev {
+        display: none;
     }
 }
 
-.car-info-group > .car-type-group {
-    display: flex;
-    margin: 0 auto;
-    width: 100%;
-    max-height: 40px;
-    // background-color: green;
-    @include on_Medium_Dev {
-        position: absolute;
-        top: 5%;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 90%;
-    }
-}
 
-.car-type-group > .type-label {
-    display: block;
-    width: 30%;
-    height: 25px;
-    line-height: 25px;
-    font-size: 15px;
-    font-weight: bold;
-    // background-color: blue;
+.label-info-group > .info-value {
+    padding: 0 15px;
+    width: 100%;
+    max-height: 100px;
     text-align: center;
     text-overflow: ellipsis;
-    word-wrap: normal;
+    word-wrap: break-word;
     white-space: nowrap;
-    color: $car-type-label-fg;
-    @include on_Medium_Dev {
-        position: relative;
-        width: 25px;
-        height: 25px;
-        border-radius: 360px;
-        font-size: 0;
-        overflow: hidden;
-        &::before {
-            content: ' ';
-            display: block;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%,-50%);
-            animation: ripple 0.4s ease;
-            animation-fill-mode: forwards;
-            animation-iteration-count: infinite;
-            background-color: $car-type-ripple-mobile;
-            border-radius: 360px;
-            z-index: 1;
-        }
-        &::after {
-            content: ' ';
-            display: block;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%,-50%);
-            width: 40%;
-            height: 40%;
-            background-color: $car-type-bullet;
-            border-radius: 360px;
-            z-index: 2;
-        }
-    }
-}
-
-.car-type-group > .type-value {
-    display: block;
-    padding: 0 5px;
-    width: 70%;
-    min-height: 25px;
-    line-height: 25px;
-    font-size: 15px;
-    font-weight: bold;
-    text-align: justify;
-    text-overflow: ellipsis;
-    word-wrap: normal;
-    white-space: nowrap;
-    // background-color: yellow;
     overflow: hidden;
-    color: $car-type-label-fg;
+}
+
+.label-info-group > .car-model {
+    font-size: 16px;
+    font-weight: bold;
     @include on_Medium_Dev {
-        width: calc(100% - 25px);
-        color: $car-type-label-mobile-fg;
+        font-size: 20px;
+        margin: initial;
     }
 }
 
-.car-info-group > .car-event-btn-wrapper {
+.label-info-group > .car-brand {
+    font-size: 16px;
+    // margin: 0 15px;
+    @include on_Medium_Dev {
+        font-size: 16px;
+        margin: initial;
+    }
+}
+
+.car-info-content >  .plate-num-group {
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
-    justify-content: space-around;
+    justify-content: center;
     align-items: center;
-    width: 100%;
-    height: 60%;
+    position: absolute;
+    top: 18%;
+    left: 50%;
+    transform: translate(-50%,-18%);
+    z-index: 1;
+    width: 80%;
+    // background-color: blue;
+}
+
+
+
+.plate-num-group > .plate-num-ripple {
+    display: block;
+    position: relative;
+    width: 25px;
+    height: 25px;
+    border-radius: 100%;
+    overflow: hidden;
     // background-color: yellow;
-    @include on_Medium_Dev {
-        width: 100%;
-        height: 100%;
+    &::before {
+        content: ' ';
+        display: block;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+        animation: ripple 0.8s ease-in-out;
+        animation-iteration-count: infinite;
+        border-radius: 360px;
+        background-color: $car-plate-ripple;
+    }
+    &::after {
+        content: ' ';
+        display: block;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+        width: 10px;
+        height: 10px;
+        border-radius: 360px;
+        background-color: $car-plate-bullet;
+        margin: 0;
     }
 }
 
-.car-event-btn-wrapper > .btn-separator {
-    display: block;
-    width: 1px;
-    height: 75%;
-    background-color: $car-event-btn-eparator-bg;
-}   
+.plate-num-group > .plate-num-value {
+    margin: 0 5px;
+    width: calc(100% - 25px);
+    font-size: 15px;
+    font-weight: bold;
+    text-overflow: ellipsis;
+    word-wrap: none;
+    white-space: nowrap;
+    overflow: hidden;
+}
 
-.car-event-btn-wrapper > .event-btn {
+.car-info-content > .car-featured-photo {
     display: block;
-    width: 45%;
-    height: 60%;
+    position: absolute;
+    inset: 0;
+    padding-top: initial;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    background-position: center !important;
+    background-size: cover !important;
+    background-repeat: no-repeat !important;
+    background-color: $car-featured-photo-bg;
+}
+
+.car-info-content > .event-button-group  {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 15%;
+    // background-color: yellow;
+    z-index: 1;
+}
+
+.event-button-group > .control-btn {
+    display: block;
+    width: 50%;
+    height: 100%;
+    outline: none;
+    border: none;
+    background-color: transparent;
+}
+
+
+.event-button-group > .update-car-info {
+    border-radius: 0 2px 0 2px;
+    background-color: $update-car-btn-bg;
+    @include on_Medium_Dev {
+        border-radius: 0 2em 0 0;
+    }
+}
+
+.update-car-info > .btn-icon {
+    margin: 0 2px;
+    font-size: 15px;
+    color: $update-car-btn-fg;
+}
+
+.update-car-info > .btn-label {
+    margin: 0 2px;
+    font-size: 15px;
+    font-weight: bold;
+    color: $update-car-btn-fg;
+}
+
+
+.event-button-group > .delete-car-info {
+    background-color: $delete-car-btn-bg;
+}
+
+.delete-car-info> .btn-icon {
+    margin: 0 2px;
+    font-size: 15px;
+    color: $delete-car-btn-fg;
+}
+
+.delete-car-info > .btn-label {
+    margin: 0 2px;
+    font-size: 15px;
+    font-weight: bold;
+    color: $delete-car-btn-fg;
+}
+
+
+
+/******************** for car adder styling ********************/ 
+.add-car-view-overlay {
+    display: block;
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    min-width: 1366px;
+    min-height: 768px;
+    z-index: 10000;
+    background-color: $add-car-view-overlay-bg;
+    @include on_Medium_Dev {
+        min-width: 280px;
+        min-height: 568px;
+    }
+}
+
+
+.add-car-view-overlay > .add-car-view {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    width: 400px;
+    height: 75%;
+    background-color: $secondary;
+    border-radius: 4px;
+    box-shadow: 0px 4px 8px -3px rgba(0,0,0,0.2);
+    overflow: hidden;
+    @include on_Medium_Dev {
+        width: 100%;
+        height: 100%;
+        border-radius: initial;
+    }
+}
+
+.add-car-view > .cancel-addition-group {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 8%;
+    @include on_Medium_Dev {
+        height: 56px;
+        background-color: $primary;
+        box-shadow: 0px 3px 6px -2px rgba($color: #000000, $alpha: 0.4);
+    }
+}
+
+.cancel-addition-group > .cancel-btn {
+    margin: 0 10px;
+    width: 25px;
+    height: 25px;
+    outline: none;
+    border: none;
+    border-radius: 100%;
+    font-size: 16px;
+    color: $cancel-btn-fg;
+    background-color: transparent;   
+    & > * {
+        margin: 0 !important;
+    }
+    @include on_Medium_Dev {
+        width: 35px;
+        height: 35px;
+        font-size: 18px;
+    }
+}
+
+.cancel-addition-group > .cancel-adition-title {
+    display: block;
+    width: 50%;
+    word-wrap: normal;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    font-size: 18px;
+    font-weight: bold;
+    color: $cancel-btn-fg;
+    // background-color: yellow;
+}
+
+.add-car-view > .labeled-input-group {
+    display: block;
+    margin: 2.5px 0;
+    width: 85%;
+    // background-color: yellow;
+}
+
+.labeled-input-group > .input-label {
+    display: block;
+    margin: 3px 0;
+    width: 100%;
+    font-size: 14px;
+    font-weight: bold;
+    text-overflow: ellipsis;
+    word-wrap: none;
+    white-space: nowrap;
+    overflow: hidden;
+    color: $add-car-label-fg;
+}
+
+.labeled-input-group  > .input-input {
+    display: block;
+    padding: 0 5px;
+    width: 100%;
+    height: 35px;
     outline: none;
     border: none;
     border-radius: 4px;
-    color: $car-event-btn-fg;
+    background-color: $primary;
+    color: $add-car-input-fg;
+    &:focus {
+        border: 2px solid $input-active-border-bg;
+    }
+}
+
+.labeled-input-group > .input-validator {
+    display: block;
+    width: 100%;
+    font-size: 14px;
+    text-overflow: ellipsis;
+    word-wrap: none;
+    white-space: nowrap;
+    overflow: hidden;
+    color: $validator-fg;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+.add-car-view > .attach-image-group {
+    display: block;
+    margin: 2.5px 0;
+    width: 85%;
+    // background-color: yellow;
+}
+
+.attach-image-group > .custom-file-input {
+    display: block;
+    width: 35px;
+    height: 35px;
+    line-height: 35px;
+    text-align: center;
+    outline: none;
+    border: none;
+    border-radius: 360px;
+    // background-color: $attach-img-btn-bg;
+    background-color: transparent;
+    // box-shadow: 0px 4px 4px -2px rgba(0,0,0,0.2);
+    // &:active {
+    //     box-shadow: 0px 8px 10px -4px rgba(0,0,0,0.3);
+    // }
+}
+
+.attach-image-group > .image-validator {
+    display: block;
+    width: 100%;
+    font-size: 14px;
+    text-overflow: ellipsis;
+    word-wrap: none;
+    white-space: nowrap;
+    overflow: hidden;
+    color: $validator-fg;
+}
+
+.custom-file-input > .add-image-icon {
+    font-size: 15px;
+    color: $attach-img-btn-fg;
+}
+
+.custom-file-input > .add-image-label {
+    display: none;
+    font-size: 14px;
+    font-weight: bold;
+    color: $attach-img-btn-fg;
+}
+
+.add-car-view > .btn-add {
+    display: block;
+    margin: 2.5px 0;
+    width: 85%;
+    height: 35px;
+    outline: none;
+    border: none;
+    border-radius: 4px;
+    background-color: $btn-add-bg;
     box-shadow: 0px 4px 4px -2px rgba(0,0,0,0.2);
     &:active {
         box-shadow: 0px 8px 10px -4px rgba(0,0,0,0.3);
     }
-    @include on_Medium_Dev {
-        width: 38%;
-        border-radius: 100px;
-    }
 }
 
-.car-event-btn-wrapper > .update-car-info-btn {
-    
-    background-color: $update-car-btn-bg;
+
+
+.btn-add > .btn-add-icon {
+    font-size: 16px;
+    color: $btn-add-fg;
 }
 
-.event-btn > .event-btn-icon {
-    color: $car-event-btn-fg;
-}
-
-.event-btn > .event-btn-label {
-    color: $car-event-btn-fg;
+.btn-add > .btn-add-label {
     font-size: 14px;
     font-weight: bold;
+    color: $btn-add-fg;
 }
-
-.car-event-btn-wrapper > .delete-car-btn {
-    
-    background-color: $delete-car-btn-bg;
-}
-

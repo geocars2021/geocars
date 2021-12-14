@@ -312,7 +312,7 @@ export async function insert_new_car (uid,data) {
 
     await insert_activity(
         uid,
-        "Added a new car."
+        `Added a new car with plate no. ${data.plate}.`
     );
 }
 
@@ -339,6 +339,7 @@ export function upload_image (car_id,files) {
 }
 
 /***** GETTERS *****/
+
 // getall cars by owner or company id
 export async function get_cars_by_owner (uid) {
     validate_connection();
@@ -368,7 +369,26 @@ export async function get_cars_by_owner (uid) {
     return carsL;
 }
 
-//get car by plate number
+// get car by id
+export async function get_car_by_id (car_id) {
+    let cars = collection(
+        FIRESTORE_DB,
+        "cars"
+    );
+
+    let d = doc(
+        cars   ,
+        car_id ,
+    );
+
+    let snapshot = await getDoc(d);
+    if (snapshot.exists()) 
+        return snapshot.data();
+    
+    return null;
+}
+
+// get car by plate number
 export async function get_car_by_plate_no (uid,plate) {
     validate_connection();
 
@@ -461,6 +481,28 @@ export async function get_car_models (uid) {
         models.push(data.data.model);
     });
     return new Set(models);
+}
+
+export async function get_car_images_by_car_id (car_id) {
+    validate_connection();
+
+    let storage = getStorage();
+    let imgRef;
+
+    let car    = await get_car_by_id(car_id);
+    let images = car.photos;
+    let urls   = [];
+    for (let idx = 0;idx < images.length;idx++) {
+        imgRef = ref(storage,`cars/${car_id}/${images[idx]}`);
+        await getDownloadURL(imgRef)
+        .then((dl_url) => {
+            urls.push(dl_url);
+        })
+        .catch((err) => {
+            console.log(err.code);
+        });
+    }
+    return urls;
 }
 
 

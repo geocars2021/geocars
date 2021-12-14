@@ -16,6 +16,7 @@ import "../sidebar/sidebar.js";
 import
 {
     get_car_by_status,
+    get_car_images_by_car_id,
     insert_new_car,
     on_car_update,
 }
@@ -97,20 +98,22 @@ async function load_content () {
         clear_cars();
 
         let size = parked_cars.length;
+
         for (let idx = 0; idx < size;idx++) {
-            
+            let photos = await get_car_images_by_car_id(parked_cars[idx].id)
             insert_car_to_list(
-                parked_cars[idx]
+                parked_cars[idx] ,
+                photos           ,
             );
         }
     }
-
-    load_finish();
+    
 }
 
 on_car_update(uid,() => {
     
     load_content();
+    load_finish();
 });
 
 

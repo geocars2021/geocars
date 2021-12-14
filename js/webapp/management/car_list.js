@@ -35,8 +35,9 @@ function add_carTile(carID,carBrand,carModel,carPlate,carPhotoUrl,on_update,on_d
             <span class="plate-num-value" role="text">${carPlate}</span>
         </div>
 
-        <div class="car-featured-photo" style="background-image: url('${carPhotoUrl}');"></div>    
-        
+        <div class="car-featured-photo" style="background-image: url('${carPhotoUrl}');"></div>
+       
+
         <div class="event-button-group">
             <!-- on update -->
             <button class="control-btn update-car-info">
@@ -46,7 +47,7 @@ function add_carTile(carID,carBrand,carModel,carPlate,carPhotoUrl,on_update,on_d
             <!-- on delete -->
             <button class="control-btn delete-car-info">
                 <i class="btn-icon fa fa-trash"></i>
-                <span class="btn-label">Update</span>
+                <span class="btn-label">Delete</span>
             </button>
         </div>
     </div>
@@ -65,15 +66,15 @@ export function clear_cars () {
 
 // carID,carBrand,carModel,carPlate,carPhotoUrl,on_update,on_delete
 
-export async function insert_car_to_list (car_data,on_update,on_delete) {
+export async function insert_car_to_list (car_data,photos,on_update,on_delete) {
     let car_list = $("#car-list");
     car_list.append(
         add_carTile(
-            car_data.id,
-            car_data.data.brand,
-            car_data.data.model,
-            car_data.data.plateno,
-            "",
+            car_data.id           ,
+            car_data.data.brand   ,
+            car_data.data.model   ,
+            car_data.data.plateno ,
+            photos[0],
         )
     );
 }

@@ -281,7 +281,7 @@ export async function on_car_update (uid,callback) {
 /***** SETTERS *****/
 // inserts a new car
 export async function insert_new_car (uid,data) {
-    // TODO: FINISH ME
+   
     validate_connection();
 
     let cars = collection(
@@ -371,6 +371,8 @@ export async function get_cars_by_owner (uid) {
 
 // get car by id
 export async function get_car_by_id (car_id) {
+    validate_connection();
+
     let cars = collection(
         FIRESTORE_DB,
         "cars"
@@ -414,7 +416,10 @@ export async function get_car_by_plate_no (uid,plate) {
     let docSnapShot = await getDocs(q);
     let car;
     docSnapShot.forEach((data) => {
-        car = data;
+        car = {
+            id   : data.id,
+            data : data.data()
+        };
         return;
     });
     return car;

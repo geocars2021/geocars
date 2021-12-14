@@ -338,8 +338,6 @@ button:active::after, .custom-file-input:active::after {
   height: calc(100% - calc(30% + 10px));
   overflow: auto;
   scroll-behavior: smooth;
-  -ms-scroll-snap-type: y mandatory;
-      scroll-snap-type: y mandatory;
   background-attachment: fixed;
   /*
         Kung ang view is mobile
@@ -393,8 +391,6 @@ button:active::after, .custom-file-input:active::after {
   padding-top: calc(calc(100% - 20px) / 2);
   width: calc(calc(100% - 20px) / 2);
   background-color: #22252F;
-  scroll-snap-align: start;
-  scroll-margin-block: 5px;
   border-radius: 2px;
   -webkit-box-shadow: 0px 4px 10px -4px rgba(0, 0, 0, 0.2);
           box-shadow: 0px 4px 10px -4px rgba(0, 0, 0, 0.2);

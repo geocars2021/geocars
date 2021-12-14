@@ -15,7 +15,6 @@ import "../sidebar/sidebar.js";
 
 import
 {
-    get_car_by_plate_no,
     get_car_by_status,
     get_car_images_by_car_id,
     insert_new_car,
@@ -40,6 +39,7 @@ import
     add_car_view ,
 }
 from "./pop_ups/car_adder.js"
+
 import 
 { 
     CARSTATUS 
@@ -62,11 +62,15 @@ uid = get_login_cred();
 const management = ({
     search_bar: null,
     add_new_car_btn: null,
+    car_list: null,
+    fully_loaded: false,
     loaded_cars : [],
     onload: function() {
         this.add_search_event();
 
         this.add_new_car_event();
+
+        this.add_scroll_event();
 
         on_car_update(uid , () => {
             this.save_content();
@@ -78,7 +82,9 @@ const management = ({
         this.search_bar = $("#input-search");
         this.search_res = $("#search-result");
         this.search_bar.keyup(async (key) => {
-            
+            if (!this.fully_loaded)
+                return;
+
             for (let idx = 0; idx < this.loaded_cars.length;idx++) {
                 const car_obj = this.loaded_cars[idx];
                 if (car_obj.car.data.plateno == this.search_bar.val()) {
@@ -88,10 +94,8 @@ const management = ({
                         car_obj.photos ,
                     );
                     break;
-                } 
-                else{
+                }else 
                     this.load_content();
-                }
             }
         });
     },
@@ -119,7 +123,28 @@ const management = ({
             );
         });
     },
+    add_scroll_event: function() {
+        this.car_list = $("#car-list");
+        this.car_list.scroll(() => {
+            $(".car-info-wrapper").each((idx,elem) => {
+                const basis = (
+                    (elem.getBoundingClientRect().top - 
+                    (window.innerWidth < 768)?15 : 5) -
+                    this.car_list.offset().top
+                );
+
+                if (basis < 0) {
+                    elem.style.opacity = (
+                        (idx+1) - 
+                        this.car_list.scrollTop() / 
+                        elem.offsetHeight
+                    );
+                }
+            });
+        });
+    },
     save_content: async function() {
+
         let parked_cars = await get_car_by_status(
             uid,
             CARSTATUS.PARKED
@@ -128,8 +153,8 @@ const management = ({
         if(parked_cars.length > 0) {
 
             let size = parked_cars.length;
-            
-            this.loaded_cars = [];
+            this.fully_loaded = false;
+            this.loaded_cars  = [];
 
             for (let idx = 0; idx < size;idx++) {
                 let photos = await get_car_images_by_car_id(
@@ -141,10 +166,12 @@ const management = ({
                 });
                 this.load_content();
             }
-            this.load_content();
+            this.fully_loaded = true;
         }
     },
     load_content : function() {
+       
+        
         if(this.loaded_cars.length > 0) {
             try {
                 // hide only ampty activity
@@ -153,13 +180,24 @@ const management = ({
             }catch(err){}
             
             clear_cars();
- 
+
             let size = this.loaded_cars.length;
             
             for (let idx = 0; idx < size;idx++) {
                 insert_car_to_list(
                     this.loaded_cars[idx].car    ,
                     this.loaded_cars[idx].photos ,
+                    () => {
+                        // on tile click
+                    },
+                    () => {
+                        // on update
+                        alert("Fuck")
+                    },
+                    () => {
+                        // on delete
+                        alert("Fuck")
+                    }
                 );
             }
         }

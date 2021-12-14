@@ -6,6 +6,7 @@ import "../../jquery/jquery-cookie-1.4.1.min.js";
 
 function add_carTile(carID,carBrand,carModel,carPlate,carPhotoUrl,on_update,on_delete) {
     let car_info_wrapper = document.createElement("div");
+    car_info_wrapper.id = carID;
     car_info_wrapper.classList.add("car-info-wrapper");
     car_info_wrapper.innerHTML =
     `
@@ -40,12 +41,12 @@ function add_carTile(carID,carBrand,carModel,carPlate,carPhotoUrl,on_update,on_d
 
         <div class="event-button-group">
             <!-- on update -->
-            <button class="control-btn update-car-info">
+            <button id="${carID}-upd" class="control-btn update-car-info">
                 <i class="btn-icon fa fa-edit"></i>
                 <span class="btn-label">Update</span>
             </button>
             <!-- on delete -->
-            <button class="control-btn delete-car-info">
+            <button id="${carID}-del" class="control-btn delete-car-info">
                 <i class="btn-icon fa fa-trash"></i>
                 <span class="btn-label">Delete</span>
             </button>
@@ -64,18 +65,20 @@ export function clear_cars () {
     }
 }
 
-// carID,carBrand,carModel,carPlate,carPhotoUrl,on_update,on_delete
-
-export async function insert_car_to_list (car_data,photos,on_update,on_delete) {
+export async function insert_car_to_list (car_data,photos,on_click,on_update,on_delete) {
     let car_list = $("#car-list");
+    let car_view = add_carTile(
+        car_data.id           ,
+        car_data.data.brand   ,
+        car_data.data.model   ,
+        car_data.data.plateno ,
+        photos[0],
+    )
     car_list.append(
-        add_carTile(
-            car_data.id           ,
-            car_data.data.brand   ,
-            car_data.data.model   ,
-            car_data.data.plateno ,
-            photos[0],
-        )
+        car_view
     );
+    $(`#${car_data.id}`).click(() => on_click());
+    $(`#${car_data.id}-upd`).click(() => on_update());
+    $(`#${car_data.id}-del`).click(() => on_delete());
 }
 

@@ -256,7 +256,7 @@ $ripple-bg : rgba(214, 250, 244, 0.2);
     // background-color: blue;
     overflow: auto;
     scroll-behavior: smooth;
-    scroll-snap-type: y mandatory;
+    // scroll-snap-type: y mandatory; // FIXME: changes
     background-attachment: fixed;
     @include on_Medium_Dev {
         align-items: initials;
@@ -294,8 +294,8 @@ $ripple-bg : rgba(214, 250, 244, 0.2);
     padding-top: calc(calc(100% - 20px) / 2);
     width: calc(calc(100% - 20px) / 2);
     background-color: $secondary;
-    scroll-snap-align: start;
-    scroll-margin-block: 5px;
+    // scroll-snap-align: start; // FIXME: changes
+    // scroll-margin-block: 5px; // FIXME: changes
     border-radius: 2px;
     box-shadow: 0px 4px 10px -4px rgba(0,0,0,0.2);
     overflow: hidden;

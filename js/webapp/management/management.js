@@ -67,6 +67,7 @@ uid = get_login_cred();
 
 const management = ({
     search_bar: null,
+    search_btn: null,
     add_new_car_btn: null,
     car_list: null,
     fully_loaded: false,
@@ -78,6 +79,8 @@ const management = ({
 
         this.add_opacity_effect();
 
+        this.add_search_click_event();
+
         on_car_update(uid , () => {
             this.save_content();
             load_finish();
@@ -86,24 +89,35 @@ const management = ({
     add_search_event : function () {
         // filter content
         this.search_bar = $("#input-search");
-        this.search_res = $("#search-result");
         this.search_bar.keyup(async (key) => {
             if (!this.fully_loaded)
                 return;
-
-            for (let idx = 0; idx < this.loaded_cars.length;idx++) {
-                const car_obj = this.loaded_cars[idx];
-                if (car_obj.car.data.plateno == this.search_bar.val()) {
-                    clear_cars();
-                    insert_car_to_list(
-                        car_obj.car    ,
-                        car_obj.photos ,
-                    );
-                    break;
-                }else 
-                    this.load_content();
-            }
+            this.on_search();
+            
         });
+    },
+    add_search_click_event : function () {
+        this.search_btn = $("#search-btn");
+        this.search_btn.click(async (key) => {
+            if (!this.fully_loaded)
+                return;
+            this.on_search();
+        });
+    },
+    on_search: function() {
+
+        for (let idx = 0; idx < this.loaded_cars.length;idx++) {
+            const car_obj = this.loaded_cars[idx];
+            if (car_obj.car.data.plateno == this.search_bar.val()) {
+                clear_cars();
+                insert_car_to_list(
+                    car_obj.car    ,
+                    car_obj.photos ,
+                );
+                break;
+            }else 
+                this.load_content();
+        }
     },
     add_new_car_event: function () {
         // add car
@@ -201,15 +215,20 @@ const management = ({
                         qr_viewer(
                             car.car.data.owner ,
                             car.car.id         ,
+                            (popup) => {
+                                popup.remove();
+                            }
                         );
                     },
-                    () => {
+                    (e) => {
                         // on update
-                        alert("Fuck")
+                        alert(`${e}`)
+                        e.stopPropagation();
                     },
-                    () => {
+                    (e) => {
                         // on delete
                         alert("Fuck")
+                        e.stopPropagation();
                     }
                 );
             }

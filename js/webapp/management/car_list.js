@@ -77,8 +77,8 @@ export async function insert_car_to_list (car_data,photos,on_click,on_update,on_
     car_list.append(
         car_view
     );
-    $(`#${car_data.id}`).click(() => on_click());
-    $(`#${car_data.id}-upd`).click(() => on_update());
-    $(`#${car_data.id}-del`).click(() => on_delete());
+    $(`#${car_data.id}`).click((e) => on_click(e));
+    $(`#${car_data.id}-upd`).click((e) => on_update(e));
+    $(`#${car_data.id}-del`).click((e) => on_delete(e));
 }
 

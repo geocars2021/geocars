@@ -8,7 +8,7 @@ import
 from "../../tool/qrcode_gen/qrcode.js";
 
 
-export async function qr_viewer (uid,carid) {
+export async function qr_viewer (uid,carid,on_close_callback) {
     let qr_view_overlay = document.createElement("div");
     qr_view_overlay.classList.add("qr-view-overlay");
     qr_view_overlay.innerHTML = 
@@ -28,20 +28,26 @@ export async function qr_viewer (uid,carid) {
     function generate () {
         const qr = $("#qr-code");
         qr.empty();
-
-        new QRCode(
-            "qr-code", 
-            {
-                text   : `{owner: ${uid},carid: ${carid}}`,
-                width  : qr.width() - 15,
-                height : qr.width() - 15,
-                correctLevel : QRCode.CorrectLevel.H
-            }
-        );
+        try {
+            new QRCode(
+                "qr-code", 
+                {
+                    text   : `{owner: ${uid},carid: ${carid}}`,
+                    width  : qr.width() - 15,
+                    height : qr.width() - 15,
+                    correctLevel : QRCode.CorrectLevel.H
+                }
+            );
+        }
+        catch(err) {}
     }
 
     $("body").prepend(qr_view_overlay);
 
+    $("#qr-close-btn").click(() => {
+        if(on_close_callback)
+            on_close_callback(qr_view_overlay);
+    });
 
     on_screen_change();
 
@@ -57,12 +63,12 @@ export async function qr_viewer (uid,carid) {
 function on_screen_change () {
     const w = window.innerWidth;
     if (w <= 768) {
-        $("#on-addition-canceled")
+        $("#qr-close-btn")
         .removeClass("fa-close")
         .addClass("fa-arrow-left");
     }
     else {
-        $("#on-addition-canceled")
+        $("#qr-close-btn")
         .removeClass("fa-arrow-left")
         .addClass("fa-close");
     }

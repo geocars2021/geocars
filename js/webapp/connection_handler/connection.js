@@ -230,8 +230,8 @@ export async function get_company_profile_images_by_uid (uid) {
     
     let storage   = getStorage();
     let path      = `company/${uid}/profile/`;
-    let dp_ref    = ref(storage , `${path}/dp.jpg`);
-    let cover_ref = ref(storage , `${path}/cover.jpg`);
+    let dp_ref    = await ref(storage , `${path}/dp.jpg`);
+    let cover_ref = await ref(storage , `${path}/cover.jpg`);
 
     var images = {
        dp    : null ,
@@ -317,7 +317,7 @@ export async function insert_new_car (uid,data) {
 }
 
 // upload images or new added cars
-export function upload_image (car_id,files) {
+export async function upload_image (car_id,files) {
     validate_connection();
 
     let storage , storageRef;
@@ -325,7 +325,7 @@ export function upload_image (car_id,files) {
     storage = getStorage();
     for (let idx = 0;idx < files.length;idx++) {
         
-        storageRef = ref(storage,`cars/${car_id}/${files[idx].name}`);
+        storageRef = await ref(storage,`cars/${car_id}/${files[idx].name}`);
 
         uploadBytes(storageRef,files[idx])
         .then((snapshot) => {
@@ -498,7 +498,7 @@ export async function get_car_images_by_car_id (car_id) {
     let images = car.photos;
     let urls   = [];
     for (let idx = 0;idx < images.length;idx++) {
-        imgRef = ref(storage,`cars/${car_id}/${images[idx]}`);
+        imgRef = await ref(storage,`cars/${car_id}/${images[idx]}`);
         await getDownloadURL(imgRef)
         .then((dl_url) => {
             urls.push(dl_url);

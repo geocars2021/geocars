@@ -746,3 +746,130 @@ input[type=number] {
     font-weight: bold;
     color: $btn-add-fg;
 }
+
+
+/******************** for qr viewer styling ********************/ 
+$qr-view-overlay-bg : rgba(22,29,23,0.4);
+$close-qr-btn-fg : #eeeeee;
+$qr-code-wrapper-bg : #eeeeee;
+$qr-code-label-fg : #eeeeee;
+.qr-view-overlay {
+    display: block;
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    min-width: 1366px;
+    min-height: 768px;
+    z-index: 10000;
+    background-color: $qr-view-overlay-bg;
+    @include on_Medium_Dev {
+        min-width: 280px;
+        min-height: 568px;
+    }
+}
+
+
+.qr-view-overlay > .qr-view {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    width: 400px;
+    height: 75%;
+    background-color: $secondary;
+    border-radius: 4px;
+    box-shadow: 0px 4px 8px -3px rgba(0,0,0,0.2);
+    overflow: hidden;
+    @include on_Medium_Dev {
+        width: 100%;
+        height: 100%;
+        border-radius: initial;
+    }
+}
+
+.qr-view > .qr-close-group {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 8%;
+    @include on_Medium_Dev {
+        height: 56px;
+        background-color: $primary;
+        box-shadow: 0px 3px 6px -2px rgba($color: #000000, $alpha: 0.4);
+    }
+}
+
+.qr-close-group > .close-qr-btn {
+    margin: 0 10px;
+    width: 25px;
+    height: 25px;
+    outline: none;
+    border: none;
+    border-radius: 100%;
+    font-size: 16px;
+    color: $close-qr-btn-fg;
+    background-color: transparent;   
+    & > * {
+        margin: 0 !important;
+    }
+    @include on_Medium_Dev {
+        width: 35px;
+        height: 35px;
+        font-size: 18px;
+    }
+}
+
+.qr-close-group > .qr-view-title {
+    display: block;
+    width: 50%;
+    word-wrap: normal;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    font-size: 18px;
+    font-weight: bold;
+    color: $close-qr-btn-fg;
+    // background-color: yellow;
+}
+
+.qr-view > .qr-code-wrapper {
+    display: block;
+    margin: 5px 0;
+    position: relative;
+    padding-top: 45%;
+    width: 45%;
+    background-color: $qr-code-wrapper-bg;
+    box-shadow: 0px 6px 10px -4px rgba(0,0,0,0.2);
+    @include on_Medium_Dev {
+        padding-top: 55%;
+        width: 55%;
+    }
+}
+
+.qr-code-wrapper > .qr-code-graphics {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.qr-view > .qr-code-label {
+    margin: 5px 0;
+    max-width: 85%;
+    font-size: 20px;
+    text-overflow: ellipsis;
+    word-wrap: none;
+    white-space: nowrap;
+    overflow: hidden;
+    color: $qr-code-label-fg;
+}

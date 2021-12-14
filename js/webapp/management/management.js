@@ -38,7 +38,13 @@ import
 {
     add_car_view ,
 }
-from "./pop_ups/car_adder.js"
+from "./pop_ups/car_adder.js";
+
+import
+{
+    qr_viewer ,
+}
+from "./pop_ups/qr_viewer.js";
 
 import 
 { 
@@ -70,7 +76,7 @@ const management = ({
 
         this.add_new_car_event();
 
-        this.add_scroll_event();
+        this.add_opacity_effect();
 
         on_car_update(uid , () => {
             this.save_content();
@@ -123,25 +129,27 @@ const management = ({
             );
         });
     },
-    add_scroll_event: function() {
-        this.car_list = $("#car-list");
-        this.car_list.scroll(() => {
-            $(".car-info-wrapper").each((idx,elem) => {
-                const basis = (
-                    (elem.getBoundingClientRect().top - 
-                    (window.innerWidth < 768)?15 : 5) -
-                    this.car_list.offset().top
-                );
+    calc_opacity: function() {
+        $(".car-info-wrapper").each((idx,elem) => {
+            const basis = (
+                (elem.getBoundingClientRect().top - 
+                (window.innerWidth < 768)?15 : 5) -
+                this.car_list.offset().top
+            );
 
-                if (basis < 0) {
-                    elem.style.opacity = (
-                        (idx+1) - 
-                        this.car_list.scrollTop() / 
-                        elem.offsetHeight
-                    );
-                }
-            });
+            if (basis < 0) {
+                elem.style.opacity = (
+                    (idx+1) - 
+                    this.car_list.scrollTop() / 
+                    elem.offsetHeight
+                );
+            }
         });
+    },
+    add_opacity_effect: function() {
+        this.car_list = $("#car-list");
+        this.car_list.scroll(() => this.calc_opacity());
+        $(window).resize(() => this.calc_opacity());
     },
     save_content: async function() {
 
@@ -184,11 +192,16 @@ const management = ({
             let size = this.loaded_cars.length;
             
             for (let idx = 0; idx < size;idx++) {
+                let car = this.loaded_cars[idx];
                 insert_car_to_list(
-                    this.loaded_cars[idx].car    ,
-                    this.loaded_cars[idx].photos ,
+                    car.car    ,
+                    car.photos ,
                     () => {
                         // on tile click
+                        qr_viewer(
+                            car.car.data.owner ,
+                            car.car.id         ,
+                        );
                     },
                     () => {
                         // on update

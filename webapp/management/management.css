@@ -1121,4 +1121,257 @@ input[type=number] {
   overflow: hidden;
   color: #eeeeee;
 }
+
+/******************** for updater viewer styling ********************/
+.updater-overlay {
+  display: block;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  min-width: 1366px;
+  min-height: 768px;
+  z-index: 10000;
+  background-color: rgba(22, 29, 23, 0.4);
+  /*
+        Kung ang view is mobile
+    */
+}
+
+@media screen and (min-width: 1px) and (max-width: 768px) {
+  .updater-overlay {
+    min-width: 280px;
+    min-height: 568px;
+  }
+}
+
+.updater-overlay > .update-car-view {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  width: 400px;
+  height: 75%;
+  background-color: #22252F;
+  border-radius: 4px;
+  -webkit-box-shadow: 0px 4px 8px -3px rgba(0, 0, 0, 0.2);
+          box-shadow: 0px 4px 8px -3px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  /*
+        Kung ang view is mobile
+    */
+}
+
+@media screen and (min-width: 1px) and (max-width: 768px) {
+  .updater-overlay > .update-car-view {
+    width: 100%;
+    height: 100%;
+    border-radius: initial;
+  }
+}
+
+.update-car-view > .cancel-update-group {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 8%;
+  /*
+        Kung ang view is mobile
+    */
+}
+
+@media screen and (min-width: 1px) and (max-width: 768px) {
+  .update-car-view > .cancel-update-group {
+    height: 56px;
+    background-color: #15191C;
+    -webkit-box-shadow: 0px 3px 6px -2px rgba(0, 0, 0, 0.4);
+            box-shadow: 0px 3px 6px -2px rgba(0, 0, 0, 0.4);
+  }
+}
+
+.cancel-update-group > .cancel-btn {
+  margin: 0 10px;
+  width: 25px;
+  height: 25px;
+  outline: none;
+  border: none;
+  border-radius: 100%;
+  font-size: 16px;
+  color: #eeeeee;
+  background-color: transparent;
+  /*
+        Kung ang view is mobile
+    */
+}
+
+.cancel-update-group > .cancel-btn > * {
+  margin: 0 !important;
+}
+
+@media screen and (min-width: 1px) and (max-width: 768px) {
+  .cancel-update-group > .cancel-btn {
+    width: 35px;
+    height: 35px;
+    font-size: 18px;
+  }
+}
+
+.cancel-update-group > .cancel-update-title {
+  display: block;
+  width: 50%;
+  word-wrap: normal;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  font-size: 18px;
+  font-weight: bold;
+  color: #eeeeee;
+}
+
+.update-car-view > .labeled-input-group {
+  display: block;
+  margin: 2.5px 0;
+  width: 85%;
+}
+
+.labeled-input-group > .input-label {
+  display: block;
+  margin: 3px 0;
+  width: 100%;
+  font-size: 14px;
+  font-weight: bold;
+  text-overflow: ellipsis;
+  word-wrap: none;
+  white-space: nowrap;
+  overflow: hidden;
+  color: #eeeeee;
+}
+
+.labeled-input-group > .input-input {
+  display: block;
+  padding: 0 5px;
+  width: 100%;
+  height: 35px;
+  outline: none;
+  border: none;
+  border-radius: 4px;
+  background-color: #15191C;
+  color: #dbdbdb;
+}
+
+.labeled-input-group > .input-input:focus {
+  border: 2px solid #5b5bff;
+}
+
+.labeled-input-group > .input-validator {
+  display: block;
+  width: 100%;
+  font-size: 14px;
+  text-overflow: ellipsis;
+  word-wrap: none;
+  white-space: nowrap;
+  overflow: hidden;
+  color: #ac4949;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+.update-car-view > .attach-image-group {
+  display: block;
+  margin: 2.5px 0;
+  width: 85%;
+}
+
+.attach-image-group > .custom-file-input {
+  display: block;
+  width: 35px;
+  height: 35px;
+  line-height: 35px;
+  text-align: center;
+  outline: none;
+  border: none;
+  border-radius: 360px;
+  background-color: transparent;
+}
+
+.attach-image-group > .image-validator {
+  display: block;
+  width: 100%;
+  font-size: 14px;
+  text-overflow: ellipsis;
+  word-wrap: none;
+  white-space: nowrap;
+  overflow: hidden;
+  color: #ac4949;
+}
+
+.custom-file-input > .add-image-icon {
+  font-size: 15px;
+  color: #eeeeee;
+}
+
+.custom-file-input > .add-image-label {
+  display: none;
+  font-size: 14px;
+  font-weight: bold;
+  color: #eeeeee;
+}
+
+.update-car-view > .btn-update {
+  display: block;
+  margin: 2.5px 0;
+  width: 85%;
+  height: 35px;
+  outline: none;
+  border: none;
+  border-radius: 4px;
+  background-color: #489132;
+  -webkit-box-shadow: 0px 4px 4px -2px rgba(0, 0, 0, 0.2);
+          box-shadow: 0px 4px 4px -2px rgba(0, 0, 0, 0.2);
+}
+
+.update-car-view > .btn-update:active {
+  -webkit-box-shadow: 0px 8px 10px -4px rgba(0, 0, 0, 0.3);
+          box-shadow: 0px 8px 10px -4px rgba(0, 0, 0, 0.3);
+}
+
+.btn-update > .btn-update-icon {
+  font-size: 16px;
+  color: #eeeeee;
+}
+
+.btn-update > .btn-update-label {
+  font-size: 14px;
+  font-weight: bold;
+  color: #eeeeee;
+}
 /*# sourceMappingURL=management.css.map */

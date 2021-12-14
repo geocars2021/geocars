@@ -19,6 +19,7 @@ import
     get_car_images_by_car_id,
     insert_new_car,
     on_car_update,
+    update_car,
 }
 from "../connection_handler/connection.js";
 
@@ -58,6 +59,7 @@ import
     insert_car_to_list ,
 } 
 from "./car_list.js";
+import { update_car_view } from "./pop_ups/car_update.js";
 
 
 let uid;
@@ -147,13 +149,13 @@ const management = ({
         $(".car-info-wrapper").each((idx,elem) => {
             const basis = (
                 (elem.getBoundingClientRect().top - 
-                (window.innerWidth < 768)?15 : 5) -
+                (window.innerWidth <= 768)?15 : 5) -
                 this.car_list.offset().top
             );
 
             if (basis < 0) {
                 elem.style.opacity = (
-                    (idx+1) - 
+                    (1 + idx) - 
                     this.car_list.scrollTop() / 
                     elem.offsetHeight
                 );
@@ -222,7 +224,21 @@ const management = ({
                     },
                     (e) => {
                         // on update
-                        alert(`${e}`)
+                        update_car_view(
+                            uid,
+                            car.car.id,
+                            (popup) => {
+                                popup.remove();
+                            },
+                            (popup,data) => {
+                                update_car(
+                                    uid        ,
+                                    car.car.id ,
+                                    data       ,
+                                );
+                                popup.remove();
+                            }
+                        );
                         e.stopPropagation();
                     },
                     (e) => {

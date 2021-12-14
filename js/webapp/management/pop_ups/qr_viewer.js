@@ -1,12 +1,20 @@
 /* re import jquery always!! */
 import "../../../jquery/jquery-3.6.0.min.js";
 import "../../../jquery/jquery-cookie-1.4.1.min.js";
+
 import
 {
     QRCode
 }
 from "../../tool/qrcode_gen/qrcode.js";
 
+
+
+/**
+ * Ge inani ra naku kay 
+ * aron dili ma flooded ug 
+ * function call ang JS virtual machine
+ * **/
 
 export async function qr_viewer (uid,carid,on_close_callback) {
     let qr_view_overlay = document.createElement("div");

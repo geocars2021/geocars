@@ -1,21 +1,13 @@
 /* re import jquery always!! */
 import "../../../jquery/jquery-3.6.0.min.js";
 import "../../../jquery/jquery-cookie-1.4.1.min.js";
-
-
 import
 {
     get_car_brands ,
+    get_car_by_id,
     get_car_models, 
-    get_car_by_plate_no,
 }   
 from "../../connection_handler/connection.js";
-
-import
-{
-    CARSTATUS
-}
-from "../../states/car_status.js";
 
 /**
  * Ge inani ra naku kay 
@@ -23,19 +15,18 @@ from "../../states/car_status.js";
  * function call ang JS virtual machine
  * **/
 
-export async function add_car_view (uid,on_cancel_callback , on_add_callback) {
-
+export async function update_car_view (uid,carid,on_cancel_callback,on_update_callback) {
     let cancel_btn , 
-        add_btn    ;
+    update_btn     ;
 
-    let add_car = document.createElement("div");
-    add_car.classList.add("add-car-view-overlay");
-    add_car.innerHTML = 
+    let updater_overlay = document.createElement("div");
+    updater_overlay.classList.add("updater-overlay");
+    updater_overlay.innerHTML = 
     `
-        <div class="add-car-view">
-            <div class="cancel-addition-group">
-                <button id="on-addition-canceled" class="cancel-btn fa fa-close"></button>
-                <span class="cancel-adition-title" role="text">Add a new car</span>
+        <div class="update-car-view">
+            <div class="cancel-update-group">
+                <button id="on-update-canceled" class="cancel-btn fa fa-close"></button>
+                <span class="cancel-update-title" role="text">Update car</span>
             </div>
 
             <div class="labeled-input-group car-brand-group">
@@ -72,24 +63,24 @@ export async function add_car_view (uid,on_cancel_callback , on_add_callback) {
                 <span id="validate-images" class="image-validator"></span>
             </div>
 
-            <button id="add-car" class="btn-add">
-                <i class="btn-add-icon fa fa-plus"></i>
-                <span class="btn-add-label" role="text">Add car</span>
+            <button id="update-car" class="btn-update">
+                <i class="btn-update-icon fa fa-plus"></i>
+                <span class="btn-update-label" role="text">Update car</span>
             </button>
         </div>
     `;
 
-    $("body").prepend(add_car);
+    $("body").prepend(updater_overlay);
 
     on_screen_change();
 
     $(window).resize(() => on_screen_change());
 
-    cancel_btn = $("#on-addition-canceled");
+    cancel_btn = $("#on-update-canceled");
     cancel_btn.click(() => {
 
         if(on_cancel_callback)
-            on_cancel_callback(add_car);
+            on_cancel_callback(updater_overlay);
 
     });
 
@@ -101,7 +92,7 @@ export async function add_car_view (uid,on_cancel_callback , on_add_callback) {
             $("#brands-list").append(b_option);
         });
     });
-    
+
     // add model drop down
     get_car_models(uid).then((models) => {
         models.forEach((model) => {
@@ -110,7 +101,7 @@ export async function add_car_view (uid,on_cancel_callback , on_add_callback) {
             $("#models-list").append(m_option);
         });
     });
-
+    let car = await get_car_by_id(carid);
     // content
     let c_brand , 
         c_model ,
@@ -120,12 +111,17 @@ export async function add_car_view (uid,on_cancel_callback , on_add_callback) {
     
     // brand
     c_brand = $("#car-brand-input");
+    c_brand.val(car.data.brand);
     // model
     c_model = $("#car-model-input");
+    c_model.val(car.data.model)
     // plate number
     c_plate = $("#car-plate-input");
+    c_plate.val(car.data.plateno)
+    .prop("disabled", true);
     // rate
     c_rate  = $("#car-rate-input");
+    c_rate.val(car.data.rate);
     // images
     let images = [];
     c_imgs = document.getElementById("car-images-input");
@@ -134,8 +130,8 @@ export async function add_car_view (uid,on_cancel_callback , on_add_callback) {
     };
     let disabled = false;
 
-    add_btn = $("#add-car");
-    add_btn.click(async () => {
+    update_btn = $("#update-car");
+    update_btn.click(async () => {
         let car;
         
         if(disabled)
@@ -144,37 +140,34 @@ export async function add_car_view (uid,on_cancel_callback , on_add_callback) {
         if(validate_car_adder())
             return;
 
-        car = await get_car_by_plate_no(uid,c_plate.val());
-
-        if(car) 
-            return on_car_exist();
         
         disabled = true;
 
-        if(on_add_callback)
-            on_add_callback(
-                add_car ,
+        if(on_update_callback)
+            on_update_callback(
+                updater_overlay ,
                 {   
                     brand  : c_brand.val() ,
                     model  : c_model.val() ,
                     plate  : c_plate.val() ,
                     rate   : c_rate.val()  ,
                     files  : images        ,
-                    status : CARSTATUS.PARKED ,
                 }
             );
     });
+
 }
+
 
 function on_screen_change () {
     const w = window.innerWidth;
     if (w <= 768) {
-        $("#on-addition-canceled")
+        $("#on-update-canceled")
         .removeClass("fa-close")
         .addClass("fa-arrow-left");
     }
     else {
-        $("#on-addition-canceled")
+        $("#on-update-canceled")
         .removeClass("fa-arrow-left")
         .addClass("fa-close");
     }
@@ -220,7 +213,7 @@ function validate_car_adder () {
         .text("");
     }
     let filelen = document.getElementById("car-images-input").files.length;
-    if (filelen < 5) {
+    if (filelen > 0 && filelen < 5) {
         $("#validate-images")
         .text(`*Please attach 5 image. ${filelen}/5`);
         has_invalid = true;
@@ -231,10 +224,3 @@ function validate_car_adder () {
     }
     return has_invalid;
 }
-
-function on_car_exist () {
-    $("#validate-plate-number")
-    .text("*Car already existed!");
-}
-
-

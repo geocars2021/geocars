@@ -56,6 +56,14 @@ $attach-img-btn-fg : #eeeeee;
 $btn-add-bg : #489132;
 $btn-add-fg : #eeeeee;
 
+// for qr code view
+$qr-view-overlay-bg : rgba(22,29,23,0.4);
+$close-qr-btn-fg : #eeeeee;
+$qr-code-wrapper-bg : #eeeeee;
+$qr-code-label-fg : #eeeeee;
+
+
+
 
 $ripple-bg : rgba(214, 250, 244, 0.2);
 
@@ -753,6 +761,7 @@ $qr-view-overlay-bg : rgba(22,29,23,0.4);
 $close-qr-btn-fg : #eeeeee;
 $qr-code-wrapper-bg : #eeeeee;
 $qr-code-label-fg : #eeeeee;
+
 .qr-view-overlay {
     display: block;
     position: absolute;
@@ -872,4 +881,233 @@ $qr-code-label-fg : #eeeeee;
     white-space: nowrap;
     overflow: hidden;
     color: $qr-code-label-fg;
+}
+
+
+/******************** for updater viewer styling ********************/ 
+
+
+
+$update-car-view-overlay-bg: rgba(22,29,23,0.4);
+$update-car-label-fg :#eeeeee;
+$update-car-input-fg : #dbdbdb;
+$btn-update-bg: #489132;
+$btn-update-fg: #eeeeee;
+
+.updater-overlay {
+    display: block;
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    min-width: 1366px;
+    min-height: 768px;
+    z-index: 10000;
+    background-color: $update-car-view-overlay-bg;
+    @include on_Medium_Dev {
+        min-width: 280px;
+        min-height: 568px;
+    }
+}
+
+
+.updater-overlay > .update-car-view {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    width: 400px;
+    height: 75%;
+    background-color: $secondary;
+    border-radius: 4px;
+    box-shadow: 0px 4px 8px -3px rgba(0,0,0,0.2);
+    overflow: hidden;
+    @include on_Medium_Dev {
+        width: 100%;
+        height: 100%;
+        border-radius: initial;
+    }
+}
+
+.update-car-view > .cancel-update-group {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 8%;
+    @include on_Medium_Dev {
+        height: 56px;
+        background-color: $primary;
+        box-shadow: 0px 3px 6px -2px rgba($color: #000000, $alpha: 0.4);
+    }
+}
+
+.cancel-update-group > .cancel-btn {
+    margin: 0 10px;
+    width: 25px;
+    height: 25px;
+    outline: none;
+    border: none;
+    border-radius: 100%;
+    font-size: 16px;
+    color: $cancel-btn-fg;
+    background-color: transparent;   
+    & > * {
+        margin: 0 !important;
+    }
+    @include on_Medium_Dev {
+        width: 35px;
+        height: 35px;
+        font-size: 18px;
+    }
+}
+
+.cancel-update-group > .cancel-update-title {
+    display: block;
+    width: 50%;
+    word-wrap: normal;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    font-size: 18px;
+    font-weight: bold;
+    color: $cancel-btn-fg;
+    // background-color: yellow;
+}
+
+.update-car-view > .labeled-input-group {
+    display: block;
+    margin: 2.5px 0;
+    width: 85%;
+    // background-color: yellow;
+}
+
+.labeled-input-group > .input-label {
+    display: block;
+    margin: 3px 0;
+    width: 100%;
+    font-size: 14px;
+    font-weight: bold;
+    text-overflow: ellipsis;
+    word-wrap: none;
+    white-space: nowrap;
+    overflow: hidden;
+    color: $update-car-label-fg;
+}
+
+.labeled-input-group  > .input-input {
+    display: block;
+    padding: 0 5px;
+    width: 100%;
+    height: 35px;
+    outline: none;
+    border: none;
+    border-radius: 4px;
+    background-color: $primary;
+    color: $update-car-input-fg;
+    &:focus {
+        border: 2px solid $input-active-border-bg;
+    }
+}
+
+.labeled-input-group > .input-validator {
+    display: block;
+    width: 100%;
+    font-size: 14px;
+    text-overflow: ellipsis;
+    word-wrap: none;
+    white-space: nowrap;
+    overflow: hidden;
+    color: $validator-fg;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+.update-car-view > .attach-image-group {
+    display: block;
+    margin: 2.5px 0;
+    width: 85%;
+    // background-color: yellow;
+}
+
+.attach-image-group > .custom-file-input {
+    display: block;
+    width: 35px;
+    height: 35px;
+    line-height: 35px;
+    text-align: center;
+    outline: none;
+    border: none;
+    border-radius: 360px;
+    // background-color: $attach-img-btn-bg;
+    background-color: transparent;
+    // box-shadow: 0px 4px 4px -2px rgba(0,0,0,0.2);
+    // &:active {
+    //     box-shadow: 0px 8px 10px -4px rgba(0,0,0,0.3);
+    // }
+}
+
+.attach-image-group > .image-validator {
+    display: block;
+    width: 100%;
+    font-size: 14px;
+    text-overflow: ellipsis;
+    word-wrap: none;
+    white-space: nowrap;
+    overflow: hidden;
+    color: $validator-fg;
+}
+
+.custom-file-input > .add-image-icon {
+    font-size: 15px;
+    color: $attach-img-btn-fg;
+}
+
+.custom-file-input > .add-image-label {
+    display: none;
+    font-size: 14px;
+    font-weight: bold;
+    color: $attach-img-btn-fg;
+}
+
+.update-car-view > .btn-update {
+    display: block;
+    margin: 2.5px 0;
+    width: 85%;
+    height: 35px;
+    outline: none;
+    border: none;
+    border-radius: 4px;
+    background-color: $btn-update-bg;
+    box-shadow: 0px 4px 4px -2px rgba(0,0,0,0.2);
+    &:active {
+        box-shadow: 0px 8px 10px -4px rgba(0,0,0,0.3);
+    }
+}
+
+
+
+.btn-update > .btn-update-icon {
+    font-size: 16px;
+    color: $btn-update-fg;
+}
+
+.btn-update > .btn-update-label {
+    font-size: 14px;
+    font-weight: bold;
+    color: $btn-update-fg;
 }

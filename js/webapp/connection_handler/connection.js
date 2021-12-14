@@ -316,6 +316,33 @@ export async function insert_new_car (uid,data) {
     );
 }
 
+
+// update car
+export async function update_car (uid,carid,data) {
+    validate_connection();
+
+    let cars = collection(
+        FIRESTORE_DB ,
+        "cars"       ,
+    );
+    let cardoc = doc(cars,carid);
+    let new_data = {
+        brand   : data.brand ,
+        model   : data.model ,
+        plateno : data.plate ,
+        rate    : data.rate  ,
+    };
+
+    await setDoc(cardoc, new_data , {merge: true});
+
+    await insert_activity(
+        uid,
+        `Updated a car with plate no. ${data.plate}.`
+    );
+
+}
+
+
 // upload images or new added cars
 export async function upload_image (car_id,files) {
     validate_connection();
@@ -323,6 +350,7 @@ export async function upload_image (car_id,files) {
     let storage , storageRef;
 
     storage = getStorage();
+    
     for (let idx = 0;idx < files.length;idx++) {
         
         storageRef = await ref(storage,`cars/${car_id}/${files[idx].name}`);
@@ -385,7 +413,10 @@ export async function get_car_by_id (car_id) {
 
     let snapshot = await getDoc(d);
     if (snapshot.exists()) 
-        return snapshot.data();
+        return {
+            id   :snapshot.id      ,
+            data : snapshot.data() ,
+        };
     
     return null;
 }
@@ -495,17 +526,27 @@ export async function get_car_images_by_car_id (car_id) {
     let imgRef;
 
     let car    = await get_car_by_id(car_id);
-    let images = car.photos;
+    let images = car.data.photos;
     let urls   = [];
     for (let idx = 0;idx < images.length;idx++) {
-        imgRef = await ref(storage,`cars/${car_id}/${images[idx]}`);
-        await getDownloadURL(imgRef)
-        .then((dl_url) => {
-            urls.push(dl_url);
-        })
-        .catch((err) => {
-            console.log(err.code);
-        });
+        while (1) {
+            try {
+                let has_error = false;
+                imgRef = await ref(storage,`cars/${car_id}/${images[idx]}`);
+                await getDownloadURL(imgRef)
+                .then((dl_url) => {
+                    urls.push(dl_url);
+                })
+                .catch((err) => {
+                    has_error = true;
+                    console.log(err.code);
+                });
+                if(!has_error)
+                    break;
+            }catch(err) {
+                continue;
+            }
+        }
     }
     return urls;
 }

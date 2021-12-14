@@ -91,7 +91,7 @@ body {
     position: relative;
     width: 100vw;
     height: 100vh;
-    min-width: 1024px;
+    min-width: 1366px;
     min-height: 768px;
     scrollbar-width: none;
     scroll-behavior: smooth;
@@ -193,6 +193,7 @@ body::-webkit-scrollbar {
             transform: rotate(360deg);
             transition: transform 0.2s ease-in;
         }
+       
     }
 }
 
@@ -711,12 +712,14 @@ body::-webkit-scrollbar {
     background-color: $secondary;
     // border: 1px solid $contact-border;
     overflow: hidden;
-    border-radius: 0.6em;
+    border-radius: 4px;
     box-shadow: 0px 6px 8px -3px rgba(0,0,0,0.2);
     @include on_Medium_Dev {
         margin: 15px 0;
-        padding-top: 85%;
+        padding-top: 120%;
         width: 85%;
+        border-radius: 0;
+
     }
 }
 

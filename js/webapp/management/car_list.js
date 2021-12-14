@@ -4,7 +4,7 @@ import "../../jquery/jquery-cookie-1.4.1.min.js";
 
 
 
-function add_carTile(carID,carBrand,carModel,carPlate,carPhotoUrl) {
+function add_carTile(carID,carBrand,carModel,carPlate,carPhotoUrl,on_update,on_delete) {
     let car_info_wrapper = document.createElement("div");
     car_info_wrapper.classList.add("car-info-wrapper");
     car_info_wrapper.innerHTML =
@@ -54,16 +54,27 @@ function add_carTile(carID,carBrand,carModel,carPlate,carPhotoUrl) {
     return car_info_wrapper;
 }
 
-let car_list;
+export function clear_cars () {
+    let car_list = $("#car-list");
+    let children = car_list.children();
+    // remove second element until last only;
+    for (let idx = 1;idx < children.length;idx++){
+        children[idx].remove();
+    }
+}
 
-car_list = $("#car-list");
+// carID,carBrand,carModel,carPlate,carPhotoUrl,on_update,on_delete
 
-car_list.append(
-    add_carTile(
-        "asdasdasd",
-        "Toyota",
-        "Vios",
-        "69420",
-        "https://image.shutterstock.com/image-illustration/small-yellow-compact-car-260nw-394558741.jpg"
-    )
-)
+export async function insert_car_to_list (car_data,on_update,on_delete) {
+    let car_list = $("#car-list");
+    car_list.append(
+        add_carTile(
+            car_data.id,
+            car_data.data.brand,
+            car_data.data.model,
+            car_data.data.plateno,
+            "",
+        )
+    );
+}
+

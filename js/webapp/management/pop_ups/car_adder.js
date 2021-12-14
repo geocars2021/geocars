@@ -5,12 +5,17 @@ import "../../../jquery/jquery-cookie-1.4.1.min.js";
 
 import
 {
-    upload_image   ,
     get_car_brands ,
-    get_car_models ,
+    get_car_models, 
+    get_car_by_plate_no,
 }   
 from "../../connection_handler/connection.js";
 
+import
+{
+    CARSTATUS
+}
+from "../../states/car_status.js";
 
 /**
  * Ge inani ra naku kay 
@@ -128,21 +133,35 @@ export async function add_car_view (uid,on_cancel_callback , on_add_callback) {
     c_imgs.onchange = () => {
         images = c_imgs.files;
     };
+    let disabled = false;
 
     add_btn = $("#add-car");
-    add_btn.click(() => {
+    add_btn.click(async () => {
+        let car;
+        
+        if(disabled)
+            return;
+
         if(validate_car_adder())
             return;
+
+        car = await get_car_by_plate_no(uid,c_plate.val());
+
+        if(car) 
+            return on_car_exist();
+        
+        disabled = true;
 
         if(on_add_callback)
             on_add_callback(
                 add_car ,
                 {   
-                    brand : c_brand.val() ,
-                    model : c_model.val() ,
-                    plate : c_plate.val() ,
-                    rate  : c_rate.val()  ,
-                    files : images
+                    brand  : c_brand.val() ,
+                    model  : c_model.val() ,
+                    plate  : c_plate.val() ,
+                    rate   : c_rate.val()  ,
+                    files  : images        ,
+                    status : CARSTATUS.PARKED ,
                 }
             );
     });
@@ -212,6 +231,11 @@ function validate_car_adder () {
         .text("");
     }
     return has_invalid;
+}
+
+function on_car_exist () {
+    $("#validate-plate-number")
+    .text("*Car already existed!");
 }
 
 

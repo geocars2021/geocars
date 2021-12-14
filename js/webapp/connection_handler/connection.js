@@ -105,6 +105,9 @@ export async function on_company_update (uid,callback) {
     }));
 }
 
+
+/***** SETTERS *****/
+
 /* saves new company */
 export async function save_new_company (email,name,salt,passkey) {
     validate_connection();
@@ -123,17 +126,13 @@ export async function save_new_company (email,name,salt,passkey) {
         contact : "N/A"   , // set contact num as N/A
         address : "N/A"   , // set address as N/A
         plan    : SUBSCRIPTION.FREEMIUM , // set FREEMIUM as default plan,
+        activities : [] // set empty list as activities
     });
     
     await insert_activity(
         docRef.id,
         `${name} joined geocars.`
     )
-    await insert_activity(
-        docRef.id,
-        `${name} joined geocars plus plus.`
-    )
-    
 }
 
 /* inserts activity to current loggedin company */ 
@@ -178,6 +177,8 @@ export async function insert_activity (uid,description) {
         
     }
 }
+
+/***** GETTERS *****/
 
 /* Get company id by email */
 export async function get_company_id_by_email (email) {
@@ -262,98 +263,57 @@ export async function get_company_profile_images_by_uid (uid) {
 
 /******************* CAR MANAGEMENT *******************/
 
-// get cars by status eg: RUNNING | PARKED
-export async function get_car_by_status (company_uid,status) {
-    validate_connection();
-
-    let company = collection(
-        FIRESTORE_DB,
+export async function on_car_update (uid,callback) {
+    let cars = collection(
+        FIRESTORE_DB ,
         "cars"
     );
 
-    let q = query(
-        company ,
-        where(
-            "owner"     ,
-            "=="        ,
-            company_uid ,
-        ) ,
-        where(
-            "status" ,
-            "=="     ,
-            status   ,
-        ),
-    )
-
-    let docSnapShot = await getDocs(q);
-    let cars = [];
-    docSnapShot.forEach((doc) => {
-        cars.push({
-            id   : doc.id,
-            data : doc.data()
-        });
-    });
-    return cars;
+    onSnapshot(
+        query(cars,where("owner","==",uid)) , 
+        (doc) => {
+            if (callback)
+                callback();
+        }
+    );
 }
 
-// getall cars by owner or company id
-export async function get_cars_by_owner (company_uid) {
+/***** SETTERS *****/
+// inserts a new car
+export async function insert_new_car (uid,data) {
+    // TODO: FINISH ME
     validate_connection();
 
-    let company = collection(
-        FIRESTORE_DB,
-        "cars"
+    let cars = collection(
+        FIRESTORE_DB ,
+        "cars"       ,
     );
 
-    let q = query(
-        company ,
-        where(
-            "owner"     ,
-            "=="        ,
-            company_uid ,
-        )
-    );
-    let docSnapShot = await getDocs(q);
-    let cars = [];
-    docSnapShot.forEach((doc) => {
-        cars.push({
-            id   : doc.id,
-            data : doc.data()
-        });
+    // get photos name
+    let photos = [];
+    for (let idx = 0;idx<data.files.length;idx++) {
+        photos.push(data.files[idx].name);
+    }
+    // insert new car
+    let docRef = await addDoc(cars,{
+        owner    : uid         ,
+        brand    : data.brand  ,
+        model    : data.model  ,
+        rate     : data.rate   ,
+        plateno  : data.plate  ,
+        status   : data.status ,
+        location : {}          , // set empty map as default loc
+        lochist  : []          , // set empty list as default loc history
+        photos   : photos      , // set photos name
     });
     
-    return cars;
-}
+    // inserts images to storage
+    await upload_image(docRef.id,data.files);
 
-// get saved car brands
-export async function get_car_brands (uid) {
-    validate_connection();
-
-    let brands , cars;
-    brands = [];
-    cars = await get_cars_by_owner(uid);
-
-    cars.forEach((data) => {
-        if (!brands.includes(data.data.brand));
-            brands.push(data.data.brand);
-    });
-   
-    return brands;
-}
-
-// get saved car models
-export async function get_car_models (uid) {
-    validate_connection();
-
-    let models , cars;
-    models = [];
-    cars   = await get_cars_by_owner(uid);
-
-    cars.forEach((data) => {
-        if (!models.includes(data.data.model));
-            models.push(data.data.model);
-    });
-    return models;
+    await insert_activity(
+        uid,
+        "Added a new car."
+    );
 }
 
 // upload images or new added cars
@@ -377,3 +337,130 @@ export function upload_image (car_id,files) {
         
     }
 }
+
+/***** GETTERS *****/
+// getall cars by owner or company id
+export async function get_cars_by_owner (uid) {
+    validate_connection();
+
+    let cars = collection(
+        FIRESTORE_DB,
+        "cars"
+    );
+
+    let q = query(
+        cars ,
+        where(
+            "owner",
+            "=="   ,
+            uid    ,
+        )
+    );
+    let docSnapShot = await getDocs(q);
+    let carsL = [];
+    docSnapShot.forEach((doc) => {
+        carsL.push({
+            id   : doc.id,
+            data : doc.data()
+        });
+    });
+    
+    return carsL;
+}
+
+//get car by plate number
+export async function get_car_by_plate_no (uid,plate) {
+    validate_connection();
+
+    let cars = collection(
+        FIRESTORE_DB,
+        "cars"
+    );
+
+    let q = query(
+        cars ,
+        where(
+            "owner" ,
+            "=="    ,
+            uid     ,
+        ) ,
+        where(
+            "plateno" ,
+            "=="      ,
+            plate     ,
+        ) 
+    );
+
+    let docSnapShot = await getDocs(q);
+    let car;
+    docSnapShot.forEach((data) => {
+        car = data;
+        return;
+    });
+    return car;
+}
+
+// get cars by status eg: RUNNING | PARKED
+export async function get_car_by_status (uid,status) {
+    validate_connection();
+
+    let cars = collection(
+        FIRESTORE_DB,
+        "cars"
+    );
+
+    let q = query(
+        cars ,
+        where(
+            "owner" ,
+            "=="    ,
+            uid     ,
+        ) ,
+        where(
+            "status" ,
+            "=="     ,
+            status   ,
+        ),
+    )
+
+    let docSnapShot = await getDocs(q);
+    let carsL = [];
+    docSnapShot.forEach((doc) => {
+        carsL.push({
+            id   : doc.id,
+            data : doc.data()
+        });
+    });
+    return carsL;
+}
+
+// get saved car brands
+export async function get_car_brands (uid) {
+    validate_connection();
+
+    let brands , cars;
+    brands = [];
+    cars = await get_cars_by_owner(uid);
+
+    cars.forEach((data) => {
+        brands.push(data.data.brand);
+    });
+   
+    return new Set(brands);
+}
+
+// get saved car models
+export async function get_car_models (uid) {
+    validate_connection();
+
+    let models , cars;
+    models = [];
+    cars   = await get_cars_by_owner(uid);
+
+    cars.forEach((data) => {
+        models.push(data.data.model);
+    });
+    return new Set(models);
+}
+
+

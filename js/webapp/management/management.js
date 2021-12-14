@@ -13,6 +13,20 @@ redirect_if_login_to("#","../../webapp/signin");
 
 import "../sidebar/sidebar.js";
 
+import
+{
+    get_car_by_status,
+    insert_new_car,
+    on_car_update,
+}
+from "../connection_handler/connection.js";
+
+import
+{
+    message_box
+}
+from "../pop_ups/message_box/message_box.js";
+
 import 
 { 
     load_finish 
@@ -21,12 +35,26 @@ from "../lazy_loading/lazy_loading.js";
 
 import
 {
-    add_car_view
+    add_car_view ,
 }
 from "./pop_ups/car_adder.js"
+import 
+{ 
+    CARSTATUS 
+} 
+from "../states/car_status.js";
+
+import 
+{ 
+    clear_cars         ,
+    insert_car_to_list ,
+} 
+from "./car_list.js";
 
 
-let uid , add_new_car_btn;
+let uid             , 
+    add_new_car_btn ,
+    parked_cars     ;
 
 uid = get_login_cred();
 
@@ -39,11 +67,50 @@ add_new_car_btn.click(() => {
             e.remove();
         },
         (e,data) => {
-            console.log(data);
+            insert_new_car(uid,data)
+            .then(() => {
+                message_box(
+                    "A new car was added!",
+                    (popup) => {
+                        popup.remove();
+                    }
+                );
+            });
             e.remove();
         }
     );
 });
 
 
-load_finish();
+async function load_content () {
+
+    parked_cars = await get_car_by_status(uid,CARSTATUS.PARKED);
+    
+    if(parked_cars.length > 0) {
+
+        try {
+            // hide only ampty activity
+            $("#empty-car")
+            .css("display", "none");
+        }catch(err){}
+        
+        clear_cars();
+
+        let size = parked_cars.length;
+        for (let idx = 0; idx < size;idx++) {
+            
+            insert_car_to_list(
+                parked_cars[idx]
+            );
+        }
+    }
+
+    load_finish();
+}
+
+on_car_update(uid,() => {
+    
+    load_content();
+});
+
+

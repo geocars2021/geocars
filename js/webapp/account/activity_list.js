@@ -14,13 +14,13 @@ function new_row(date_time,description) {
     let row = document.createElement("span");
     row.classList.add("table-row");
     row.innerHTML = 
-    `\t <span class="table-row-data date-time-value" role="text">${date_time}</span> \n` +
-    `\t <span class="table-row-data description-value">${description}</span> \n`+
-    "\t <button class=\"delete-activity fa fa-trash\"></button>";
+    `
+        <span class="table-row-data date-time-value" role="text">${date_time}</span>
+        <span class="table-row-data description-value">${description}</span> 
+        <button class="delete-activity fa fa-trash"></button>
+    `;
     return row;
 }
-
-
 
 export function clear_list () {
     let activity_list = $("#activity-list");
@@ -31,10 +31,6 @@ export function clear_list () {
     }
 }
 
-export function mark_as_empty () {
-    
-}
-
 export function insert_activity(date_time,description) {
     let activity_list = $("#activity-list");
     activity_list.append(
@@ -42,3 +38,11 @@ export function insert_activity(date_time,description) {
     );
     
 }
+
+
+// old code
+/*
+    `\t <span class="table-row-data date-time-value" role="text">${date_time}</span> \n` +
+    `\t <span class="table-row-data description-value">${description}</span> \n`+
+    "\t <button class=\"delete-activity fa fa-trash\"></button>";
+*/

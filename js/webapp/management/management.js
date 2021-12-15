@@ -84,7 +84,10 @@ const management = ({
         this.add_search_click_event();
 
         on_car_update(uid , () => {
+            this.fully_loaded = false;
+            this.loaded_cars  = [];
             this.save_content();
+    
             load_finish();
         });
     },
@@ -110,12 +113,74 @@ const management = ({
 
             
         for (let idx = 0; idx < this.loaded_cars.length;idx++) {
-            const car_obj = this.loaded_cars[idx];
-            if (car_obj.car.data.plateno == this.search_bar.val()) {
+            const car = this.loaded_cars[idx];
+            if (car.car.data.plateno == this.search_bar.val()) {
                 clear_cars();
+                let car = this.loaded_cars[idx];
                 insert_car_to_list(
-                    car_obj.car    ,
-                    car_obj.photos ,
+                    car.car    ,
+                    car.photos ,
+                    () => {
+                        // on tile click
+                        qr_viewer(
+                            car.car.data.owner ,
+                            car.car.id         ,
+                            (popup) => {
+                                popup.remove();
+                            }
+                        );
+                    },
+                    (e) => {
+                        // on update
+                        update_car_view(
+                            uid,
+                            car.car.id,
+                            (popup) => {
+                                popup.remove();
+                            },
+                            (popup,data) => {
+                                update_car(
+                                    uid        ,
+                                    car.car.id ,
+                                    data       ,
+                                ).then(() => {
+                                    message_box(
+                                        "Car updated successfully!",
+                                        (popup) => {
+                                            popup.remove();
+                                        }
+                                    );
+                                });
+                                popup.remove();
+                            }
+                        );
+                        e.stopPropagation();
+                    },
+                    (e) => {
+                        // on delete
+                        dialogbox(
+                            `Confirm delete car?`,
+                            (popup) => {
+
+                                delete_car(car.car.id)
+                                .then(() => {
+                                    this.save_content();
+                                    message_box(
+                                        "Successfully deleted!",
+                                        (popup)=> {
+                                            popup.remove();
+                                        }
+                                    )
+                                });
+                                popup.remove();
+
+                            },
+                            (popup) => {
+                                popup.remove();
+                            }
+                        );
+                        e.stopPropagation();
+                    }
                 );
                 break;
             }else 
@@ -168,7 +233,7 @@ const management = ({
                 this.load_content();
             }
             this.fully_loaded = true;
-        }
+        } 
     },
     load_content : function() {
        
@@ -230,8 +295,10 @@ const management = ({
                         dialogbox(
                             `Confirm delete car?`,
                             (popup) => {
-                                delete_car(uid,car.car.id)
+
+                                delete_car(car.car.id)
                                 .then(() => {
+                                    this.save_content();
                                     message_box(
                                         "Successfully deleted!",
                                         (popup)=> {
@@ -240,6 +307,7 @@ const management = ({
                                     )
                                 });
                                 popup.remove();
+
                             },
                             (popup) => {
                                 popup.remove();

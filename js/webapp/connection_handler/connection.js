@@ -365,15 +365,15 @@ export async function update_car (uid,carid,data) {
 }
 
 // delete car
-export async function delete_car (uid,carid) {
+export async function delete_car (carid) {
     validate_connection();
     
     let cars = collection(
         FIRESTORE_DB ,
         "cars"       ,
     );
-    
-    await deleteDoc(doc(cars,`${carid}`));
+    await deleteDoc(doc(cars, carid));
+    // await deleteDoc(doc(cars,`${carid}`));
 }
 
 // upload cars images or new added cars

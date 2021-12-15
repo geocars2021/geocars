@@ -204,7 +204,7 @@ export async function get_company_id_by_email (email) {
     let snapShot = await getDocs(q);
     let last_id;
 
-    if (snapShot.exists()) 
+    if (snapShot) 
         snapShot.forEach((doc) => {
             /* get first result only */ 
             last_id = doc.id;

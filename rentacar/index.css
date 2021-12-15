@@ -1,0 +1,114 @@
+/*
+    html ug body tag configuration file!!!!!
+    AYAW E MODIFY!!!!!!!!!
+*/
+@import url("https://fonts.googleapis.com/css2?family=Quicksand&display=swap");
+* {
+  font-family: 'Quicksand', sans-serif;
+  color: #0e0d0d;
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+/*
+    View Modes
+    AYAW E MODIFY!!!!!!
+
+*/
+html {
+  overflow: hidden;
+  background-color: #ffffff;
+  scrollbar-width: none;
+}
+
+html ::-webkit-scrollbar {
+  display: none;
+}
+
+body {
+  width: 100vw;
+  height: 100vh;
+  min-width: 1366px;
+  min-height: 768px;
+  background-color: inherit;
+  /*
+        Kung ang view is mobile
+    */
+}
+
+@media screen and (min-width: 1px) and (max-width: 768px) {
+  body {
+    min-width: 280px;
+    min-height: 568px;
+  }
+}
+
+/*
+    View Modes
+    AYAW E MODIFY!!!!!!
+
+*/
+.rent-a-car-wrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 100%;
+  height: 100%;
+  background-color: yellow;
+}
+
+.rent-a-car-wrapper > .center-div {
+  display: block;
+  width: 60%;
+  height: 100%;
+  background-color: blue;
+  /*
+        Kung ang view is mobile
+    */
+}
+
+@media screen and (min-width: 1px) and (max-width: 768px) {
+  .rent-a-car-wrapper > .center-div {
+    width: 100%;
+  }
+}
+
+.center-div > .search-bar-wrapper {
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 160px;
+  background-color: green;
+  /*
+        Kung ang view is mobile
+    */
+}
+
+@media screen and (min-width: 1px) and (max-width: 768px) {
+  .center-div > .search-bar-wrapper {
+    position: initial;
+    top: initial;
+    left: initial;
+    height: 120px;
+  }
+}
+
+.center-div > .background-image-wrapper {
+  display: block;
+  width: 100%;
+  height: 340px;
+  background-color: orange;
+}
+/*# sourceMappingURL=index.css.map */

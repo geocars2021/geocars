@@ -6,7 +6,7 @@
 /** logout overlay **/
 /** message fg **/
 /** btn bg **/
-.logout-overlay {
+.dialogbox-overlay {
   display: block;
   position: absolute;
   inset: 0;
@@ -22,13 +22,13 @@
 }
 
 @media screen and (min-width: 1px) and (max-width: 768px) {
-  .logout-overlay {
+  .dialogbox-overlay {
     min-width: 280px;
     min-height: 568px;
   }
 }
 
-.logout-overlay > .logout {
+.dialogbox-overlay > .dialogbox {
   display: block;
   position: absolute;
   top: 50%;
@@ -47,13 +47,13 @@
 }
 
 @media screen and (min-width: 1px) and (max-width: 768px) {
-  .logout-overlay > .logout {
+  .dialogbox-overlay > .dialogbox {
     padding-top: 160px;
     width: 270px;
   }
 }
 
-.logout > .message-wrapper {
+.dialogbox > .message-wrapper {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -92,7 +92,7 @@
           user-select: none;
 }
 
-.logout > .btn-wrapper {
+.dialogbox > .btn-wrapper {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -199,4 +199,4 @@
 #log-negative {
   background-color: #a13333;
 }
-/*# sourceMappingURL=logout.css.map */
+/*# sourceMappingURL=dialogbox.css.map */

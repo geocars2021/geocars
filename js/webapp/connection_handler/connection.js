@@ -13,6 +13,7 @@ import
     ref            , 
     getDownloadURL , 
     uploadBytes    ,
+    deleteObject   ,
 }
 from "https://www.gstatic.com/firebasejs/9.6.0/firebase-storage.js";
 
@@ -28,6 +29,7 @@ import
     query        ,
     where        ,
     onSnapshot   ,
+    deleteDoc    ,
 }
 from "https://www.gstatic.com/firebasejs/9.6.0/firebase-firestore.js"
 
@@ -74,6 +76,13 @@ try {
     // prevents re-initialization
     APP = initializeApp(firebaseConfig);
     FIRESTORE_DB = getFirestore();
+    let storage    , 
+        bucket     ,
+        storageRef ;
+
+    storage = getStorage();
+    bucket  = storage.bucket;
+    console.log(bucket)
 }
 catch ($err) {
     console.log($err);
@@ -183,6 +192,7 @@ export async function insert_activity (uid,description) {
 /* Get company id by email */
 export async function get_company_id_by_email (email) {
     validate_connection();
+
     let company = collection(
         FIRESTORE_DB ,
         "company"
@@ -193,12 +203,13 @@ export async function get_company_id_by_email (email) {
     )
     let snapShot = await getDocs(q);
     let last_id;
-    
-    snapShot.forEach((doc) => {
-        /* get first result only */ 
-        last_id = doc.id;
-        return;
-    });
+
+    if (snapShot.exists()) 
+        snapShot.forEach((doc) => {
+            /* get first result only */ 
+            last_id = doc.id;
+            return;
+        });
     return last_id;
 }
 
@@ -230,8 +241,8 @@ export async function get_company_profile_images_by_uid (uid) {
     
     let storage   = getStorage();
     let path      = `company/${uid}/profile/`;
-    let dp_ref    = await ref(storage , `${path}/dp.jpg`);
-    let cover_ref = await ref(storage , `${path}/cover.jpg`);
+    let dp_ref    = ref(storage , `${path}/dp.jpg`);
+    let cover_ref = ref(storage , `${path}/cover.jpg`);
 
     var images = {
        dp    : null ,
@@ -245,6 +256,7 @@ export async function get_company_profile_images_by_uid (uid) {
             images.dp = dl_url;
         })
         .catch((err) => {
+            console.log("Function := get company dp ->");
             console.log(err.code);
         });
 
@@ -253,6 +265,7 @@ export async function get_company_profile_images_by_uid (uid) {
             images["cover"] = dl_url;
         })
         .catch((err) => {
+            console.log("Function := get company cover ->");
             console.log(err.code);
         });
     }
@@ -333,6 +346,15 @@ export async function update_car (uid,carid,data) {
         rate    : data.rate  ,
     };
 
+    if (data.files.length > 0) {
+        let file_names = [];
+        for (let idx = 0;idx < data.files.length;idx++) {
+            file_names.push(data.files[idx].name);
+        }
+        new_data.photos = file_names;
+        await upload_image(carid,data.files);
+    }
+
     await setDoc(cardoc, new_data , {merge: true});
 
     await insert_activity(
@@ -342,27 +364,40 @@ export async function update_car (uid,carid,data) {
 
 }
 
+// delete car
+export async function delete_car (uid,carid) {
+    validate_connection();
+    
+    let cars = collection(
+        FIRESTORE_DB ,
+        "cars"       ,
+    );
+    
+    await deleteDoc(doc(cars,`${carid}`));
+}
 
-// upload images or new added cars
+// upload cars images or new added cars
 export async function upload_image (car_id,files) {
     validate_connection();
 
-    let storage , storageRef;
+    let storage , storageRef , idx;
 
     storage = getStorage();
     
-    for (let idx = 0;idx < files.length;idx++) {
+    idx = 0;
+    while (idx < files.length) {
         
-        storageRef = await ref(storage,`cars/${car_id}/${files[idx].name}`);
+        storageRef = ref(storage,`cars/${car_id}/${files[idx].name}`);
 
-        uploadBytes(storageRef,files[idx])
+        await uploadBytes(storageRef,files[idx])
         .then((snapshot) => {
             // on uploaded
+            idx++;
         })
         .catch((e)=>{
-            // on upload error
+            console.log("Function := upload image ->")
+            console.log(err.code);
         });
-        
     }
 }
 
@@ -393,7 +428,6 @@ export async function get_cars_by_owner (uid) {
             data : doc.data()
         });
     });
-    
     return carsL;
 }
 
@@ -414,7 +448,7 @@ export async function get_car_by_id (car_id) {
     let snapshot = await getDoc(d);
     if (snapshot.exists()) 
         return {
-            id   :snapshot.id      ,
+            id   : snapshot.id     ,
             data : snapshot.data() ,
         };
     
@@ -446,13 +480,14 @@ export async function get_car_by_plate_no (uid,plate) {
 
     let docSnapShot = await getDocs(q);
     let car;
-    docSnapShot.forEach((data) => {
-        car = {
-            id   : data.id,
-            data : data.data()
-        };
-        return;
-    });
+    if (docSnapShot) 
+        docSnapShot.forEach((data) => {
+            car = {
+                id   : data.id,
+                data : data.data()
+            };
+            return;
+        });
     return car;
 }
 
@@ -496,12 +531,12 @@ export async function get_car_brands (uid) {
 
     let brands , cars;
     brands = [];
-    cars = await get_cars_by_owner(uid);
+    cars   = await get_cars_by_owner(uid);
 
-    cars.forEach((data) => {
-        brands.push(data.data.brand);
-    });
-   
+    if(cars)
+        cars.forEach((data) => {
+            brands.push(data.data.brand);
+        });
     return new Set(brands);
 }
 
@@ -512,40 +547,43 @@ export async function get_car_models (uid) {
     let models , cars;
     models = [];
     cars   = await get_cars_by_owner(uid);
-
-    cars.forEach((data) => {
-        models.push(data.data.model);
-    });
+    if (cars)
+        cars.forEach((data) => {
+            models.push(data.data.model);
+        });
     return new Set(models);
 }
 
+// get cars featured images
 export async function get_car_images_by_car_id (car_id) {
     validate_connection();
 
-    let storage = getStorage();
-    let imgRef;
+    let storage ,
+        car     ,
+        images  ,
+        urls    ,
+        imgRef  ;
 
-    let car    = await get_car_by_id(car_id);
-    let images = car.data.photos;
-    let urls   = [];
-    for (let idx = 0;idx < images.length;idx++) {
-        while (1) {
-            try {
-                let has_error = false;
-                imgRef = await ref(storage,`cars/${car_id}/${images[idx]}`);
-                await getDownloadURL(imgRef)
-                .then((dl_url) => {
-                    urls.push(dl_url);
-                })
-                .catch((err) => {
-                    has_error = true;
-                    console.log(err.code);
-                });
-                if(!has_error)
-                    break;
-            }catch(err) {
-                continue;
-            }
+    storage = getStorage();
+    car     = await get_car_by_id(car_id); 
+    if (car) {
+
+        images  = car.data.photos;
+        urls    = [];
+        let idx;
+
+        idx = 0;
+        while(idx < images.length) {
+            imgRef = ref(storage,`cars/${car_id}/${images[idx]}`);
+            await getDownloadURL(imgRef)
+            .then((dl_url) => {
+                urls.push(dl_url);
+                idx ++;
+            })
+            .catch((err) => {
+                console.log("Function := get car images ->")
+                console.log(err.code);
+            }); 
         }
     }
     return urls;

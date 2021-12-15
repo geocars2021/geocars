@@ -17,17 +17,19 @@ from "../login/login_session.js";
 
 import 
 { 
-    logout 
+    dialogbox
 }
-from "../pop_ups/logout/logout.js"; 
+from "../pop_ups/dialogbox/dialogbox.js"; 
 
+let uid;
 
+uid = get_login_cred();
 
 
 $("document").ready( async (e) => {
     
     /* set avatar icon (sidebar) */
-    let image = await get_company_profile_images_by_uid(get_login_cred());
+    let image = await get_company_profile_images_by_uid(uid);
     if (image.dp != null)
         $("#nav-user-avatar").css("background",`url("${image.dp}")`);
     else 
@@ -37,7 +39,7 @@ $("document").ready( async (e) => {
 
     /* add event on exit button*/ 
     $("#exit-logout").click((e) => {
-        logout(
+        dialogbox(
             "Confirm logout?",
             (popup) => {
                 // positive

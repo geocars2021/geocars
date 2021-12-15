@@ -5,7 +5,7 @@
 $primary   : #15091a;
 
 /** logout overlay **/
-$logout-overlay-bg : rgba(29, 22, 22,0.4);
+$dialogbox-overlay-bg : rgba(29, 22, 22,0.4);
 
 /** message fg **/
 $message-fg : #eeeeee;
@@ -17,7 +17,7 @@ $btn-ripple-bg : rgba(255, 255, 255, 0.2);
 $btn-fg : #eeeeee;
 
 
-.logout-overlay {
+.dialogbox-overlay {
     display: block;
     position: absolute;
     inset: 0;
@@ -25,7 +25,7 @@ $btn-fg : #eeeeee;
     height: 100%;
     min-width: 1366px;
     min-height: 768px;
-    background-color: $logout-overlay-bg;
+    background-color: $dialogbox-overlay-bg;
     z-index: 10003;
     @include on_Medium_Dev {
         min-width: 280px;
@@ -33,7 +33,7 @@ $btn-fg : #eeeeee;
     }
 }
 
-.logout-overlay > .logout {
+.dialogbox-overlay > .dialogbox {
     display: block;
     position: absolute;
     top: 50%;
@@ -50,7 +50,7 @@ $btn-fg : #eeeeee;
     }
 }
 
-.logout > .message-wrapper {
+.dialogbox > .message-wrapper {
     display: flex;
     flex-direction: column;
     flex-wrap: nowrap;
@@ -76,7 +76,7 @@ $btn-fg : #eeeeee;
     user-select: none;
 }
 
-.logout > .btn-wrapper {
+.dialogbox > .btn-wrapper {
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;

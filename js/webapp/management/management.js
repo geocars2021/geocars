@@ -15,6 +15,7 @@ import "../sidebar/sidebar.js";
 
 import
 {
+    delete_car,
     get_car_by_status,
     get_car_images_by_car_id,
     insert_new_car,
@@ -60,6 +61,7 @@ import
 } 
 from "./car_list.js";
 import { update_car_view } from "./pop_ups/car_update.js";
+import { dialogbox } from "../pop_ups/dialogbox/dialogbox.js";
 
 
 let uid;
@@ -78,8 +80,6 @@ const management = ({
         this.add_search_event();
 
         this.add_new_car_event();
-
-        this.add_opacity_effect();
 
         this.add_search_click_event();
 
@@ -108,6 +108,7 @@ const management = ({
     },
     on_search: function() {
 
+            
         for (let idx = 0; idx < this.loaded_cars.length;idx++) {
             const car_obj = this.loaded_cars[idx];
             if (car_obj.car.data.plateno == this.search_bar.val()) {
@@ -145,28 +146,6 @@ const management = ({
             );
         });
     },
-    calc_opacity: function() {
-        $(".car-info-wrapper").each((idx,elem) => {
-            const basis = (
-                (elem.getBoundingClientRect().top - 
-                (window.innerWidth <= 768)?15 : 5) -
-                this.car_list.offset().top
-            );
-
-            if (basis < 0) {
-                elem.style.opacity = (
-                    (1 + idx) - 
-                    this.car_list.scrollTop() / 
-                    elem.offsetHeight
-                );
-            }
-        });
-    },
-    add_opacity_effect: function() {
-        this.car_list = $("#car-list");
-        this.car_list.scroll(() => this.calc_opacity());
-        $(window).resize(() => this.calc_opacity());
-    },
     save_content: async function() {
 
         let parked_cars = await get_car_by_status(
@@ -181,9 +160,7 @@ const management = ({
             this.loaded_cars  = [];
 
             for (let idx = 0; idx < size;idx++) {
-                let photos = await get_car_images_by_car_id(
-                    parked_cars[idx].id
-                );
+                let photos = await get_car_images_by_car_id(parked_cars[idx].id);
                 this.loaded_cars.push({
                     photos : photos,
                     car    : parked_cars[idx]
@@ -235,7 +212,14 @@ const management = ({
                                     uid        ,
                                     car.car.id ,
                                     data       ,
-                                );
+                                ).then(() => {
+                                    message_box(
+                                        "Car updated successfully!",
+                                        (popup) => {
+                                            popup.remove();
+                                        }
+                                    );
+                                });
                                 popup.remove();
                             }
                         );
@@ -243,7 +227,24 @@ const management = ({
                     },
                     (e) => {
                         // on delete
-                        alert("Fuck")
+                        dialogbox(
+                            `Confirm delete car?`,
+                            (popup) => {
+                                delete_car(uid,car.car.id)
+                                .then(() => {
+                                    message_box(
+                                        "Successfully deleted!",
+                                        (popup)=> {
+                                            popup.remove();
+                                        }
+                                    )
+                                });
+                                popup.remove();
+                            },
+                            (popup) => {
+                                popup.remove();
+                            }
+                        );
                         e.stopPropagation();
                     }
                 );

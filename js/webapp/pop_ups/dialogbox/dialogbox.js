@@ -1,4 +1,7 @@
+/* re import jquery always!! */
 import "../../../jquery/jquery-3.6.0.min.js";
+import "../../../jquery/jquery-cookie-1.4.1.min.js";
+
 
 /**
  * Ge inani ra naku kay 
@@ -6,30 +9,30 @@ import "../../../jquery/jquery-3.6.0.min.js";
  * function call ang JS virtual machine
  * **/
 
-export function logout(message,onPositive,onNegaive) {
-    let logout_overlay = document.createElement("div");
-    logout_overlay.classList.add("logout-overlay");
-    logout_overlay.innerHTML = 
+export function dialogbox (message,onPositive,onNegaive) {
+    let dialogbox_overlay = document.createElement("div");
+    dialogbox_overlay.classList.add("dialogbox-overlay");
+    dialogbox_overlay.innerHTML = 
     `
-    <div class="logout">
-        <div class="message-wrapper">
-            <span class="message" role="text">${message}</span>
+        <div class="dialogbox">
+            <div class="message-wrapper">
+                <span class="message" role="text">${message}</span>
+            </div>
+            <div class="btn-wrapper">
+                <button id="log-positive" class="btn"> Ok </button>
+                <button id="log-negative" class="btn"> Cancel </button>
+            </div>
         </div>
-        <div class="btn-wrapper">
-            <button id="log-positive" class="btn"> Ok </button>
-            <button id="log-negative" class="btn"> Cancel </button>
-        </div>
-    </div>
     `;
 
-    $("body").prepend(logout_overlay);
+    $("body").prepend(dialogbox_overlay);
     
     $("#log-positive").click((e) => {
-        onPositive(logout_overlay);
+        onPositive(dialogbox_overlay);
     });
 
     $("#log-negative").click((e) => {
-        onNegaive(logout_overlay);
+        onNegaive(dialogbox_overlay);
     });
 }
 

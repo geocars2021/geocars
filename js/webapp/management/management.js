@@ -32,7 +32,7 @@ from "../pop_ups/message_box/message_box.js";
 
 import 
 { 
-    load_finish 
+    load_finish, show_loading 
 }
 from "../lazy_loading/lazy_loading.js";
 
@@ -60,247 +60,197 @@ import
     insert_car_to_list ,
 } 
 from "./car_list.js";
-import { update_car_view } from "./pop_ups/car_update.js";
-import { dialogbox } from "../pop_ups/dialogbox/dialogbox.js";
 
+import 
+{ 
+    update_car_view 
+} 
+from "./pop_ups/car_update.js";
+
+import 
+{ 
+    dialogbox 
+} 
+from "../pop_ups/dialogbox/dialogbox.js";
 
 let uid;
+let LOADED_CARS;
+let ADD_NEW;
+let SEARCH_BAR;
+let SEARCH_BTN;
 
 
 uid = get_login_cred();
-
-const management = ({
-    search_bar: null,
-    search_btn: null,
-    add_new_car_btn: null,
-    car_list: null,
-    fully_loaded: false,
-    loaded_cars : [],
-    onload: function() {
-        this.add_search_event();
-
-        this.add_new_car_event();
-
-        this.add_search_click_event();
-
-        on_car_update(uid,() => {
-            this.loaded_cars = [];
-            this.save_content();
-            this.load_content();
-            load_finish();
-        });
-        
-    },
-    add_search_event : function () {
-        // filter content
-        this.search_bar = $("#input-search");
-        this.search_bar.keyup(async (key) => {
-            if (!this.fully_loaded)
-                return;
-            this.on_search();
-            
-        });
-    },
-    add_search_click_event : function () {
-        this.search_btn = $("#search-btn");
-        this.search_btn.click(async (key) => {
-            if (!this.fully_loaded)
-                return;
-            this.on_search();
-        });
-    },
-    on_search: function() {
-
-            
-        for (let idx = 0; idx < this.loaded_cars.length;idx++) {
-            const car = this.loaded_cars[idx];
-            if (car.car.data.plateno == this.search_bar.val()) {
-                clear_cars();
-                let car = this.loaded_cars[idx];
-                insert_car_to_list(
-                    car.car    ,
-                    car.photos ,
-                    () => {
-                        // on tile click
-                        qr_viewer(
-                            car.car.data.owner ,
-                            car.car.id         ,
-                            (popup) => {
-                                popup.remove();
-                            }
-                        );
-                    },
-                    (e) => {
-                        // on update
-                        update_car_view(
-                            uid,
-                            car.car.id,
-                            (popup) => {
-                                popup.remove();
-                            },
-                            (popup,data) => {
-                                update_car(
-                                    uid        ,
-                                    car.car.id ,
-                                    data       ,
-                                ).then(() => {
-                                    message_box(
-                                        "Car updated successfully!",
-                                        (popup) => {
-                                            popup.remove();
-                                        }
-                                    );
-                                });
-                                popup.remove();
-                            }
-                        );
-                        e.stopPropagation();
-                    },
-                    (e) => {
-                        // on delete
-                        dialogbox(
-                            `Confirm delete car?`,
-                            async (popup) => {
-                                await delete_car(car.car.id);
-                                popup.remove();
-                            },
-                            (popup) => {
-                                popup.remove();
-                            }
-                        );
-                        e.stopPropagation();
+ADD_NEW = $("#add-new-car");
+ADD_NEW.click(function addCar(){
+    add_car_view(
+        uid ,
+        function on_cancel (addcar_view) {
+            addcar_view.remove();
+        },
+        function on_addcar (addcar_view,data) {
+            show_loading();
+            insert_new_car(uid,data)
+            .then(() => {
+                addcar_view.remove();
+                load_finish();
+                message_box(
+                    "Car successfully added!" ,
+                    (message) => {
+                        message.remove();
                     }
                 );
-                break;
-            }else 
-                this.load_content();
+            });
         }
-    },
-    add_new_car_event: function () {
-        // add car
-        this.add_new_car_btn = $("#add-new-car");
-        this.add_new_car_btn.click(() => {
-            add_car_view(
-                uid,
-                (e) => {
-                    e.remove();
-                },
-                (e,data) => {
-                    insert_new_car(uid,data)
-                    .then(() => {
-                        message_box(
-                            "A new car was added!",
-                            (popup) => {
-                                popup.remove();
-                            }
-                        );
-                    });
-                    e.remove();
-                }
-            );
-        });
-    },
-    save_content: async function() {
-
-        let parked_cars = await get_car_by_status(
-            uid,
-            CARSTATUS.PARKED
-        );
-    
-        if(parked_cars.length > 0) {
-
-            let size = parked_cars.length;
-            this.fully_loaded = false;
-            this.loaded_cars  = [];
-
-            for (let idx = 0; idx < size;idx++) {
-                let photos = await get_car_images_by_car_id(parked_cars[idx].id);
-                this.loaded_cars.push({
-                    photos : photos,
-                    car    : parked_cars[idx]
-                });
-                this.load_content();
-            }
-            this.fully_loaded = true;
-        } 
-    },
-    load_content : function() {
-       
-        if(this.loaded_cars.length > 0) {
-            try {
-                // hide only ampty activity
-                $("#empty-car")
-                .css("display", "none");
-            }catch(err){}
-            
-            clear_cars();
-
-            let size = this.loaded_cars.length;
-            
-            for (let idx = 0; idx < size;idx++) {
-                let car = this.loaded_cars[idx];
-                insert_car_to_list(
-                    car.car    ,
-                    car.photos ,
-                    () => {
-                        // on tile click
-                        qr_viewer(
-                            car.car.data.owner ,
-                            car.car.id         ,
-                            (popup) => {
-                                popup.remove();
-                            }
-                        );
-                    },
-                    (e) => {
-                        // on update
-                        update_car_view(
-                            uid,
-                            car.car.id,
-                            (popup) => {
-                                popup.remove();
-                            },
-                            (popup,data) => {
-                                update_car(
-                                    uid        ,
-                                    car.car.id ,
-                                    data       ,
-                                ).then(() => {
-                                    message_box(
-                                        "Car updated successfully!",
-                                        (popup) => {
-                                            popup.remove();
-                                        }
-                                    );
-                                });
-                                popup.remove();
-                            }
-                        );
-                        e.stopPropagation();
-                    },
-                    (e) => {
-                        // on delete
-                        dialogbox(
-                            `Confirm delete car?`,
-                            async (popup) => {
-                                await delete_car(car.car.id);
-                                popup.remove();
-                            },
-                            (popup) => {
-                                popup.remove();
-                            }
-                        );
-                        e.stopPropagation();
-                    }
-                );
-            }
-        }
-        else {
-            $("#empty-car")
-            .css("display", "flex");
-            clear_cars();
-        }
-    }
+    );
 });
 
-management.onload();
+SEARCH_BAR = $("#input-search");
+SEARCH_BAR.keyup(function onSearch () {
+    onSearchQuery();
+});
+
+SEARCH_BTN = $("#search-btn");
+SEARCH_BTN.click(function onClickSearch () {
+    onSearchQuery();
+});
+
+
+on_car_update(uid,async function(){
+    LOADED_CARS = [];
+    clear_cars();
+    fetchParkedPars()
+    .then(() => load_finish());
+});
+
+
+
+
+async function onSearchQuery() {
+    const plate = SEARCH_BAR.val();
+    let idx , matched = false;
+    for (idx = 0;idx < LOADED_CARS.length;idx++) {
+        const car = LOADED_CARS[idx];
+        console.log(`${car.car.data.plateno} == ${plate}`)
+        if(car.car.data.plateno == plate) {
+            matched = true;
+            clear_cars(false);
+            insert_car_to_list(
+                car.car    , 
+                car.photos ,
+                (e) => on_qr_view(car)      ,   
+                (e) => on_update_btn(e,car) ,
+                (e) => on_delete_btn(e,car) ,
+            );
+            break;
+        }
+        else {
+            drawParkedCars();
+        }
+    }
+}
+
+
+async function fetchParkedPars() {
+    let p = await get_car_by_status(
+        uid,
+        CARSTATUS.PARKED
+    );
+
+    if(p.length > 0) {
+
+        LOADED_CARS = [];
+
+        let idx;
+        for (idx = 0;idx < p.length;idx++) {
+            LOADED_CARS.push({
+                photos : await 
+                get_car_images_by_car_id(
+                    p[idx].id
+                ),
+                car : p[idx]
+            });
+        }
+
+        drawParkedCars(); 
+
+    }   
+}
+
+async function drawParkedCars() {
+
+    if(LOADED_CARS.length > 0) {
+       
+        clear_cars(false);
+
+        let idx;
+        for (idx = 0;idx < LOADED_CARS.length;idx++) {
+            let car = LOADED_CARS[idx];
+            insert_car_to_list(
+                car.car    , 
+                car.photos ,
+                (e) => on_qr_view(car)      ,   
+                (e) => on_update_btn(e,car) ,
+                (e) => on_delete_btn(e,car) ,
+            );
+        }
+    }
+    else {
+        clear_cars();
+    }
+}
+
+async function on_qr_view (car) {
+    qr_viewer(
+        car.car.data.owner ,
+        car.car.id         ,
+        function on_close(qr_view) {
+            qr_view.remove();
+        }
+    );
+}
+
+async function on_update_btn (update_btn,car) {
+    update_car_view(
+        uid        ,
+        car.car.id ,
+        function on_close(update_car_view) {
+            update_car_view.remove();
+        },
+        function on_update(update_car_view,data) {
+            show_loading();
+            update_car(uid,car.car.id,data)
+            .then(() => {
+                update_car_view.remove();
+                load_finish();
+                message_box(
+                    "Car successfully updated!" ,
+                    (message) => {
+                        message.remove();
+                    }
+                );
+            });
+        }
+    );
+    update_btn.stopPropagation();
+}
+
+async function on_delete_btn (delete_btn,car) {
+
+    dialogbox(
+        "Confirm car deletion?" ,
+        (dialog) => {
+            show_loading();
+            delete_car(car.car.id)
+            .then(() => {
+                load_finish();
+                dialog.remove();
+            });
+        },
+        (dialog) => {
+            dialog.remove();
+        }
+    );
+
+    delete_btn.stopPropagation();
+}

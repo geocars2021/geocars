@@ -567,22 +567,6 @@ body {
     */
 }
 
-.space > .space-title:hover::after {
-  content: ' ';
-  display: block;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  -webkit-transform: translate(-50%, -50%);
-          transform: translate(-50%, -50%);
-  border-radius: 360px;
-  background-color: rgba(204, 198, 255, 0.2);
-  -webkit-animation: ripple 0.4s ease-in;
-          animation: ripple 0.4s ease-in;
-  -webkit-animation-fill-mode: forwards;
-          animation-fill-mode: forwards;
-}
-
 @media screen and (min-width: 1px) and (max-width: 768px) {
   .space > .space-title {
     border-bottom: initial;

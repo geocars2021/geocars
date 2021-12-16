@@ -407,20 +407,21 @@ $row-delete-btn-ripple-bg : rgba(0,0,0,0.2);
             // background-color:yellow;
         }
     }
-    &:hover {
-        &::after {
-            content: ' ';
-            display: block;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%,-50%);
-            border-radius: 360px;
-            background-color: $space-title-ripple-bg;
-            animation: ripple 0.4s ease-in;
-            animation-fill-mode: forwards;
-        }
-    }
+    // FIXME: watchout !!!!!
+    // &:hover {
+    //     &::after {
+    //         content: ' ';
+    //         display: block;
+    //         position: absolute;
+    //         top: 50%;
+    //         left: 50%;
+    //         transform: translate(-50%,-50%);
+    //         border-radius: 360px;
+    //         background-color: $space-title-ripple-bg;
+    //         animation: ripple 0.4s ease-in;
+    //         animation-fill-mode: forwards;
+    //     }
+    // }
     @include on_Medium_Dev {
         border-bottom: initial;
     }

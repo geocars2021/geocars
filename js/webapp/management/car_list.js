@@ -56,13 +56,22 @@ function add_carTile(carID,carBrand,carModel,carPlate,carPhotoUrl,on_update,on_d
     return car_info_wrapper;
 }
 
-export function clear_cars () {
+export function clear_cars (isempty = true) {
     let car_list = $("#car-list");
     let children = car_list.children();
     // remove second element until last only;
     for (let idx = 1;idx < children.length;idx++){
         children[idx].remove();
     }
+    if(isempty) {
+        $("#empty-car")
+        .css("display", "flex");
+    }
+    else {
+        $("#empty-car")
+        .css("display", "none");
+    }
+
 }
 
 export async function insert_car_to_list (car_data,photos,on_click,on_update,on_delete) {

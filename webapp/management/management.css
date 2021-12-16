@@ -309,6 +309,7 @@ button:active::after, .custom-file-input:active::after {
 @media screen and (min-width: 1px) and (max-width: 768px) {
   .control-button-group > .add-new-car-btn {
     height: 35px;
+    border-radius: 100px;
   }
 }
 

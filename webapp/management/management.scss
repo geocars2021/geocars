@@ -242,6 +242,7 @@ $ripple-bg : rgba(214, 250, 244, 0.2);
     }
     @include on_Medium_Dev {
         height: 35px;
+        border-radius: 100px;
     }
 }
 

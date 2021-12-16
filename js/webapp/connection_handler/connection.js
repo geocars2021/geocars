@@ -284,7 +284,7 @@ export async function on_car_update (uid,callback) {
 
     onSnapshot(
         query(cars,where("owner","==",uid)) , 
-        (doc) => {
+        async (doc) => {
             if (callback)
                 callback();
         }
@@ -373,7 +373,6 @@ export async function delete_car (carid) {
         "cars"       ,
     );
     await deleteDoc(doc(cars, carid));
-    // await deleteDoc(doc(cars,`${carid}`));
 }
 
 // upload cars images or new added cars

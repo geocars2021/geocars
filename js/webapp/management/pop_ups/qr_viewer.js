@@ -40,7 +40,7 @@ export async function qr_viewer (uid,carid,on_close_callback) {
             new QRCode(
                 "qr-code", 
                 {
-                    text   : `{owner: ${uid},carid: ${carid}}`,
+                    text   : `{ "ownerid" : "${uid}" , "carid" : "${carid}" }`,
                     width  : qr.width() - 15,
                     height : qr.width() - 15,
                     correctLevel : QRCode.CorrectLevel.H

@@ -83,13 +83,13 @@ const management = ({
 
         this.add_search_click_event();
 
-        on_car_update(uid , () => {
-            this.fully_loaded = false;
-            this.loaded_cars  = [];
+        on_car_update(uid,() => {
+            this.loaded_cars = [];
             this.save_content();
-    
+            this.load_content();
             load_finish();
         });
+        
     },
     add_search_event : function () {
         // filter content
@@ -160,20 +160,9 @@ const management = ({
                         // on delete
                         dialogbox(
                             `Confirm delete car?`,
-                            (popup) => {
-
-                                delete_car(car.car.id)
-                                .then(() => {
-                                    this.save_content();
-                                    message_box(
-                                        "Successfully deleted!",
-                                        (popup)=> {
-                                            popup.remove();
-                                        }
-                                    )
-                                });
+                            async (popup) => {
+                                await delete_car(car.car.id);
                                 popup.remove();
-
                             },
                             (popup) => {
                                 popup.remove();
@@ -237,7 +226,6 @@ const management = ({
     },
     load_content : function() {
        
-        
         if(this.loaded_cars.length > 0) {
             try {
                 // hide only ampty activity
@@ -294,20 +282,9 @@ const management = ({
                         // on delete
                         dialogbox(
                             `Confirm delete car?`,
-                            (popup) => {
-
-                                delete_car(car.car.id)
-                                .then(() => {
-                                    this.save_content();
-                                    message_box(
-                                        "Successfully deleted!",
-                                        (popup)=> {
-                                            popup.remove();
-                                        }
-                                    )
-                                });
+                            async (popup) => {
+                                await delete_car(car.car.id);
                                 popup.remove();
-
                             },
                             (popup) => {
                                 popup.remove();

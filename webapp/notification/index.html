@@ -59,8 +59,8 @@
                </li><!-- 
                 notification 
                 --><li class="tab">
-                    <abbr class="tool-tip" title="notification">
-                        <a class="link active fa fa-bell" href="#"></a>
+                    <abbr class="tool-tip" title="tracking">
+                        <a class="link active fa fa-location-arrow" href="#"></a>
                     </abbr>
                </li><!-- 
                account
@@ -81,7 +81,87 @@
     </nav>
 
     <div class="safe-area">
-        
+        <div class="tracking-wrapper">
+            <span class="custom-table" role="table">
+                <span class="custom-table-header" role="row">
+                    <!-- info row header -->
+                    <span class="info-row-header" role="cell">
+                        <!-- name header -->
+                        <span class="info-row-header-cell" role="columnheader">
+                            <span class="header-cell-value-wrapper" role="text">
+                                <i class="header-cell-icon fa fa-user"></i>
+                                <span class="header-cell-label" role="text">Name</span>
+                            </span>
+                        </span>
+                        <!-- contact header -->
+                        <span class="info-row-header-cell" role="columnheader">
+                            <span class="header-cell-value-wrapper" role="text">
+                                <i class="header-cell-icon fa fa-phone"></i>
+                                <span class="header-cell-label" role="text">Contact</span>
+                            </span>
+                        </span>
+                        <!-- plate header -->
+                        <span class="info-row-header-cell" role="columnheader">
+                            <span class="header-cell-value-wrapper" role="text">
+                                <i class="header-cell-icon fa fa-barcode"></i>
+                                <span class="header-cell-label" role="text">Car plate</span>
+                            </span>
+                        </span>
+                        <!-- borrowed date header -->
+                        <span class="info-row-header-cell" role="columnheader">
+                            <span class="header-cell-value-wrapper" role="text">
+                                <i class="header-cell-icon fa fa-calendar"></i>
+                                <span class="header-cell-label" role="text">Borrow</span>
+                            </span>
+                        </span>
+                        <!-- return date header -->
+                        <span class="info-row-header-cell" role="columnheader">
+                            <span class="header-cell-value-wrapper" role="text">
+                                <i class="header-cell-icon fa fa-calendar-minus"></i>
+                                <span class="header-cell-label" role="text">Return</span>
+                            </span>
+                        </span>
+                    </span>
+                    <!-- action row header -->
+                    <span class="action-row-header" role="cell">
+                        <!-- action header -->
+                        <span class="action-row-header-cell" role="columnheader">
+                            <span class="header-cell-value-wrapper" role="text">
+                                <i class="header-cell-icon fa fa-tasks"></i>
+                                <span class="header-cell-label" role="text">Action</span>
+                            </span>
+                        </span>
+                    </span>
+                </span>
+                <span class="custom-table-list" role="list">
+                    <!-- info row value wrapper -->
+                    <span class="table-row" role="listitem">
+                        <span class="info-cell-wrapper">
+                            <div class="icon-wrapper">
+                                <div class="icon-renter-round"></div>
+                            </div>
+                            <span class="info-cell" role="cell">
+                                <span id="name-info" class="info-cell-value-wrapper" role="cell">
+                                    <span class="cell-value">Philipp Andrew</span>
+                                </span>
+                                <span id="contact-info" class="info-cell-value-wrapper" role="cell">
+                                    <span class="cell-value">09455477865</span>
+                                </span>
+                                <span id="plate-info" class="info-cell-value-wrapper" role="cell">
+                                    <span class="cell-value">69420</span>
+                                </span>
+                                <span id="borrow-info" class="info-cell-value-wrapper" role="cell">
+                                    <span class="cell-value">12-04-21</span>
+                                </span>
+                                <span id="return-info" class="info-cell-value-wrapper" role="cell">
+                                    <span class="cell-value">12-05-21</span>
+                                </span>
+                            </span>
+                        </span>
+                    </span>
+                </span>
+            </span>
+        </div>
     </div>
 </body>
 <script type="module" src="../../js/webapp/notification/notification.js"></script>

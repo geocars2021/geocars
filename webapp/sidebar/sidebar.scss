@@ -243,11 +243,13 @@ $exit-btn-hover-fg : #ffffff;
     // background-color: yellow;
     @include on_Medium_Dev {
         position: absolute;
-        inset: 0;
+        top: 0;
+        right: 0;
         margin-top: 10.5px;
-        margin-left: 10.5px;
+        margin-right: 10.5px;
         width: 35px;
         height: 35px;
+        // border-radius: 360px;
     }
 }
 

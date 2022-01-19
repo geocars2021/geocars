@@ -28,7 +28,7 @@
                         <div class="carousel-item-content">
                             <span class="slide-text" role="text">
                                 <!-- TODO: edit greeting text -->
-                                SAMPLE TEXT A
+                                We keep track of your location.
                             </span>
                         </div>
                     </div><!--
@@ -36,7 +36,7 @@
                         <div class="carousel-item-content">
                             <span class="slide-text" role="text">
                                 <!-- TODO: edit greeting text -->
-                                SAMPLE TEXT B
+                                We are concerned about the security of your vehicle.
                             </span>
                         </div>
                     </div><!--
@@ -44,7 +44,7 @@
                         <div class="carousel-item-content">
                             <span class="slide-text" role="text">
                                 <!-- TODO: edit greeting text -->
-                                SAMPLE TEXT C
+                                We value our clients.
                             </span>
                         </div>
                     </div>
